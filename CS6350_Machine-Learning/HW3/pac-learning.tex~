@@ -1,0 +1,111 @@
+\section{PAC Learning}
+\label{sec:pac-learning}
+\begin{enumerate}
+
+\item ~[15 points] Due to the recent budget cuts the government no
+  longer has any money to pay for humans to monitor the state of
+  nuclear reactors. They have charged you with assessing a Robot's
+  ability to perform this vital task. Every reactor has a different
+  number of binary gauges which indicate whether or not some aspect of
+  the reaction is {\tt normal} or {\tt strange}. The reactor itself
+  can be in one of {\bf five} states -- {\em Normal}, {\em Meltdown},
+  {\em Pre-meltdown}, {\em Abnormally cool} or {\em Off}. Each
+  combination of the binary guage settings indicate one of these five
+  reactor states. We want to know if we can train a robot to identify
+  which gauges and gauge combinations are responsible for each reactor
+  state.
+
+  \begin{enumerate}
+  \item [a)][5 points] Suppose that we have $N$ gauges with which to
+    identify reactor states. How large is the hypothesis space for
+    this task? (You may have to make assumptions about the underlying
+    function space. State your assumptions clearly.)
+
+\begin{itemize}
+  \item Where $K$ is the number of gauges that need to be looked at, we can say there is a hypothesis space of ${N \choose K}$. For this to be true, we have to assume that there are no repetitions. Or, we can {\em assume} that since this is a nuclear reactor, all of the gauges are important so there is $3^{N}$ different conjunctions for determining the states.
+\end{itemize}
+
+  \item[b)] [10 points] The ex-government employee, whose job the
+    robot is taking, trains the robot at a nuclear reactor where there
+    are 20 gauges by showing the robot a set of gauge positions for
+    the five different reactor states. If the robot wants to learn to
+    recognize the reactor's condition with .1 percent error with
+    greater than 99\% probability how many examples does the robot
+    need to see?
+\begin{itemize}
+\item The following equation represents the relation for PAC learning
+\begin{align*}
+\delta &\geq He^{-\epsilon R}\\
+\intertext{Where $R$ is the number of required training examples, $\epsilon$ is the error, and $\delta$ is the probability. We can solve for $R$ to get the maximum number of training examples.}
+\frac{1}{\epsilon}\log\left( {\frac{\delta}{H}}\right) &\geq -R\\
+\frac{1}{\epsilon}\log\left( {\frac{H}{\delta}}\right) &\geq R\\
+\frac{1}{\epsilon}\left[n\log(3) - \log(\delta) \right] &\geq R\\
+\intertext{where $\delta$ is defined as $(1-\text{probability})$ and $\epsilon$ is defined as $(1-\text{accuracy})$. We can plug these in from the stated problem and we get}
+\frac{1}{0.10}\left(20\log(3) - \log(0.01) \right) &\geq R\\
+R &\leq 266
+\end{align*}
+\end{itemize}
+
+  \end{enumerate}
+
+
+\item ~[5 points] Is it possible for a learned hypothesis $h$ to
+   achieve 100\% accuracy with respect to a training set and still
+   have non-zero true error? If so, provide a description of how this
+   is possible. If not, prove that it is impossible.
+
+\begin{itemize}
+\item Yes, an instance of this would be when the data is overfit to the training data, which would result in 100\% accuracy on the training set and a large (non-zero) error on the test set, which would result in a non-zero true error.
+\end{itemize}
+
+
+\item ~[25 points] {\bf Learning decision lists:}
+  \input{decision-lists}
+
+\item ~[20 points, {\bf CS 6350 students only}] Let $X$ be an instance
+  space and let $D_1,D_2,...,D_m$ be a sequence of distributions over
+  $X$. Let $\mathcal{H}$ be a finite class of binary classifiers over
+  $X$ and let $f\in \mathcal{H}$. 
+
+  Suppose we have a sample $S$ of $m$ examples, such that the
+  instances are independent but are not identically distributed. The
+  $i^{th}$ instance is sampled from $D_i$ and then $y_i$ is set to be
+  $f(x_i)$. Let $\bar{D}_m$ denote the average, that is,
+  $\bar{D}_m = \frac{1}{m}\sum_{i=1}^m D_i$. 
+
+  Let $h \in \mathcal{H}$ be a classifier that gets zero error on the
+  training set. That is, for every example $x_i \in X$, we have
+  $h(x_i) = f(x_i)$. Show that, for any accuracy parameter
+  $\epsilon \in (0, 1)$, the probability that the expected error of
+  the learned classifier $h$ is greater than $\epsilon$ is no more
+  than $|\mathcal{H}|e^{-\epsilon m}$. That is, show that
+
+  \[\mathbb{P}\left[E_{x \sim \bar{D}_m}\left[h(x) \ne f(x)\right]> \epsilon\right] \leq  |\mathcal{H}|e^{-\epsilon m}\]
+
+  (Hint: You have to use the fact that the arithmetic mean of a set of
+  non-negative numbers greater than or equal to their geometric mean.)
+
+\begin{itemize}
+\item We can say that the expection value of the function is defined as
+\begin{align*}
+E_{x \sim \bar{D}_m}(\mathbb{I}_{\{h(x) = f(x)\}}) &= E_{x\sim \bar{D}_m}(\mathbb{Z}(x))\\
+\intertext{Where the second relation is the same but $\mathbb{Z}(x)$ was introduced to shorten notation. We can say that this relation is equivalent to}
+E_{x\sim \bar{D}_m}(\mathbb{Z}(x)) &= \underbrace{\sum_{x}\bar{D}(x)}_{\frac{1}{m}\sum_{i=1}^{m}D_{i}(x)}\mathbb{Z}(x) = \frac{1}{m}\sum_{x}\sum_{i=1}^{m}D_{i}(x)\mathbb{Z}(x)
+\intertext{From here, we can switch the summations}
+&= \frac{1}{m}\sum_{i=1}^{m}\underbrace{\sum_{x}D_{i}(x)\mathbb{Z}(x)}_{E_{x\sim D_{i}}} = \frac{1}{m}\sum E_{x\sim D_{i}}\mathbb{Z}(x)\quad (1)\\
+\intertext{From the above problem, we can see that it's an independent distribution of probabilities, though it is not uniform. Therefore, we have the total probability as being}
+P\left( \mathbb{Z}(x_{i})\ \forall i\right) &= \prod_{i=1}^{m}P\left( \mathbb{Z}(x_{i}) \right) \leq \left( \frac{1}{m}\sum_{i=1}^{m}P\left( \mathbb{Z}(x_{i})\right) \right)^{m} \quad (2)
+\intertext{Where $(2)$ comes about because $\frac{1}{m}\sum_{i=1}^{m}x_{i} \geq \left( \prod_{i=1}^{m}x_{i} \right)^{\frac{1}{m}}$. By plugging $(1)$ into $(2)$, we get}
+&= \left( \frac{1}{m}\sum_{i=1}^{m}E_{x\sim D_{i}}\left[ \mathbb{Z}(x)\right] \right)^{m} < (1-\epsilon)^{m}\\
+\intertext{From here we can say that $(1-x) < e^{-x}$ as $(1-x)$ is a first order taylor series expansion of $e^{-x}$. Therefore, we reduce it to the following relation}
+ &< e^{-m\epsilon}\\
+\intertext{Where we can then apply the {\em Union Bound}, which states that the probability of at least one event happening is less than the sum of the probabilities of the individual events.}
+&< \left| H \right|e^{-m\epsilon}
+\end{align*}
+\end{itemize}
+\end{enumerate}
+
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: "hw3"
+%%% End:

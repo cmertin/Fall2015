@@ -1,0 +1,7 @@
+
+
+=================================
+Running over astro/original/train
+=================================
+	Performing 5-fold cross validation
+		[gamma_0, sigma]: [1e-09, 0.001]

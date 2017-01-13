@@ -1,0 +1,2695 @@
+This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013/Debian) (format=latex 2015.8.9)  6 SEP 2015 16:57
+entering extended mode
+ restricted \write18 enabled.
+ %&-line parsing enabled.
+**\nonstopmode\nofiles\PassOptionsToPackage{active,tightpage,auctex}{preview}\A
+tBeginDocument{\ifx\ifPreview\undefined\RequirePackage[displaymath,floats,graph
+ics,textmath,sections,footnotes]{preview}[2004/11/05]\fi} \input _region_.tex
+(./_region_.tex  !name(1-recurrence.tex)
+(/usr/share/texlive/texmf-dist/tex/latex/exam/exam.cls
+Document Class: exam 2011/05/22 Version 2.4 by Philip Hirschhorn
+(/usr/share/texlive/texmf-dist/tex/latex/base/ifthen.sty
+Package: ifthen 2001/05/26 v1.1c Standard LaTeX ifthen package (DPC)
+)
+(/usr/share/texlive/texmf-dist/tex/latex/base/article.cls
+Document Class: article 2007/10/19 v1.4h Standard LaTeX document class
+(/usr/share/texlive/texmf-dist/tex/latex/base/size10.clo
+File: size10.clo 2007/10/19 v1.4h Standard LaTeX file (size option)
+)
+\c@part=\count79
+\c@section=\count80
+\c@subsection=\count81
+\c@subsubsection=\count82
+\c@paragraph=\count83
+\c@subparagraph=\count84
+\c@figure=\count85
+\c@table=\count86
+\abovecaptionskip=\skip41
+\belowcaptionskip=\skip42
+\bibindent=\dimen102
+)
+\@extrawidth=\skip43
+\@rightmargin=\skip44
+\@extrahead=\skip45
+\@extrafoot=\skip46
+\run@exhd=\skip47
+\fp@exhd=\skip48
+\run@exft=\skip49
+\fp@exft=\skip50
+\covrun@exhd=\skip51
+\covfp@exhd=\skip52
+\covrun@exft=\skip53
+\covfp@exft=\skip54
+\c@num@coverpages=\count87
+\c@latest@ques=\count88
+\c@ques@end=\count89
+\c@last@object=\count90
+\c@incmp@ques=\count91
+\c@next@ques=\count92
+\c@nextq@page=\count93
+\c@tmp@hlfcntr=\count94
+\c@ifpos@cntr=\count95
+\c@question=\count96
+\c@partno=\count97
+\c@subpart=\count98
+\c@subsubpart=\count99
+\c@choice=\count100
+\c@numpoints=\count101
+\c@numbonuspoints=\count102
+\c@pointsof@thisquestion=\count103
+\c@bonuspointsof@thisquestion=\count104
+\c@numquestions=\count105
+\c@numparts=\count106
+\c@numsubparts=\count107
+\c@numsubsubparts=\count108
+\c@Curr@Page=\count109
+\c@@pagepoints=\count110
+\c@@pagebonuspoints=\count111
+\c@pageof@pagepoints=\count112
+\c@pageof@pagebonuspoints=\count113
+\c@latest@points=\count114
+\c@latest@bonuspoints=\count115
+\pageinfo@commands=\toks14
+\temp@toks=\toks15
+\pagepoint@commands=\toks16
+\point@toks=\toks17
+\c@ques@object=\count116
+\marginpointssep=\skip55
+\rightpointsmargin=\skip56
+\choice@toks=\toks18
+\answerlinelength=\skip57
+\answerskip=\skip58
+\answerclearance=\skip59
+\linefillheight=\skip60
+\linefillthickness=\skip61
+\dottedlinefillheight=\skip62
+\minboxheight=\skip63
+\c@@iterator=\count117
+\@cellwidth=\skip64
+\c@tbl@points=\count118
+\c@tbl@bonuspoints=\count119
+\c@num@cols=\count120
+\saved@totalleftmargin=\dimen103
+\@sollistdepth=\count121
+\FrameRule=\dimen104
+\FrameSep=\dimen105
+)
+(/usr/share/texlive/texmf-dist/tex/latex/url/url.sty
+\Urlmuskip=\muskip10
+Package: url 2013/09/16  ver 3.4  Verb mode for urls, etc.
+)
+(/usr/share/texlive/texmf-dist/tex/latex/amsmath/amsmath.sty
+Package: amsmath 2013/01/14 v2.14 AMS math features
+\@mathmargin=\skip65
+
+For additional information on amsmath, use the `?' option.
+(/usr/share/texlive/texmf-dist/tex/latex/amsmath/amstext.sty
+Package: amstext 2000/06/29 v2.01
+
+(/usr/share/texlive/texmf-dist/tex/latex/amsmath/amsgen.sty
+File: amsgen.sty 1999/11/30 v2.0
+\@emptytoks=\toks19
+\ex@=\dimen106
+))
+(/usr/share/texlive/texmf-dist/tex/latex/amsmath/amsbsy.sty
+Package: amsbsy 1999/11/29 v1.2d
+\pmbraise@=\dimen107
+)
+(/usr/share/texlive/texmf-dist/tex/latex/amsmath/amsopn.sty
+Package: amsopn 1999/12/14 v2.01 operator names
+)
+\inf@bad=\count122
+LaTeX Info: Redefining \frac on input line 210.
+\uproot@=\count123
+\leftroot@=\count124
+LaTeX Info: Redefining \overline on input line 306.
+\classnum@=\count125
+\DOTSCASE@=\count126
+LaTeX Info: Redefining \ldots on input line 378.
+LaTeX Info: Redefining \dots on input line 381.
+LaTeX Info: Redefining \cdots on input line 466.
+\Mathstrutbox@=\box26
+\strutbox@=\box27
+\big@size=\dimen108
+LaTeX Font Info:    Redeclaring font encoding OML on input line 566.
+LaTeX Font Info:    Redeclaring font encoding OMS on input line 567.
+\macc@depth=\count127
+\c@MaxMatrixCols=\count128
+\dotsspace@=\muskip11
+\c@parentequation=\count129
+\dspbrk@lvl=\count130
+\tag@help=\toks20
+\row@=\count131
+\column@=\count132
+\maxfields@=\count133
+\andhelp@=\toks21
+\eqnshift@=\dimen109
+\alignsep@=\dimen110
+\tagshift@=\dimen111
+\tagwidth@=\dimen112
+\totwidth@=\dimen113
+\lineht@=\dimen114
+\@envbody=\toks22
+\multlinegap=\skip66
+\multlinetaggap=\skip67
+\mathdisplay@stack=\toks23
+LaTeX Info: Redefining \[ on input line 2665.
+LaTeX Info: Redefining \] on input line 2666.
+)
+(/usr/share/texlive/texmf-dist/tex/latex/amscls/amsthm.sty
+Package: amsthm 2004/08/06 v2.20
+\thm@style=\toks24
+\thm@bodyfont=\toks25
+\thm@headfont=\toks26
+\thm@notefont=\toks27
+\thm@headpunct=\toks28
+\thm@preskip=\skip68
+\thm@postskip=\skip69
+\thm@headsep=\skip70
+\dth@everypar=\toks29
+)
+(/usr/share/texlive/texmf-dist/tex/latex/enumitem/enumitem.sty
+Package: enumitem 2011/09/28 v3.5.2 Customized lists
+\enitkv@toks@=\toks30
+\labelindent=\skip71
+\enit@outerparindent=\dimen115
+\enit@toks=\toks31
+\enit@inbox=\box28
+\enitdp@description=\count134
+)
+(/usr/share/texlive/texmf-dist/tex/latex/graphics/graphicx.sty
+Package: graphicx 1999/02/16 v1.0f Enhanced LaTeX Graphics (DPC,SPQR)
+
+(/usr/share/texlive/texmf-dist/tex/latex/graphics/keyval.sty
+Package: keyval 1999/03/16 v1.13 key=value parser (DPC)
+\KV@toks@=\toks32
+)
+(/usr/share/texlive/texmf-dist/tex/latex/graphics/graphics.sty
+Package: graphics 2009/02/05 v1.0o Standard LaTeX Graphics (DPC,SPQR)
+
+(/usr/share/texlive/texmf-dist/tex/latex/graphics/trig.sty
+Package: trig 1999/03/16 v1.09 sin cos tan (DPC)
+)
+(/usr/share/texlive/texmf-dist/tex/latex/latexconfig/graphics.cfg
+File: graphics.cfg 2010/04/23 v1.9 graphics configuration of TeX Live
+)
+Package graphics Info: Driver file: dvips.def on input line 91.
+
+(/usr/share/texlive/texmf-dist/tex/latex/graphics/dvips.def
+File: dvips.def 1999/02/16 v3.0i Driver-dependant file (DPC,SPQR)
+))
+\Gin@req@height=\dimen116
+\Gin@req@width=\dimen117
+)
+(/usr/share/texmf/tex/latex/pgf/frontendlayer/tikz.sty
+(/usr/share/texmf/tex/latex/pgf/basiclayer/pgf.sty
+(/usr/share/texmf/tex/latex/pgf/utilities/pgfrcs.sty
+(/usr/share/texmf/tex/generic/pgf/utilities/pgfutil-common.tex
+\pgfutil@everybye=\toks33
+)
+(/usr/share/texmf/tex/generic/pgf/utilities/pgfutil-latex.def
+\pgfutil@abb=\box29
+
+(/usr/share/texlive/texmf-dist/tex/latex/ms/everyshi.sty
+Package: everyshi 2001/05/15 v3.00 EveryShipout Package (MS)
+))
+(/usr/share/texmf/tex/generic/pgf/utilities/pgfrcs.code.tex
+Package: pgfrcs 2010/10/25 v2.10 (rcs-revision 1.24)
+))
+Package: pgf 2008/01/15 v2.10 (rcs-revision 1.12)
+
+(/usr/share/texmf/tex/latex/pgf/basiclayer/pgfcore.sty
+(/usr/share/texmf/tex/latex/pgf/systemlayer/pgfsys.sty
+(/usr/share/texmf/tex/generic/pgf/systemlayer/pgfsys.code.tex
+Package: pgfsys 2010/06/30 v2.10 (rcs-revision 1.37)
+
+(/usr/share/texmf/tex/generic/pgf/utilities/pgfkeys.code.tex
+\pgfkeys@pathtoks=\toks34
+\pgfkeys@temptoks=\toks35
+
+(/usr/share/texmf/tex/generic/pgf/utilities/pgfkeysfiltered.code.tex
+\pgfkeys@tmptoks=\toks36
+))
+\pgf@x=\dimen118
+\pgf@y=\dimen119
+\pgf@xa=\dimen120
+\pgf@ya=\dimen121
+\pgf@xb=\dimen122
+\pgf@yb=\dimen123
+\pgf@xc=\dimen124
+\pgf@yc=\dimen125
+\w@pgf@writea=\write3
+\r@pgf@reada=\read1
+\c@pgf@counta=\count135
+\c@pgf@countb=\count136
+\c@pgf@countc=\count137
+\c@pgf@countd=\count138
+
+(/usr/share/texmf/tex/generic/pgf/systemlayer/pgf.cfg
+File: pgf.cfg 2008/05/14  (rcs-revision 1.7)
+)
+Package pgfsys Info: Driver file for pgf: pgfsys-dvips.def on input line 900.
+
+(/usr/share/texmf/tex/generic/pgf/systemlayer/pgfsys-dvips.def
+File: pgfsys-dvips.def 2008/04/03  (rcs-revision 1.20)
+
+(/usr/share/texmf/tex/generic/pgf/systemlayer/pgfsys-common-postscript.def
+File: pgfsys-common-postscript.def 2008/10/01  (rcs-revision 1.22)
+\pgf@objectcount=\count139
+)))
+(/usr/share/texmf/tex/generic/pgf/systemlayer/pgfsyssoftpath.code.tex
+File: pgfsyssoftpath.code.tex 2008/07/18  (rcs-revision 1.7)
+\pgfsyssoftpath@smallbuffer@items=\count140
+\pgfsyssoftpath@bigbuffer@items=\count141
+)
+(/usr/share/texmf/tex/generic/pgf/systemlayer/pgfsysprotocol.code.tex
+File: pgfsysprotocol.code.tex 2006/10/16  (rcs-revision 1.4)
+))
+(/usr/share/texmf/tex/latex/xcolor/xcolor.sty
+Package: xcolor 2007/01/21 v2.11 LaTeX color extensions (UK)
+
+(/usr/share/texlive/texmf-dist/tex/latex/latexconfig/color.cfg
+File: color.cfg 2007/01/18 v1.5 color configuration of teTeX/TeXLive
+)
+Package xcolor Info: Driver file: dvips.def on input line 225.
+Package xcolor Info: Model `cmy' substituted by `cmy0' on input line 1337.
+Package xcolor Info: Model `RGB' extended on input line 1353.
+Package xcolor Info: Model `HTML' substituted by `rgb' on input line 1355.
+Package xcolor Info: Model `Hsb' substituted by `hsb' on input line 1356.
+Package xcolor Info: Model `tHsb' substituted by `hsb' on input line 1357.
+Package xcolor Info: Model `HSB' substituted by `hsb' on input line 1358.
+Package xcolor Info: Model `Gray' substituted by `gray' on input line 1359.
+Package xcolor Info: Model `wave' substituted by `hsb' on input line 1360.
+)
+(/usr/share/texmf/tex/generic/pgf/basiclayer/pgfcore.code.tex
+Package: pgfcore 2010/04/11 v2.10 (rcs-revision 1.7)
+
+(/usr/share/texmf/tex/generic/pgf/math/pgfmath.code.tex
+(/usr/share/texmf/tex/generic/pgf/math/pgfmathcalc.code.tex
+(/usr/share/texmf/tex/generic/pgf/math/pgfmathutil.code.tex)
+(/usr/share/texmf/tex/generic/pgf/math/pgfmathparser.code.tex
+\pgfmath@dimen=\dimen126
+\pgfmath@count=\count142
+\pgfmath@box=\box30
+\pgfmath@toks=\toks37
+\pgfmath@stack@operand=\toks38
+\pgfmath@stack@operation=\toks39
+)
+(/usr/share/texmf/tex/generic/pgf/math/pgfmathfunctions.code.tex
+(/usr/share/texmf/tex/generic/pgf/math/pgfmathfunctions.basic.code.tex)
+(/usr/share/texmf/tex/generic/pgf/math/pgfmathfunctions.trigonometric.code.tex)
+(/usr/share/texmf/tex/generic/pgf/math/pgfmathfunctions.random.code.tex)
+(/usr/share/texmf/tex/generic/pgf/math/pgfmathfunctions.comparison.code.tex)
+(/usr/share/texmf/tex/generic/pgf/math/pgfmathfunctions.base.code.tex)
+(/usr/share/texmf/tex/generic/pgf/math/pgfmathfunctions.round.code.tex)
+(/usr/share/texmf/tex/generic/pgf/math/pgfmathfunctions.misc.code.tex)))
+(/usr/share/texmf/tex/generic/pgf/math/pgfmathfloat.code.tex
+\c@pgfmathroundto@lastzeros=\count143
+))
+(/usr/share/texmf/tex/generic/pgf/basiclayer/pgfcorepoints.code.tex
+File: pgfcorepoints.code.tex 2010/04/09  (rcs-revision 1.20)
+\pgf@picminx=\dimen127
+\pgf@picmaxx=\dimen128
+\pgf@picminy=\dimen129
+\pgf@picmaxy=\dimen130
+\pgf@pathminx=\dimen131
+\pgf@pathmaxx=\dimen132
+\pgf@pathminy=\dimen133
+\pgf@pathmaxy=\dimen134
+\pgf@xx=\dimen135
+\pgf@xy=\dimen136
+\pgf@yx=\dimen137
+\pgf@yy=\dimen138
+\pgf@zx=\dimen139
+\pgf@zy=\dimen140
+)
+(/usr/share/texmf/tex/generic/pgf/basiclayer/pgfcorepathconstruct.code.tex
+File: pgfcorepathconstruct.code.tex 2010/08/03  (rcs-revision 1.24)
+\pgf@path@lastx=\dimen141
+\pgf@path@lasty=\dimen142
+)
+(/usr/share/texmf/tex/generic/pgf/basiclayer/pgfcorepathusage.code.tex
+File: pgfcorepathusage.code.tex 2008/04/22  (rcs-revision 1.12)
+\pgf@shorten@end@additional=\dimen143
+\pgf@shorten@start@additional=\dimen144
+)
+(/usr/share/texmf/tex/generic/pgf/basiclayer/pgfcorescopes.code.tex
+File: pgfcorescopes.code.tex 2010/09/08  (rcs-revision 1.34)
+\pgfpic=\box31
+\pgf@hbox=\box32
+\pgf@layerbox@main=\box33
+\pgf@picture@serial@count=\count144
+)
+(/usr/share/texmf/tex/generic/pgf/basiclayer/pgfcoregraphicstate.code.tex
+File: pgfcoregraphicstate.code.tex 2008/04/22  (rcs-revision 1.9)
+\pgflinewidth=\dimen145
+)
+(/usr/share/texmf/tex/generic/pgf/basiclayer/pgfcoretransformations.code.tex
+File: pgfcoretransformations.code.tex 2009/06/10  (rcs-revision 1.11)
+\pgf@pt@x=\dimen146
+\pgf@pt@y=\dimen147
+\pgf@pt@temp=\dimen148
+)
+(/usr/share/texmf/tex/generic/pgf/basiclayer/pgfcorequick.code.tex
+File: pgfcorequick.code.tex 2008/10/09  (rcs-revision 1.3)
+)
+(/usr/share/texmf/tex/generic/pgf/basiclayer/pgfcoreobjects.code.tex
+File: pgfcoreobjects.code.tex 2006/10/11  (rcs-revision 1.2)
+)
+(/usr/share/texmf/tex/generic/pgf/basiclayer/pgfcorepathprocessing.code.tex
+File: pgfcorepathprocessing.code.tex 2008/10/09  (rcs-revision 1.8)
+)
+(/usr/share/texmf/tex/generic/pgf/basiclayer/pgfcorearrows.code.tex
+File: pgfcorearrows.code.tex 2008/04/23  (rcs-revision 1.11)
+)
+(/usr/share/texmf/tex/generic/pgf/basiclayer/pgfcoreshade.code.tex
+File: pgfcoreshade.code.tex 2008/11/23  (rcs-revision 1.13)
+\pgf@max=\dimen149
+\pgf@sys@shading@range@num=\count145
+)
+(/usr/share/texmf/tex/generic/pgf/basiclayer/pgfcoreimage.code.tex
+File: pgfcoreimage.code.tex 2010/03/25  (rcs-revision 1.16)
+
+(/usr/share/texmf/tex/generic/pgf/basiclayer/pgfcoreexternal.code.tex
+File: pgfcoreexternal.code.tex 2010/09/01  (rcs-revision 1.17)
+\pgfexternal@startupbox=\box34
+))
+(/usr/share/texmf/tex/generic/pgf/basiclayer/pgfcorelayers.code.tex
+File: pgfcorelayers.code.tex 2010/08/27  (rcs-revision 1.2)
+)
+(/usr/share/texmf/tex/generic/pgf/basiclayer/pgfcoretransparency.code.tex
+File: pgfcoretransparency.code.tex 2008/01/17  (rcs-revision 1.2)
+)
+(/usr/share/texmf/tex/generic/pgf/basiclayer/pgfcorepatterns.code.tex
+File: pgfcorepatterns.code.tex 2009/07/02  (rcs-revision 1.3)
+)))
+(/usr/share/texmf/tex/generic/pgf/modules/pgfmoduleshapes.code.tex
+File: pgfmoduleshapes.code.tex 2010/09/09  (rcs-revision 1.13)
+\pgfnodeparttextbox=\box35
+)
+(/usr/share/texmf/tex/generic/pgf/modules/pgfmoduleplot.code.tex
+File: pgfmoduleplot.code.tex 2010/10/22  (rcs-revision 1.8)
+)
+(/usr/share/texmf/tex/latex/pgf/compatibility/pgfcomp-version-0-65.sty
+Package: pgfcomp-version-0-65 2007/07/03 v2.10 (rcs-revision 1.7)
+\pgf@nodesepstart=\dimen150
+\pgf@nodesepend=\dimen151
+)
+(/usr/share/texmf/tex/latex/pgf/compatibility/pgfcomp-version-1-18.sty
+Package: pgfcomp-version-1-18 2007/07/23 v2.10 (rcs-revision 1.1)
+))
+(/usr/share/texmf/tex/latex/pgf/utilities/pgffor.sty
+(/usr/share/texmf/tex/latex/pgf/utilities/pgfkeys.sty
+(/usr/share/texmf/tex/generic/pgf/utilities/pgfkeys.code.tex))
+(/usr/share/texmf/tex/generic/pgf/utilities/pgffor.code.tex
+Package: pgffor 2010/03/23 v2.10 (rcs-revision 1.18)
+\pgffor@iter=\dimen152
+\pgffor@skip=\dimen153
+\pgffor@stack=\toks40
+\pgffor@toks=\toks41
+))
+(/usr/share/texmf/tex/generic/pgf/frontendlayer/tikz/tikz.code.tex
+Package: tikz 2010/10/13 v2.10 (rcs-revision 1.76)
+
+(/usr/share/texmf/tex/generic/pgf/libraries/pgflibraryplothandlers.code.tex
+File: pgflibraryplothandlers.code.tex 2010/05/31 v2.10 (rcs-revision 1.15)
+\pgf@plot@mark@count=\count146
+\pgfplotmarksize=\dimen154
+)
+\tikz@lastx=\dimen155
+\tikz@lasty=\dimen156
+\tikz@lastxsaved=\dimen157
+\tikz@lastysaved=\dimen158
+\tikzleveldistance=\dimen159
+\tikzsiblingdistance=\dimen160
+\tikz@figbox=\box36
+\tikz@tempbox=\box37
+\tikztreelevel=\count147
+\tikznumberofchildren=\count148
+\tikznumberofcurrentchild=\count149
+\tikz@fig@count=\count150
+
+(/usr/share/texmf/tex/generic/pgf/modules/pgfmodulematrix.code.tex
+File: pgfmodulematrix.code.tex 2010/08/24  (rcs-revision 1.4)
+\pgfmatrixcurrentrow=\count151
+\pgfmatrixcurrentcolumn=\count152
+\pgf@matrix@numberofcolumns=\count153
+)
+\tikz@expandcount=\count154
+
+(/usr/share/texmf/tex/generic/pgf/frontendlayer/tikz/libraries/tikzlibrarytopat
+hs.code.tex
+File: tikzlibrarytopaths.code.tex 2008/06/17 v2.10 (rcs-revision 1.2)
+))) (/usr/share/texlive/texmf-dist/tex/latex/cancel/cancel.sty
+Package: cancel 2013/04/12 v2.2 Cancel math terms
+)
+(/usr/share/texlive/texmf-dist/tex/latex/float/float.sty
+Package: float 2001/11/08 v1.3d Float enhancements (AL)
+\c@float@type=\count155
+\float@exts=\toks42
+\float@box=\box38
+\@float@everytoks=\toks43
+\@floatcapt=\box39
+)
+(/usr/share/texlive/texmf-dist/tex/latex/caption/caption.sty
+Package: caption 2013/05/02 v3.3-89 Customizing captions (AR)
+
+(/usr/share/texlive/texmf-dist/tex/latex/caption/caption3.sty
+Package: caption3 2013/05/02 v1.6-88 caption3 kernel (AR)
+Package caption3 Info: TeX engine: e-TeX on input line 57.
+\captionmargin=\dimen161
+\captionmargin@=\dimen162
+\captionwidth=\dimen163
+\caption@tempdima=\dimen164
+\caption@indent=\dimen165
+\caption@parindent=\dimen166
+\caption@hangindent=\dimen167
+)
+\c@ContinuedFloat=\count156
+Package caption Info: float package is loaded.
+)
+(/usr/share/texlive/texmf-dist/tex/latex/soul/soul.sty
+Package: soul 2003/11/17 v2.4 letterspacing/underlining (mf)
+\SOUL@word=\toks44
+\SOUL@lasttoken=\toks45
+\SOUL@cmds=\toks46
+\SOUL@buffer=\toks47
+\SOUL@token=\toks48
+\SOUL@spaceskip=\skip72
+\SOUL@ttwidth=\dimen168
+\SOUL@uldp=\dimen169
+\SOUL@ulht=\dimen170
+)
+(/usr/share/texmf/tex/generic/pgf/frontendlayer/tikz/libraries/tikzlibraryposit
+ioning.code.tex
+File: tikzlibrarypositioning.code.tex 2008/10/06 v2.10 (rcs-revision 1.7)
+)
+No file _region_.aux.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 37.
+LaTeX Font Info:    ... okay on input line 37.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 37.
+LaTeX Font Info:    ... okay on input line 37.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 37.
+LaTeX Font Info:    ... okay on input line 37.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 37.
+LaTeX Font Info:    ... okay on input line 37.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 37.
+LaTeX Font Info:    ... okay on input line 37.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 37.
+LaTeX Font Info:    ... okay on input line 37.
+(/usr/share/texmf/tex/latex/preview/preview.sty
+Package: preview 2010/02/14 11.87 (AUCTeX/preview-latex)
+
+(/usr/share/texmf/tex/latex/preview/prtightpage.def
+\PreviewBorder=\dimen171
+)
+(/usr/share/texmf/tex/latex/preview/prauctex.def
+No auxiliary output files.
+
+
+\hbadness=\count157
+\hfuzz=\dimen172
+(/usr/share/texmf/tex/latex/preview/prauctex.cfg))
+(/usr/share/texmf/tex/latex/preview/prfootnotes.def)
+\pr@snippet=\count158
+\pr@box=\box40
+\pr@output=\toks49
+
+Preview: Fontsize 10pt
+) ABD: EveryShipout initializing macros
+Package caption Info: Begin \AtBeginDocument code.
+Package caption Info: Incompatible package detected (regarding \caption).
+(caption)             \caption = \protected\long macro:->\pr@protect@domacro {}
+{##1{}}\pr@\caption .
+
+
+Package caption Warning: \caption will not be redefined since it's already
+(caption)                redefined by a document class or package which is
+(caption)                unknown to the caption package.
+See the caption package documentation for explanation.
+
+Package caption Info: End \AtBeginDocument code.
+ !name(1-recurrence.tex) !offset(-3) 
+
+Class exam Warning: You must run LaTeX again to produce the table.
+(exam)               on input line 58.
+
+! Preview: Snippet 1 started.
+<-><->
+      
+l.65 ...ay assume convenient starting values for $
+                                                  T(0)$ or $T(1)$ unless oth...
+
+Not a real error.
+
+Preview: Tightpage -32891 -32891 32891 32891
+! Preview: Snippet 1 ended.(491520+163840x1311406).
+<-><->
+      
+l.65 ...sume convenient starting values for $T(0)$
+                                                   or $T(1)$ unless otherwis...
+
+Not a real error.
+
+[1]
+! Preview: Snippet 2 started.
+<-><->
+      
+l.65 ...convenient starting values for $T(0)$ or $
+                                                  T(1)$ unless otherwise spe...
+
+Not a real error.
+
+! Preview: Snippet 2 ended.(491520+163840x1311406).
+<-><->
+      
+l.65 ...nient starting values for $T(0)$ or $T(1)$
+                                                   unless otherwise specifie...
+
+Not a real error.
+
+[2]
+! Preview: Snippet 3 started.
+<-><->
+      
+l.65 ...$ unless otherwise specified.. Note that $
+                                                  c$ is an undetermined cons...
+
+Not a real error.
+
+! Preview: Snippet 3 ended.(282168+0x283611).
+<-><->
+      
+l.65 ...unless otherwise specified.. Note that $c$
+                                                   is an undetermined constant.
+
+Not a real error.
+
+[3]
+! Preview: Snippet 4 started.
+<-><->
+      
+l.67 ...ans that you provide a bound of the form $
+                                                  T(n) = O(f(n))$ for a spec...
+
+Not a real error.
+
+! Preview: Snippet 4 ended.(491520+163840x4573219).
+<-><->
+      
+l.67 ...ovide a bound of the form $T(n) = O(f(n))$
+                                                   for a specific $f$. Tight...
+
+Not a real error.
+
+[4]
+! Preview: Snippet 5 started.
+<-><->
+      
+l.67 ...the form $T(n) = O(f(n))$ for a specific $
+                                                  f$. Tight bounds get full ...
+
+Not a real error.
+
+! Preview: Snippet 5 ended.(455111+127431x391398).
+<-><->
+      
+l.67 ...e form $T(n) = O(f(n))$ for a specific $f$
+                                                  . Tight bounds get full cr...
+
+Not a real error.
+
+[5]
+! Preview: Snippet 6 started.
+<-><->
+      
+l.67 ...redit: for example, if the recurrence is $
+                                                  T(n) = 2T(n/2) + cn$, the ...
+
+Not a real error.
+
+! Preview: Snippet 6 ended.(491520+163840x6089010).
+<-><->
+      
+l.67 ...if the recurrence is $T(n) = 2T(n/2) + cn$
+                                                  , the answer $T(n) = O(n^2...
+
+Not a real error.
+
+[6]
+! Preview: Snippet 7 started.
+<-><->
+      
+l.67 ...nce is $T(n) = 2T(n/2) + cn$, the answer $
+                                                  T(n) = O(n^2)$ is correct ...
+
+Not a real error.
+
+! Preview: Snippet 7 ended.(533465+163840x3966098).
+<-><->
+      
+l.67 ... 2T(n/2) + cn$, the answer $T(n) = O(n^2)$
+                                                   is correct but not precis...
+
+Not a real error.
+
+[7]
+! Preview: Snippet 8 started.
+<-><->
+      
+l.70 \part[2] $
+               T(n) = 7T(n/2) + cn^2$
+Not a real error.
+
+! Preview: Snippet 8 ended.(533465+163840x6383013).
+<-><->
+      
+l.70 \part[2] $T(n) = 7T(n/2) + cn^2$
+                                     
+Not a real error.
+
+[8]
+! Preview: Snippet 9 started.
+<-><->
+      
+l.73 \begin{align}
+                  
+Not a real error.
+
+! Preview: Snippet 9 ended.(7144971+0x27005160).
+<-><->
+      
+l.79 \end{align}
+                
+Not a real error.
+
+[9]
+! Preview: Snippet 10 started.
+<-><->
+      
+l.82 \part[2] $
+               T(n) = 3T(n/2) + cn$
+Not a real error.
+
+! Preview: Snippet 10 ended.(491520+163840x6089010).
+<-><->
+      
+l.82 \part[2] $T(n) = 3T(n/2) + cn$
+                                   
+Not a real error.
+
+[10]
+! Preview: Snippet 11 started.
+<-><->
+      
+l.84 \begin{align}
+                  
+Not a real error.
+
+! Preview: Snippet 11 ended.(7048046+0x27005160).
+<-><->
+      
+l.90 \end{align}
+                
+Not a real error.
+
+[11]
+! Preview: Snippet 12 started.
+<-><->
+      
+l.93 \part[2] $
+               T(n) = T(n/5) + c$
+Not a real error.
+
+! Preview: Snippet 12 ended.(491520+163840x5367959).
+<-><->
+      
+l.93 \part[2] $T(n) = T(n/5) + c$
+                                 
+Not a real error.
+
+[12]
+! Preview: Snippet 13 started.
+<-><->
+      
+l.95 \begin{align}
+                  
+Not a real error.
+
+! Preview: Snippet 13 ended.(6686208+0x27005160).
+<-><->
+      
+l.101 \end{align}
+                 
+Not a real error.
+
+[13]
+! Preview: Snippet 14 started.
+<-><->
+      
+l.104 \part[2] $
+                T(n) = T(n/2) + T(3n/10) + cn$
+Not a real error.
+
+! Preview: Snippet 14 ended.(491520+163840x9250138).
+<-><->
+      
+l.104 \part[2] $T(n) = T(n/2) + T(3n/10) + cn$
+                                              
+Not a real error.
+
+[14]
+! Preview: Snippet 15 started.
+<-><->
+      
+l.106 \begin{align}
+                   
+Not a real error.
+
+! Preview: Snippet 15 ended.(15221663+0x27005160).
+<-><->
+      
+l.118 \end{align}
+                 
+Not a real error.
+
+[15]
+! Preview: Snippet 16 started.
+<-><->
+      
+l.121 \part[2] $
+                T(n) = 2T(n-1) + 10n^2$
+Not a real error.
+
+! Preview: Snippet 16 ended.(533465+163840x7228073).
+<-><->
+      
+l.121 \part[2] $T(n) = 2T(n-1) + 10n^2$
+                                       
+Not a real error.
+
+[16]
+! Preview: Snippet 17 started.
+<-><->
+      
+l.123 \begin{align}
+                   
+Not a real error.
+
+! Preview: Snippet 17 ended.(10961274+0x27005160).
+<-><->
+      
+l.133 \end{align}
+                 
+Not a real error.
+
+[17]
+! Preview: Snippet 18 started.
+<-><->
+      
+l.143 \part[3] $
+                T(n) = T(n-1) T(n-2)$ (hint: you can express your answer in ...
+
+Not a real error.
+
+! Preview: Snippet 18 ended.(491520+163840x7262433).
+<-><->
+      
+l.143 \part[3] $T(n) = T(n-1) T(n-2)$
+                                      (hint: you can express your answer in ...
+
+Not a real error.
+
+[18]
+! Preview: Snippet 19 started.
+<-><->
+      
+l.143 ...can express your answer in terms of the $
+                                                  n^{\text{th}}$ Fibonacci n...
+
+Not a real error.
+
+! Preview: Snippet 19 ended.(556402+0x920391).
+<-><->
+      
+l.143 ...ur answer in terms of the $n^{\text{th}}$
+                                                   Fibonacci number $F(n)$)
+Not a real error.
+
+[19]
+! Preview: Snippet 20 started.
+<-><->
+      
+l.143 ...of the $n^{\text{th}}$ Fibonacci number $
+                                                  F(n)$)
+Not a real error.
+
+! Preview: Snippet 20 ended.(491520+163840x1415552).
+<-><->
+      
+l.143 ...e $n^{\text{th}}$ Fibonacci number $F(n)$
+                                                  )
+Not a real error.
+
+[20]
+! Preview: Snippet 21 started.
+<-><->
+      
+l.147 \begin{align}
+                   
+Not a real error.
+
+! Preview: Snippet 21 ended.(8036977+0x27005160).
+<-><->
+      
+l.176 \end{align}
+                 
+Not a real error.
+
+[21]
+! Preview: Snippet 22 started.
+<-><->
+      
+l.179 \part[3] $
+                T(n) = n^{2/3}T(\sqrt{n}) + n^{1.2}$
+Not a real error.
+
+! Preview: Snippet 22 ended.(581889+163840x7296501).
+<-><->
+      
+l.179 ...[3] $T(n) = n^{2/3}T(\sqrt{n}) + n^{1.2}$
+                                                  
+Not a real error.
+
+[22]
+! Preview: Snippet 23 started.
+<-><->
+      
+l.183 \part[3] $
+                T(n) = T(n-3) + 8^n$
+Not a real error.
+
+! Preview: Snippet 23 ended.(491520+163840x6242072).
+<-><->
+      
+l.183 \part[3] $T(n) = T(n-3) + 8^n$
+                                    
+Not a real error.
+
+[23]
+! Preview: Snippet 24 started.
+<-><->
+      
+l.185 \begin{align}
+                   
+Not a real error.
+
+! Preview: Snippet 24 ended.(21057775+0x27005160).
+<-><->
+      
+l.197 \end{align}
+                 
+Not a real error.
+
+[24]
+! Preview: Snippet 25 started.
+<-><->
+      
+l.200 \part[3] $
+                T(n) = \sum_{k = 0}^{n-1} (k \cdot T(k-1))$, where $T(0) = 1$.
+Not a real error.
+
+! Preview: Snippet 25 ended.(625146+196611x7789301).
+<-><->
+      
+l.200 ...n) = \sum_{k = 0}^{n-1} (k \cdot T(k-1))$
+                                                  , where $T(0) = 1$.
+Not a real error.
+
+[25]
+! Preview: Snippet 26 started.
+<-><->
+      
+l.200 ..._{k = 0}^{n-1} (k \cdot T(k-1))$, where $
+                                                  T(0) = 1$.
+Not a real error.
+
+! Preview: Snippet 26 ended.(491520+163840x2512893).
+<-><->
+      
+l.200 ...{n-1} (k \cdot T(k-1))$, where $T(0) = 1$
+                                                  .
+Not a real error.
+
+[26]
+! Preview: Snippet 27 started.
+<-><->
+      
+l.205 \part[3] $
+                T(n) = n +  \sum_{i = 1}^{\log n} T(n/2^i)$.
+Not a real error.
+
+! Preview: Snippet 27 ended.(648083+196611x7621030).
+<-><->
+      
+l.205 ...n) = n +  \sum_{i = 1}^{\log n} T(n/2^i)$
+                                                  .
+Not a real error.
+
+[27]
+! Preview: Snippet 28 started.
+<-><->
+      
+l.207 \begin{align}
+                   
+Not a real error.
+
+! Preview: Snippet 28 ended.(17794361+0x27005160).
+<-><->
+      
+l.220 \end{align}
+                 
+Not a real error.
+
+[28]
+! Preview: Snippet 29 started.
+<-><->
+      
+l.227   the ten faces labeled with the numbers $
+                                                1$ through $10$. What is the...
+
+Not a real error.
+
+! Preview: Snippet 29 ended.(422343+0x327681).
+<-><->
+      
+l.227   the ten faces labeled with the numbers $1$
+                                                   through $10$. What is the...
+
+Not a real error.
+
+[29]
+! Preview: Snippet 30 started.
+<-><->
+      
+l.227 ...es labeled with the numbers $1$ through $
+                                                  10$. What is the expected
+Not a real error.
+
+! Preview: Snippet 30 ended.(422343+0x655362).
+<-><->
+      
+l.227 ...labeled with the numbers $1$ through $10$
+                                                  . What is the expected
+Not a real error.
+
+[30]
+! Preview: Snippet 31 started.
+<-><->
+      
+l.230 \begin{align}
+                   
+Not a real error.
+
+! Preview: Snippet 31 ended.(12067265+0x27005160).
+<-><->
+      
+l.237 \end{align}
+                 
+Not a real error.
+
+[31]
+! Preview: Snippet 32 started.
+<-><->
+      
+l.240 \part[2] Show that $
+                          \binom{n}{k} \le n^k/k!$. Using Stirling's approxi...
+
+Not a real error.
+
+! Preview: Snippet 32 ended.(557059+229380x3385880).
+<-><->
+      
+l.240 \part[2] Show that $\binom{n}{k} \le n^k/k!$
+                                                  . Using Stirling's approxi...
+
+Not a real error.
+
+[32]
+! Preview: Snippet 33 started.
+<-><->
+      
+l.242 \[
+         n! \simeq \left(\frac{n}{e}\right)^n \sqrt{2\pi n} \]
+Not a real error.
+
+! Preview: Snippet 33 ended.(1238714+0x17849382).
+<-><->
+      
+l.242 ...eft(\frac{n}{e}\right)^n \sqrt{2\pi n} \]
+                                                  
+Not a real error.
+
+[33]
+! Preview: Snippet 34 started.
+<-><->
+      
+l.243 show that $
+                 \binom{n}{k} \simeq \P{\frac{ne}{k}}^k$
+Not a real error.
+
+! Preview: Snippet 34 ended.(713618+229380x3451623).
+<-><->
+      
+l.243 ... $\binom{n}{k} \simeq \P{\frac{ne}{k}}^k$
+                                                  
+Not a real error.
+
+[34]
+LaTeX Font Info:    Try loading font information for OMS+cmr on input line 246.
+
+ (/usr/share/texlive/texmf-dist/tex/latex/base/omscmr.fd
+File: omscmr.fd 1999/05/25 v2.5h Standard LaTeX font definitions
+)
+LaTeX Font Info:    Font shape `OMS/cmr/m/n' in size <10> not available
+(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 246.
+
+! Preview: Snippet 35 started.
+<-><->
+      
+l.246 \item Show that $
+                       \binom{n}{k} \le n^k/k!$
+Not a real error.
+
+! Preview: Snippet 35 ended.(557059+229380x3385880).
+<-><->
+      
+l.246 \item Show that $\binom{n}{k} \le n^k/k!$
+                                               
+Not a real error.
+
+[35]
+! Preview: Snippet 36 started.
+<-><->
+      
+l.248 \begin{align}
+                   
+Not a real error.
+
+
+Package amsmath Warning: Foreign command \atopwithdelims;
+(amsmath)                \frac or \genfrac should be used instead
+(amsmath)                 on input line 254.
+
+! Preview: Snippet 36 ended.(9667156+0x27005160).
+<-><->
+      
+l.254 \end{align}
+                 
+Not a real error.
+
+[36]
+! Preview: Snippet 37 started.
+<-><->
+      
+l.259 \[
+         n! \simeq \left(\frac{n}{e}\right)^n \sqrt{2\pi n} \]
+Not a real error.
+
+! Preview: Snippet 37 ended.(1238714+0x15959030).
+<-><->
+      
+l.259 ...eft(\frac{n}{e}\right)^n \sqrt{2\pi n} \]
+                                                  
+Not a real error.
+
+[37]
+! Preview: Snippet 38 started.
+<-><->
+      
+l.260 show that $
+                 \binom{n}{k} \simeq \P{\frac{ne}{k}}^k$
+Not a real error.
+
+! Preview: Snippet 38 ended.(713618+229380x3451623).
+<-><->
+      
+l.260 ... $\binom{n}{k} \simeq \P{\frac{ne}{k}}^k$
+                                                  
+Not a real error.
+
+[38]
+! Preview: Snippet 39 started.
+<-><->
+      
+l.261 \begin{align}
+                   
+Not a real error.
+
+! Preview: Snippet 39 ended.(21187592+0x27005160).
+<-><->
+      
+l.270 \end{align}
+                 
+Not a real error.
+
+[39]
+! Preview: Snippet 40 started.
+<-><->
+      
+l.285 \[
+         e^{-x} \simeq 1-x \]
+Not a real error.
+
+! Preview: Snippet 40 ended.(609196+0x17103804).
+<-><->
+      
+l.285 \[ e^{-x} \simeq 1-x \]
+                             
+Not a real error.
+
+[40]
+! Preview: Snippet 41 started.
+<-><->
+      
+l.286 for $
+           x$ near $0$.
+Not a real error.
+
+! Preview: Snippet 41 ended.(282168+0x374556).
+<-><->
+      
+l.286 for $x$
+              near $0$.
+Not a real error.
+
+[41]
+! Preview: Snippet 42 started.
+<-><->
+      
+l.286 for $x$ near $
+                    0$.
+Not a real error.
+
+! Preview: Snippet 42 ended.(422343+0x327681).
+<-><->
+      
+l.286 for $x$ near $0$
+                      .
+Not a real error.
+
+[42]
+! Preview: Snippet 43 started.
+<-><->
+      
+l.288 \begin{align}
+                   
+Not a real error.
+
+! Preview: Snippet 43 ended.(15728211+0x27005160).
+<-><->
+      
+l.298 \end{align}
+                 
+Not a real error.
+
+[43]
+! Preview: Snippet 44 started.
+<-><->
+      
+l.301 \part[4] A set of random variables $
+                                          X_1, X_2, \ldots, X_k$ is said to be
+Not a real error.
+
+! Preview: Snippet 44 ended.(447828+127431x4286912).
+<-><->
+      
+l.301 ... random variables $X_1, X_2, \ldots, X_k$
+                                                   is said to be
+Not a real error.
+
+[44]
+! Preview: Snippet 45 started.
+<-><->
+      
+l.302 ...mutually independent} if for any subset $
+                                                  S = \{j_1, j_2, \ldots, j_...
+
+Not a real error.
+
+! Preview: Snippet 45 ended.(491520+163840x9730473).
+<-><->
+      
+l.302 ...ldots, j_k\} \subset \{1, 2, \ldots, k\}$
+                                                  
+Not a real error.
+
+[45]
+! Preview: Snippet 46 started.
+<-><->
+      
+l.304 \[
+         \Pr(X_{j_1} = v_i, X_{j_2} = v_2, \ldots, X_{j_k} = v_k) = \prod_i
+Not a real error.
+
+! Preview: Snippet 46 ended.(1526904+0x23386723).
+<-><->
+      
+l.305 \Pr(X_{j_i} = v_i)\]
+                          
+Not a real error.
+
+[46]
+! Preview: Snippet 47 started.
+<-><->
+      
+l.307 this holds for subsets of size $
+                                      k = 2$, but not necessarily for larger
+Not a real error.
+
+! Preview: Snippet 47 ended.(455111+0x1563301).
+<-><->
+      
+l.307 this holds for subsets of size $k = 2$
+                                            , but not necessarily for larger
+Not a real error.
+
+[47]
+! Preview: Snippet 48 started.
+<-><->
+      
+l.311 \begin{align}
+                   
+Not a real error.
+
+! Preview: Snippet 48 ended.(7572323+0x27005160).
+<-><->
+      
+l.318 \end{align}
+                 
+Not a real error.
+
+[48]
+! Preview: Snippet 49 started.
+<-><->
+      
+l.319 \begin{table}
+                   [H]
+Not a real error.
+
+! Extra }, or forgotten \endgroup.
+\@endfloatbox ...pagefalse \outer@nobreak \egroup 
+                                                  \color@endbox 
+l.332 \end{table}
+                 
+I've deleted a group-closing symbol because it seems to be
+spurious, as in `$x}$'. But perhaps the } is legitimate and
+you forgot something else, as in `\hbox{$x}'. In such cases
+the way to recover is to insert both the forgotten and the
+deleted material, e.g., by typing `I$}'.
+
+! Preview: Snippet 49 ended.(3152280+1972633x27005160).
+<-><->
+      
+l.332 \end{table}
+                 
+Not a real error.
+
+[49
+
+]
+! Preview: Snippet 50 ended.(553676+225995x418521).
+<-><->
+      
+l.333 ...nation has a probability of $\frac{1}{4}$
+                                                   succeeding in producing 1...
+
+Not a real error.
+
+[50]
+
+! LaTeX Error: \begin{table} on input line 319 ended by \end{TheSolution}.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.334 \end{solution}
+                    
+Your command was ignored.
+Type  I <command> <return>  to replace it with another command,
+or  <return>  to continue without it.
+
+! Missing } inserted.
+<inserted text> 
+                }
+l.334 \end{solution}
+                    
+I've inserted something that you may have forgotten.
+(See the <inserted text> above.)
+With luck, this will get me unwedged. But if you
+really didn't forget anything, try typing `2' now; then
+my insertion and my current dilemma will both disappear.
+
+
+! LaTeX Error: \begin{solution} on input line 310 ended by \end{parts}.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.336 \end{parts}
+                 
+Your command was ignored.
+Type  I <command> <return>  to replace it with another command,
+or  <return>  to continue without it.
+
+
+! Class exam Error: I found a question where I expected to find a part
+(exam)              .
+
+See the exam class documentation for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.337 \titledquestion{Probability II}
+                                     
+Both question and part can be used only inside the correct 
+  environment and outside of any smaller environment 
+
+
+! Preview: Snippet 51 started.
+<-><->
+      
+l.340 ...tt{d6} (a six-sided die with faces from $
+                                                  1$ to $6$). If the value r...
+
+Not a real error.
+
+! Preview: Snippet 51 ended.(422343+0x327681).
+<-><->
+      
+l.340 ...{d6} (a six-sided die with faces from $1$
+                                                   to $6$). If the value rolled
+
+Not a real error.
+
+[51]
+! Preview: Snippet 52 started.
+<-><->
+      
+l.340 ...(a six-sided die with faces from $1$ to $
+                                                  6$). If the value rolled
+Not a real error.
+
+! Preview: Snippet 52 ended.(422343+0x327681).
+<-><->
+      
+l.340 ... six-sided die with faces from $1$ to $6$
+                                                  ). If the value rolled
+Not a real error.
+
+[52]
+! Preview: Snippet 53 started.
+<-><->
+      
+l.341   is $
+            3$ or less, roll a \texttt{d8} else roll a \texttt{d10}. Add the...
+
+Not a real error.
+
+! Preview: Snippet 53 ended.(422343+0x327681).
+<-><->
+      
+l.341   is $3$
+               or less, roll a \texttt{d8} else roll a \texttt{d10}. Add the...
+
+Not a real error.
+
+[53]
+! Preview: Snippet 54 started.
+<-><->
+      
+l.344   Let $
+             X$ be the value of the \texttt{d6} roll and let $Y$ be the valu...
+
+Not a real error.
+
+! Preview: Snippet 54 ended.(447828+0x594374).
+<-><->
+      
+l.344   Let $X$
+                be the value of the \texttt{d6} roll and let $Y$ be the valu...
+
+Not a real error.
+
+[54]
+! Preview: Snippet 55 started.
+<-><->
+      
+l.344 ...e value of the \texttt{d6} roll and let $
+                                                  Y$ be the value of the
+Not a real error.
+
+! Preview: Snippet 55 ended.(447828+0x526109).
+<-><->
+      
+l.344 ...value of the \texttt{d6} roll and let $Y$
+                                                   be the value of the
+Not a real error.
+
+[55]
+! Preview: Snippet 56 started.
+<-><->
+      
+l.347   \item Is it true that $
+                               E[X + Y] = E[X] + E[Y]$?
+Not a real error.
+
+! Preview: Snippet 56 ended.(491520+163840x7373690).
+<-><->
+      
+l.347 ... Is it true that $E[X + Y] = E[X] + E[Y]$
+                                                  ?
+Not a real error.
+
+[56]
+! Preview: Snippet 57 started.
+<-><->
+      
+l.348   \item Is it true that $
+                               \var(X + Y) = \var(X) + \var(Y)$?
+Not a real error.
+
+! Preview: Snippet 57 ended.(491520+163840x9309743).
+<-><->
+      
+l.348 ...ue that $\var(X + Y) = \var(X) + \var(Y)$
+                                                  ?
+Not a real error.
+
+[57]
+! Preview: Snippet 58 started.
+<-><->
+      
+l.353 \item \text{Is it true that }$
+                                    E[X + Y] = E[X] + E[Y]$\text{?}
+Not a real error.
+
+! Preview: Snippet 58 ended.(491520+163840x7373690).
+<-><->
+      
+l.353 ...Is it true that }$E[X + Y] = E[X] + E[Y]$
+                                                  \text{?}
+Not a real error.
+
+[58]
+! Preview: Snippet 59 started.
+<-><->
+      
+l.354 \begin{align*}
+                    
+Not a real error.
+
+! Preview: Snippet 59 ended.(24060917+0x25621619).
+<-><->
+      
+l.367 \end{align*}
+                  
+Not a real error.
+
+[59]
+! Preview: Snippet 60 started.
+<-><->
+      
+l.373 \item \text{Is it true that }$
+                                    \var (X + Y) = \var (X) + \var (Y)$\text{?}
+
+Not a real error.
+
+! Preview: Snippet 60 ended.(491520+163840x9309743).
+<-><->
+      
+l.373 ...hat }$\var (X + Y) = \var (X) + \var (Y)$
+                                                  \text{?}
+Not a real error.
+
+[60]
+! Preview: Snippet 61 started.
+<-><->
+      
+l.374 \begin{align*}
+                    
+Not a real error.
+
+! Preview: Snippet 61 ended.(32509722+0x25621619).
+<-><->
+      
+l.391 \end{align*}
+                  
+Not a real error.
+
+[61]
+! Preview: Snippet 62 started.
+<-><->
+      
+l.396 ...ng the book when you visit the store is $
+                                                  p$. What is the expected n...
+
+Not a real error.
+
+! Preview: Snippet 62 ended.(282168+127431x329728).
+<-><->
+      
+l.396 ... the book when you visit the store is $p$
+                                                  . What is the expected number
+
+Not a real error.
+
+[62]
+! Preview: Snippet 63 started.
+<-><->
+      
+l.400 \begin{align}
+                   
+Not a real error.
+
+! Preview: Snippet 63 ended.(8546086+0x25621619).
+<-><->
+      
+l.405 \end{align}
+                 
+Not a real error.
+
+[63]
+
+! Class exam Error: I found a question where I expected to find a part
+(exam)              .
+
+See the exam class documentation for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.408 \titledquestion{Pigeons and Probability}
+                                              
+Both question and part can be used only inside the correct 
+  environment and outside of any smaller environment 
+
+
+! Preview: Snippet 64 started.
+<-><->
+      
+l.411 ...eonhole principle says that if you have $
+                                                  m$ objects and $n < m$ buc...
+
+Not a real error.
+
+! Preview: Snippet 64 ended.(282168+0x575415).
+<-><->
+      
+l.411 ...nhole principle says that if you have $m$
+                                                   objects and $n < m$ buckets
+Not a real error.
+
+[64]
+! Preview: Snippet 65 started.
+<-><->
+      
+l.411 ...e says that if you have $m$ objects and $
+                                                  n < m$ buckets
+Not a real error.
+
+! Preview: Snippet 65 ended.(353303+25623x1842591).
+<-><->
+      
+l.411 ... that if you have $m$ objects and $n < m$
+                                                   buckets
+Not a real error.
+
+[65]
+! Preview: Snippet 66 started.
+<-><->
+      
+l.413   you have a random variable $
+                                    X$ taking positive integer values such that
+
+Not a real error.
+
+! Preview: Snippet 66 ended.(447828+0x594374).
+<-><->
+      
+l.413   you have a random variable $X$
+                                       taking positive integer values such that
+
+Not a real error.
+
+[66]
+! Preview: Snippet 67 started.
+<-><->
+      
+l.414   $
+         E[X] = k$, then there must be at least one integer $r > k$ such that
+Not a real error.
+
+! Preview: Snippet 67 ended.(491520+163840x2715640).
+<-><->
+      
+l.414   $E[X] = k$
+                  , then there must be at least one integer $r > k$ such that
+Not a real error.
+
+[67]
+! Preview: Snippet 68 started.
+<-><->
+      
+l.414 ...then there must be at least one integer $
+                                                  r > k$ such that
+Not a real error.
+
+! Preview: Snippet 68 ended.(455111+25623x1549496).
+<-><->
+      
+l.414 ...here must be at least one integer $r > k$
+                                                   such that
+Not a real error.
+
+[68]
+! Preview: Snippet 69 started.
+<-><->
+      
+l.415   $
+         \Pr(X = k) > 0$.
+Not a real error.
+
+! Preview: Snippet 69 ended.(491520+163840x4243900).
+<-><->
+      
+l.415   $\Pr(X = k) > 0$
+                        .
+Not a real error.
+
+[69]
+! Preview: Snippet 70 started.
+<-><->
+      
+l.417 ...is saying is that for the average to be $
+                                                  k$, there must be some val...
+
+Not a real error.
+
+! Preview: Snippet 70 ended.(455111+0x361814).
+<-><->
+      
+l.417 ... saying is that for the average to be $k$
+                                                  , there must be some value...
+
+Not a real error.
+
+[70]
+! Preview: Snippet 71 started.
+<-><->
+      
+l.417 ..., there must be some value greater than $
+                                                  k$ with a probability grea...
+
+Not a real error.
+
+! Preview: Snippet 71 ended.(455111+0x361814).
+<-><->
+      
+l.417 ...there must be some value greater than $k$
+                                                   with a probability greate...
+
+Not a real error.
+
+[71]
+! Preview: Snippet 72 started.
+<-><->
+      
+l.417 ...han $k$ with a probability greater than $
+                                                  0$, and it asks us to prov...
+
+Not a real error.
+
+! Preview: Snippet 72 ended.(422343+0x327681).
+<-><->
+      
+l.417 ...n $k$ with a probability greater than $0$
+                                                  , and it asks us to prove ...
+
+Not a real error.
+
+[72]
+! Preview: Snippet 73 started.
+<-><->
+      
+l.418 \begin{align}
+                   
+Not a real error.
+
+! Preview: Snippet 73 ended.(14091498+0x25621619).
+<-><->
+      
+l.424 ...$r>k$ such that $P(X=r) > 0$.}\end{align}
+                                                  
+Not a real error.
+
+[73]
+! Preview: Snippet 74 started.
+<-><->
+      
+l.432   Let $
+             G = (V, E)$ be a graph and let $H \subset V$. The \emph{induced...
+
+Not a real error.
+
+! Preview: Snippet 74 ended.(491520+163840x3130335).
+<-><->
+      
+l.432   Let $G = (V, E)$
+                         be a graph and let $H \subset V$. The \emph{induced...
+
+Not a real error.
+
+[74]
+! Preview: Snippet 75 started.
+<-><->
+      
+l.432   Let $G = (V, E)$ be a graph and let $
+                                             H \subset V$. The \emph{induced...
+
+Not a real error.
+
+! Preview: Snippet 75 ended.(447828+25623x1999749).
+<-><->
+      
+l.432 ... (V, E)$ be a graph and let $H \subset V$
+                                                  . The \emph{induced subgraph}
+
+Not a real error.
+
+[75]
+! Preview: Snippet 76 started.
+<-><->
+      
+l.433   $
+         G[H]$ is the graph with vertex set $H$ and whose edges are all edge...
+
+Not a real error.
+
+! Preview: Snippet 76 ended.(491520+163840x1477380).
+<-><->
+      
+l.433   $G[H]$
+               is the graph with vertex set $H$ and whose edges are all edge...
+
+Not a real error.
+
+[76]
+! Preview: Snippet 77 started.
+<-><->
+      
+l.433   $G[H]$ is the graph with vertex set $
+                                             H$ and whose edges are all edge...
+
+Not a real error.
+
+! Preview: Snippet 77 ended.(447828+0x598014).
+<-><->
+      
+l.433   $G[H]$ is the graph with vertex set $H$
+                                                and whose edges are all edge...
+
+Not a real error.
+
+[77]
+! Preview: Snippet 78 started.
+<-><->
+      
+l.433 ...et $H$ and whose edges are all edges of $
+                                                  G$
+Not a real error.
+
+! Preview: Snippet 78 ended.(447828+0x515276).
+<-><->
+      
+l.433 ... $H$ and whose edges are all edges of $G$
+                                                  
+Not a real error.
+
+[78]
+! Preview: Snippet 79 started.
+<-><->
+      
+l.434   whose endpoints are in $
+                                H$ (i.e are elements of $H \times H \cap E$).
+Not a real error.
+
+! Preview: Snippet 79 ended.(447828+0x598014).
+<-><->
+      
+l.434   whose endpoints are in $H$
+                                   (i.e are elements of $H \times H \cap E$).
+Not a real error.
+
+[79]
+! Preview: Snippet 80 started.
+<-><->
+      
+l.434 ...dpoints are in $H$ (i.e are elements of $
+                                                  H \times H \cap E$).
+Not a real error.
+
+! Preview: Snippet 80 ended.(447828+54613x3246746).
+<-><->
+      
+l.434 ... (i.e are elements of $H \times H \cap E$
+                                                  ).
+Not a real error.
+
+[80]
+! Preview: Snippet 81 started.
+<-><->
+      
+l.436   A graph $
+                 G = (V, E)$ is \emph{bipartite} if $V$ can be partitioned i...
+
+Not a real error.
+
+! Preview: Snippet 81 ended.(491520+163840x3130335).
+<-><->
+      
+l.436   A graph $G = (V, E)$
+                             is \emph{bipartite} if $V$ can be partitioned i...
+
+Not a real error.
+
+[81]
+! Preview: Snippet 82 started.
+<-><->
+      
+l.436 ...aph $G = (V, E)$ is \emph{bipartite} if $
+                                                  V$ can be partitioned into...
+
+Not a real error.
+
+! Preview: Snippet 82 ended.(447828+0x527929).
+<-><->
+      
+l.436 ...h $G = (V, E)$ is \emph{bipartite} if $V$
+                                                   can be partitioned into two
+Not a real error.
+
+[82]
+! Preview: Snippet 83 started.
+<-><->
+      
+l.437   sets $
+              A, B$ (note that $A, B$ are disjoint and $A \cup B = V$) such ...
+
+Not a real error.
+
+! Preview: Snippet 83 ended.(447828+127431x1312767).
+<-><->
+      
+l.437   sets $A, B$
+                    (note that $A, B$ are disjoint and $A \cup B = V$) such ...
+
+Not a real error.
+
+[83]
+! Preview: Snippet 84 started.
+<-><->
+      
+l.437   sets $A, B$ (note that $
+                                A, B$ are disjoint and $A \cup B = V$) such ...
+
+Not a real error.
+
+! Preview: Snippet 84 ended.(447828+127431x1312767).
+<-><->
+      
+l.437   sets $A, B$ (note that $A, B$
+                                      are disjoint and $A \cup B = V$) such ...
+
+Not a real error.
+
+[84]
+! Preview: Snippet 85 started.
+<-><->
+      
+l.437 ..., B$ (note that $A, B$ are disjoint and $
+                                                  A \cup B = V$) such that all
+Not a real error.
+
+! Preview: Snippet 85 ended.(447828+0x3151405).
+<-><->
+      
+l.437 ...at $A, B$ are disjoint and $A \cup B = V$
+                                                  ) such that all
+Not a real error.
+
+[85]
+! Preview: Snippet 86 started.
+<-><->
+      
+l.438   edges go between $
+                          A$ and $B$ (i.e $E \subset A \times B$).
+Not a real error.
+
+! Preview: Snippet 86 ended.(447828+0x491521).
+<-><->
+      
+l.438   edges go between $A$
+                             and $B$ (i.e $E \subset A \times B$).
+Not a real error.
+
+[86]
+! Preview: Snippet 87 started.
+<-><->
+      
+l.438   edges go between $A$ and $
+                                  B$ (i.e $E \subset A \times B$).
+Not a real error.
+
+! Preview: Snippet 87 ended.(447828+0x529977).
+<-><->
+      
+l.438   edges go between $A$ and $B$
+                                     (i.e $E \subset A \times B$).
+Not a real error.
+
+[87]
+! Preview: Snippet 88 started.
+<-><->
+      
+l.438   edges go between $A$ and $B$ (i.e $
+                                           E \subset A \times B$).
+Not a real error.
+
+! Preview: Snippet 88 ended.(447828+54613x3217850).
+<-><->
+      
+l.438 ...n $A$ and $B$ (i.e $E \subset A \times B$
+                                                  ).
+Not a real error.
+
+[88]
+! Preview: Snippet 89 started.
+<-><->
+      
+l.440   Show that any graph $
+                             G$ with $m$ edges contains a \st{induced} bipar...
+
+Not a real error.
+
+! Preview: Snippet 89 ended.(447828+0x515276).
+<-><->
+      
+l.440   Show that any graph $G$
+                                with $m$ edges contains a \st{induced} bipar...
+
+Not a real error.
+
+[89]
+! Preview: Snippet 90 started.
+<-><->
+      
+l.440   Show that any graph $G$ with $
+                                      m$ edges contains a \st{induced} bipar...
+
+Not a real error.
+
+! Preview: Snippet 90 ended.(282168+0x575415).
+<-><->
+      
+l.440   Show that any graph $G$ with $m$
+                                         edges contains a \st{induced} bipar...
+
+Not a real error.
+
+[90]
+! Preview: Snippet 91 started.
+<-><->
+      
+l.441   with $
+              m/2$ edges (Hint: define a random process such that the desire...
+
+Not a real error.
+
+! Preview: Snippet 91 ended.(491520+163840x1230777).
+<-><->
+      
+l.441   with $m/2$
+                   edges (Hint: define a random process such that the desire...
+
+Not a real error.
+
+[91]
+! Preview: Snippet 92 started.
+<-><->
+      
+l.445 ...tion:} Assume that a random cut through $
+                                                  G$ would {\em not} have th...
+
+Not a real error.
+
+! Preview: Snippet 92 ended.(447828+0x515276).
+<-><->
+      
+l.445 ...on:} Assume that a random cut through $G$
+                                                   would {\em not} have the ...
+
+Not a real error.
+
+[92]
+! Preview: Snippet 93 started.
+<-><->
+      
+l.445 ...y of creating a bipartite subgraph with $
+                                                  \frac{m}{2}$ edges. Thus, ...
+
+Not a real error.
+
+! Preview: Snippet 93 ended.(455554+225995x622337).
+<-><->
+      
+l.445 ...g a bipartite subgraph with $\frac{m}{2}$
+                                                   edges. Thus, consider the...
+
+Not a real error.
+
+[93]
+! Preview: Snippet 94 started.
+<-><->
+      
+l.445 ...aph with the number of edges labeled as $
+                                                  m$
+Not a real error.
+
+! Preview: Snippet 94 ended.(282168+0x575415).
+<-><->
+      
+l.445 ...h with the number of edges labeled as $m$
+                                                  
+Not a real error.
+
+[94]
+! Preview: Snippet 95 started.
+<-><->
+      
+l.449     \node[main node] (1) {$
+                                 1$};
+Not a real error.
+
+! Preview: Snippet 95 ended.(422343+0x327681).
+<-><->
+      
+l.449     \node[main node] (1) {$1$
+                                   };
+Not a real error.
+
+[95]
+! Preview: Snippet 96 started.
+<-><->
+      
+l.450 ...(2) [below left = 1.5cm and 1cm of 1]  {$
+                                                  2$};
+Not a real error.
+
+! Preview: Snippet 96 ended.(422343+0x327681).
+<-><->
+      
+l.450 ...) [below left = 1.5cm and 1cm of 1]  {$2$
+                                                  };
+Not a real error.
+
+[96]
+! Preview: Snippet 97 started.
+<-><->
+      
+l.451 ...(3) [below right = 1.5cm and 1cm of 1] {$
+                                                  3$};
+Not a real error.
+
+! Preview: Snippet 97 ended.(422343+0x327681).
+<-><->
+      
+l.451 ...) [below right = 1.5cm and 1cm of 1] {$3$
+                                                  };
+Not a real error.
+
+[97]
+! Preview: Snippet 98 started.
+<-><->
+      
+l.452 ...de[main node] (4) [below = 1.5cm of 2] {$
+                                                  4$};
+Not a real error.
+
+! Preview: Snippet 98 ended.(422343+0x327681).
+<-><->
+      
+l.452 ...[main node] (4) [below = 1.5cm of 2] {$4$
+                                                  };
+Not a real error.
+
+[98]
+! Preview: Snippet 99 started.
+<-><->
+      
+l.453 ...de[main node] (5) [below = 1.5cm of 3] {$
+                                                  5$};
+Not a real error.
+
+! Preview: Snippet 99 ended.(422343+0x327681).
+<-><->
+      
+l.453 ...[main node] (5) [below = 1.5cm of 3] {$5$
+                                                  };
+Not a real error.
+
+[99]
+! Preview: Snippet 100 started.
+<-><->
+      
+l.467     \node at (3.5,-3) {$
+                              m=10$};
+Not a real error.
+
+! Preview: Snippet 100 ended.(422343+0x2104583).
+<-><->
+      
+l.467     \node at (3.5,-3) {$m=10$
+                                   };
+Not a real error.
+
+[100]
+! Preview: Snippet 101 started.
+<-><->
+      
+l.469 ...then there shouldn't be any random line $
+                                                  \ell$ that would cause any...
+
+Not a real error.
+
+! Preview: Snippet 101 ended.(455111+0x273068).
+<-><->
+      
+l.469 ...there shouldn't be any random line $\ell$
+                                                   that would cause any subg...
+
+Not a real error.
+
+[101]
+! Preview: Snippet 102 started.
+<-><->
+      
+l.469 ...ell$ that would cause any subgraph with $
+                                                  \frac{m}{2}$ edges to beco...
+
+Not a real error.
+
+! Preview: Snippet 102 ended.(455554+225995x622337).
+<-><->
+      
+l.469 ...uld cause any subgraph with $\frac{m}{2}$
+                                                   edges to become bipartite...
+
+Not a real error.
+
+[102]
+! Preview: Snippet 103 started.
+<-><->
+      
+l.469 ... edges. By drawing a random cut through $
+                                                  G$
+Not a real error.
+
+! Preview: Snippet 103 ended.(447828+0x515276).
+<-><->
+      
+l.469 ...dges. By drawing a random cut through $G$
+                                                  
+Not a real error.
+
+[103]
+! Preview: Snippet 104 started.
+<-><->
+      
+l.472     \node[main node] (1) {$
+                                 1$};
+Not a real error.
+
+! Preview: Snippet 104 ended.(422343+0x327681).
+<-><->
+      
+l.472     \node[main node] (1) {$1$
+                                   };
+Not a real error.
+
+[104]
+! Preview: Snippet 105 started.
+<-><->
+      
+l.473 ...(2) [below left = 1.5cm and 1cm of 1]  {$
+                                                  2$};
+Not a real error.
+
+! Preview: Snippet 105 ended.(422343+0x327681).
+<-><->
+      
+l.473 ...) [below left = 1.5cm and 1cm of 1]  {$2$
+                                                  };
+Not a real error.
+
+[105]
+! Preview: Snippet 106 started.
+<-><->
+      
+l.474 ...(3) [below right = 1.5cm and 1cm of 1] {$
+                                                  3$};
+Not a real error.
+
+! Preview: Snippet 106 ended.(422343+0x327681).
+<-><->
+      
+l.474 ...) [below right = 1.5cm and 1cm of 1] {$3$
+                                                  };
+Not a real error.
+
+[106]
+! Preview: Snippet 107 started.
+<-><->
+      
+l.475 ...de[main node] (4) [below = 1.5cm of 2] {$
+                                                  4$};
+Not a real error.
+
+! Preview: Snippet 107 ended.(422343+0x327681).
+<-><->
+      
+l.475 ...[main node] (4) [below = 1.5cm of 2] {$4$
+                                                  };
+Not a real error.
+
+[107]
+! Preview: Snippet 108 started.
+<-><->
+      
+l.476 ...de[main node] (5) [below = 1.5cm of 3] {$
+                                                  5$};
+Not a real error.
+
+! Preview: Snippet 108 ended.(422343+0x327681).
+<-><->
+      
+l.476 ...[main node] (5) [below = 1.5cm of 3] {$5$
+                                                  };
+Not a real error.
+
+[108]
+! Preview: Snippet 109 started.
+<-><->
+      
+l.490     \node at (3.5,-3) {$
+                              m=10$};
+Not a real error.
+
+! Preview: Snippet 109 ended.(422343+0x2104583).
+<-><->
+      
+l.490     \node at (3.5,-3) {$m=10$
+                                   };
+Not a real error.
+
+[109]
+! Preview: Snippet 110 started.
+<-><->
+      
+l.493     \node at (-1.6,.45cm) {$
+                                  \ell$};
+Not a real error.
+
+! Preview: Snippet 110 ended.(455111+0x273068).
+<-><->
+      
+l.493     \node at (-1.6,.45cm) {$\ell$
+                                       };
+Not a real error.
+
+[110]
+! Preview: Snippet 111 started.
+<-><->
+      
+l.495 ...es which are bipartite and subgraphs of $
+                                                  G$
+Not a real error.
+
+! Preview: Snippet 111 ended.(447828+0x515276).
+<-><->
+      
+l.495 ... which are bipartite and subgraphs of $G$
+                                                  
+Not a real error.
+
+[111]
+! Preview: Snippet 112 started.
+<-><->
+      
+l.499     \node[main node] (1) {$
+                                 1$};
+Not a real error.
+
+! Preview: Snippet 112 ended.(422343+0x327681).
+<-><->
+      
+l.499     \node[main node] (1) {$1$
+                                   };
+Not a real error.
+
+[112]
+! Preview: Snippet 113 started.
+<-><->
+      
+l.500 ...(2) [below left = 1.5cm and 1cm of 1]  {$
+                                                  2$};
+Not a real error.
+
+! Preview: Snippet 113 ended.(422343+0x327681).
+<-><->
+      
+l.500 ...) [below left = 1.5cm and 1cm of 1]  {$2$
+                                                  };
+Not a real error.
+
+[113]
+! Preview: Snippet 114 started.
+<-><->
+      
+l.501 ...(3) [below right = 1.5cm and 1cm of 1] {$
+                                                  3$};
+Not a real error.
+
+! Preview: Snippet 114 ended.(422343+0x327681).
+<-><->
+      
+l.501 ...) [below right = 1.5cm and 1cm of 1] {$3$
+                                                  };
+Not a real error.
+
+[114]
+! Preview: Snippet 115 started.
+<-><->
+      
+l.502 ...de[main node] (4) [below = 1.5cm of 2] {$
+                                                  4$};
+Not a real error.
+
+! Preview: Snippet 115 ended.(422343+0x327681).
+<-><->
+      
+l.502 ...[main node] (4) [below = 1.5cm of 2] {$4$
+                                                  };
+Not a real error.
+
+[115]
+! Preview: Snippet 116 started.
+<-><->
+      
+l.503 ...de[main node] (5) [below = 1.5cm of 3] {$
+                                                  5$};
+Not a real error.
+
+! Preview: Snippet 116 ended.(422343+0x327681).
+<-><->
+      
+l.503 ...[main node] (5) [below = 1.5cm of 3] {$5$
+                                                  };
+Not a real error.
+
+[116]
+! Preview: Snippet 117 started.
+<-><->
+      
+l.520     \node at (-1.6,.45cm) {$
+                                  \ell$};
+Not a real error.
+
+! Preview: Snippet 117 ended.(455111+0x273068).
+<-><->
+      
+l.520     \node at (-1.6,.45cm) {$\ell$
+                                       };
+Not a real error.
+
+[117]
+! Preview: Snippet 118 started.
+<-><->
+      
+l.522     \node at (3.5,-3) {\Huge$
+                                   \rightarrow$};
+Not a real error.
+
+! Preview: Snippet 118 ended.(598202+0x1630540).
+<-><->
+      
+l.522     \node at (3.5,-3) {\Huge$\rightarrow$
+                                               };
+Not a real error.
+
+[118]
+! Preview: Snippet 119 started.
+<-><->
+      
+l.524       \node[main node] (1) {$
+                                   1$};
+Not a real error.
+
+! Preview: Snippet 119 ended.(422343+0x327681).
+<-><->
+      
+l.524       \node[main node] (1) {$1$
+                                     };
+Not a real error.
+
+[119]
+! Preview: Snippet 120 started.
+<-><->
+      
+l.525 ...(2) [below left = 1.5cm and 1cm of 1]  {$
+                                                  2$};
+Not a real error.
+
+! Preview: Snippet 120 ended.(422343+0x327681).
+<-><->
+      
+l.525 ...) [below left = 1.5cm and 1cm of 1]  {$2$
+                                                  };
+Not a real error.
+
+[120]
+! Preview: Snippet 121 started.
+<-><->
+      
+l.526 ...(3) [below right = 1.5cm and 1cm of 1] {$
+                                                  3$};
+Not a real error.
+
+! Preview: Snippet 121 ended.(422343+0x327681).
+<-><->
+      
+l.526 ...) [below right = 1.5cm and 1cm of 1] {$3$
+                                                  };
+Not a real error.
+
+[121]
+! Preview: Snippet 122 started.
+<-><->
+      
+l.527 ...de[main node] (4) [below = 1.5cm of 2] {$
+                                                  4$};
+Not a real error.
+
+! Preview: Snippet 122 ended.(422343+0x327681).
+<-><->
+      
+l.527 ...[main node] (4) [below = 1.5cm of 2] {$4$
+                                                  };
+Not a real error.
+
+[122]
+! Preview: Snippet 123 started.
+<-><->
+      
+l.528 ...de[main node] (5) [below = 1.5cm of 3] {$
+                                                  5$};
+Not a real error.
+
+! Preview: Snippet 123 ended.(422343+0x327681).
+<-><->
+      
+l.528 ...[main node] (5) [below = 1.5cm of 3] {$5$
+                                                  };
+Not a real error.
+
+[123]
+! Preview: Snippet 124 started.
+<-><->
+      
+l.529       \node at (3cm,-3cm) {$
+                                  m^{\prime}=5$};
+Not a real error.
+
+! Preview: Snippet 124 ended.(492688+0x1960767).
+<-><->
+      
+l.529       \node at (3cm,-3cm) {$m^{\prime}=5$
+                                               };
+Not a real error.
+
+[124]
+! Preview: Snippet 125 started.
+<-><->
+      
+l.539     \node at (-1.6,.45cm) {$
+                                  \ell$};
+Not a real error.
+
+! Preview: Snippet 125 ended.(455111+0x273068).
+<-><->
+      
+l.539     \node at (-1.6,.45cm) {$\ell$
+                                       };
+Not a real error.
+
+[125]
+! Preview: Snippet 126 started.
+<-><->
+      
+l.542 \\By removing the edges in $
+                                  G$ except for those that contain the subgr...
+
+Not a real error.
+
+! Preview: Snippet 126 ended.(447828+0x515276).
+<-><->
+      
+l.542 \\By removing the edges in $G$
+                                     except for those that contain the subgr...
+
+Not a real error.
+
+[126]
+! Preview: Snippet 127 started.
+<-><->
+      
+l.542 ...raph that was decided by the random cut $
+                                                  \ell$, it is easy to see t...
+
+Not a real error.
+
+! Preview: Snippet 127 ended.(455111+0x273068).
+<-><->
+      
+l.542 ...that was decided by the random cut $\ell$
+                                                  , it is easy to see that t...
+
+Not a real error.
+
+[127]
+! Preview: Snippet 128 started.
+<-><->
+      
+l.542 ...ite subgraph due to the random cut from $
+                                                  \ell$. It is bipartite bec...
+
+Not a real error.
+
+! Preview: Snippet 128 ended.(455111+0x273068).
+<-><->
+      
+l.542 ...ubgraph due to the random cut from $\ell$
+                                                  . It is bipartite because ...
+
+Not a real error.
+
+[128]
+! Preview: Snippet 129 started.
+<-><->
+      
+l.542 ...ell$. It is bipartite because the nodes $
+                                                  \left\{ 2,4\right\}$ are n...
+
+Not a real error.
+
+! Preview: Snippet 129 ended.(491520+163840x1601993).
+<-><->
+      
+l.542 ...e because the nodes $\left\{ 2,4\right\}$
+                                                   are not connected and the...
+
+Not a real error.
+
+[129]
+! Preview: Snippet 130 started.
+<-><->
+      
+l.542 ...ight\}$ are not connected and the nodes $
+                                                  \left\{ 1,3,5\right\}$ are...
+
+Not a real error.
+
+! Preview: Snippet 130 ended.(491520+163840x2220943).
+<-><->
+      
+l.542 ...ted and the nodes $\left\{ 1,3,5\right\}$
+                                                   are not connected. Theref...
+
+Not a real error.
+
+[130]
+
+! LaTeX Error: \begin{parts} on input line 225 ended by \end{questions}.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.545 \end{questions}
+                     
+Your command was ignored.
+Type  I <command> <return>  to replace it with another command,
+or  <return>  to continue without it.
+
+This exam contains 5 questions with 18 parts, 0 subparts, and 0 subsubparts.
+This exam has a total of 50 points.
+This exam has a total of 0 bonus points.
+
+! LaTeX Error: \begin{questions} on input line 61 ended by \end{document}.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.546 \end{document}
+                    
+Your command was ignored.
+Type  I <command> <return>  to replace it with another command,
+or  <return>  to continue without it.
+
+ )
+(\end occurred inside a group at level 1)
+
+### semi simple group (level 1) entered at line 61 (\begingroup)
+### bottom level 
+Here is how much of TeX's memory you used:
+ 12357 strings out of 493305
+ 223164 string characters out of 6139898
+ 303678 words of memory out of 5000000
+ 15604 multiletter control sequences out of 15000+600000
+ 12184 words of font info for 44 fonts, out of 8000000 for 9000
+ 957 hyphenation exceptions out of 8191
+ 56i,22n,60p,694b,1123s stack positions out of 5000i,500n,10000p,200000b,80000s
+
+Output written on _region_.dvi (130 pages, 44716 bytes).

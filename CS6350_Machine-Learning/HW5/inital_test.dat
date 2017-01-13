@@ -1,0 +1,96 @@
+
+
+=================================
+Running over astro/original/train
+=================================
+	Performing 5-fold cross validation
+		[gamma_0, sigma]: [1e-08, 0.001]
+		[gamma_0, sigma]: [1e-08, 0.01]
+		[gamma_0, sigma]: [1e-08, 0.1]
+		[gamma_0, sigma]: [1e-08, 1]
+		[gamma_0, sigma]: [1e-08, 10]
+		[gamma_0, sigma]: [1e-08, 100]
+		[gamma_0, sigma]: [1e-08, 1000]
+
+	
+		[gamma_0, sigma]: [1e-07, 0.001]
+		[gamma_0, sigma]: [1e-07, 0.01]
+		[gamma_0, sigma]: [1e-07, 0.1]
+		[gamma_0, sigma]: [1e-07, 1]
+		[gamma_0, sigma]: [1e-07, 10]
+		[gamma_0, sigma]: [1e-07, 100]
+		[gamma_0, sigma]: [1e-07, 1000]
+
+	
+		[gamma_0, sigma]: [1e-06, 0.001]
+		[gamma_0, sigma]: [1e-06, 0.01]
+		[gamma_0, sigma]: [1e-06, 0.1]
+		[gamma_0, sigma]: [1e-06, 1]
+		[gamma_0, sigma]: [1e-06, 10]
+		[gamma_0, sigma]: [1e-06, 100]
+		[gamma_0, sigma]: [1e-06, 1000]
+
+	
+5-fold cross validation is complete!
+
+	Accuracy and Parameters:
+	------------------------
+Accuracy	[gamma_0, sigma]
+--------	----------------
+0.75825		[1e-07, 0.1]
+0.73463		[1e-06, 0.1]
+0.71618		[1e-07, 1]
+0.71618		[1e-07, 10]
+0.71618		[1e-07, 100]
+Classifying on astro/original/test
+Accuracy: 0.68000
+
+
+===============================
+Running over astro/scaled/train
+===============================
+	Performing 5-fold cross validation
+		[gamma_0, sigma]: [1e-08, 0.001]
+		[gamma_0, sigma]: [1e-08, 0.01]
+		[gamma_0, sigma]: [1e-08, 0.1]
+		[gamma_0, sigma]: [1e-08, 1]
+		[gamma_0, sigma]: [1e-08, 10]
+		[gamma_0, sigma]: [1e-08, 100]
+		[gamma_0, sigma]: [1e-08, 1000]
+
+	
+		[gamma_0, sigma]: [1e-07, 0.001]
+		[gamma_0, sigma]: [1e-07, 0.01]
+		[gamma_0, sigma]: [1e-07, 0.1]
+		[gamma_0, sigma]: [1e-07, 1]
+		[gamma_0, sigma]: [1e-07, 10]
+		[gamma_0, sigma]: [1e-07, 100]
+		[gamma_0, sigma]: [1e-07, 1000]
+
+	
+		[gamma_0, sigma]: [1e-06, 0.001]
+		[gamma_0, sigma]: [1e-06, 0.01]
+		[gamma_0, sigma]: [1e-06, 0.1]
+		[gamma_0, sigma]: [1e-06, 1]
+		[gamma_0, sigma]: [1e-06, 10]
+		[gamma_0, sigma]: [1e-06, 100]
+		[gamma_0, sigma]: [1e-06, 1000]
+
+	
+5-fold cross validation is complete!
+
+	Accuracy and Parameters:
+	------------------------
+Accuracy	[gamma_0, sigma]
+--------	----------------
+0.54298		[1e-06, 0.001]
+0.54071		[1e-07, 0.001]
+0.35243		[1e-08, 0.001]
+0.35243		[1e-08, 0.01]
+0.35243		[1e-08, 0.1]
+Classifying on astro/scaled/test
+Accuracy: 0.41225
+Saving figure to SGD-results.pdf
+Saving figure to SGD-results-orig.pdf
+Saving figure to SGD-results-scaled.pdf
+DONE

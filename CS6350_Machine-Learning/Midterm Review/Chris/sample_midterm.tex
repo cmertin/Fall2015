@@ -1,0 +1,183 @@
+\documentclass{article}
+\usepackage[margin=.5in]{geometry}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{graphicx}
+\usepackage{algorithm}
+\usepackage{algpseudocode}
+
+\begin{document}
+\begin{center}
+{\huge \bf CS 6350 Sample Midterm}
+\end{center}
+
+\begin{enumerate}
+\item How would you train a decision tree using the ID3 algorithm if some attributes are missing? (You might get asked to step through this procedure for a small data set like the Tennis data in the lecture.)
+
+	\begin{itemize}
+	\item There are multiple ways to do this, but the most common is to end the branch at that location and choose the most common label at that point of the decision tree.
+	\end{itemize}
+
+
+\item Show that the following dataset is linearly separable by providing a linear threshold unit that correctly classifies the example
+\begin{center}
+\begin{tabular}{|ccc | c |}
+\hline
+$x_{1}$ & $x_{2}$ & $x_{3}$ & $y$\\
+\hline
+0 & 0 & 0 & 0\\
+0 & 0 & 1 & 1\\
+0 & 1 & 0 & 0\\
+0 & 1 & 1 & 1\\
+1 & 0 & 0 & 0\\
+1 & 0 & 1 & 0\\
+\hline
+\end{tabular}
+\end{center}
+
+	\begin{itemize}
+	\item Solution goes here
+	\end{itemize}
+
+
+\item How would you avoid overfitting when you use the decision tree algorithm? Why might shorter decision trees be more robust to noise in the training data?
+
+	\begin{itemize}
+	\item Solution goes here
+	\end{itemize}
+
+
+
+\item (An exercise question from the class lecture) Suppose you want to build a nearest neighbors classifier to predict whether a beverage is a coffee or tea using two features: The volume of the liquid (in milliliters) and the caffeine content (in grams). You collect the following data
+\begin{center}
+\begin{tabular}{|c c | c|}
+\hline
+{\bf Volume (mL)} & {\bf Caffeine (g)} & {\bf Label}\\
+\hline
+238 & 0.026 & Tea\\
+100 & 0.011 & Tea\\
+120 & 0.040 & Coffee\\
+237 & 0.095 & Coffee\\
+\hline
+\end{tabular}
+\end{center}
+
+What is the label for a test point with Volume = 120, Caffeine = 0.013? Why might this be incorrect? How would you fix this problem?
+
+
+	\begin{itemize}
+	\item The "shortest distance" would classify this data as {\em Coffee}, as the distance would only be $0.027$, however this is more than likely wrong because of the different scales of the measurements. A way to fix this would be to normalize the attributes in each feature to correct for this. By doing this, the best guess would that it should be {\em Tea}. This could also be done by looking at the ratio between the volume and caffeine, henceforth dubbed the {\em caffeine density}, but I believe that the caffeine density is not the answer to this question :-( {\scriptsize CS people are dumb}
+	\end{itemize}
+
+
+
+
+\item (An exercise question from the class lectures) What will happen when you choose $K$ to the number of training examples for a $K$-nearest neighbor classifier?
+
+
+	\begin{itemize}
+	\item This breaks the trianing data into $K$-sets, where $K-1$ subsets of the data are trained on and the one that is left out is tested over. Each subset of training data is tested, and the accuracy is done by averaging over each of the subset values. This is done so that the hyperparameters can be tested without revealing the training data and causing over fitting.
+	\end{itemize}
+
+
+
+\item For each function below, state whether it can be written as a linear threshold unit in terms of the variables specified. If it can be written as one, write the linear threshold unit that is equivalent to the function. If not, suggest a transformation of the underlying space so that the function is linear in the new space.
+
+	\begin{enumerate}
+	\item $\neg x_{1}$
+		\begin{itemize}
+		\item Solution goes here
+		\end{itemize}
+
+	\item $x_{1}\vee \neg x_{2}$
+		\begin{itemize}
+		\item Solution goes here
+		\end{itemize}
+
+	\item $(x_{1}\vee \neg x_{2})\wedge (\neg x_{1} \vee x_{3})$
+		\begin{itemize}
+		\item Solution goes here
+		\end{itemize}
+
+	\end{enumerate}
+
+\item Show that the Halving algorithm for the finite concept space $C$ will not make more than $\log\left| C\right|$ mistakes. Apply this to get a limit on the number of mistakes the algorithm will make for the class of $k$-conjunctions of $n$ Boolean variables.
+
+
+	\begin{itemize}
+	\item Solution goes here
+	\end{itemize}
+
+
+
+\item State with an explanation whether the following are true and false:
+	\begin{enumerate}
+	\item The mistake bound model assumes that training and test examples are drawn from the same fixed, but unknown distribution
+		\begin{itemize}
+		\item Solution goes here
+		\end{itemize}
+
+	\item The Perceptron mistake bound theorem guarentees that the algorithm will find a linear separator for {\em any} dataset
+		\begin{itemize}
+		\item Solution goes here
+		\end{itemize}
+
+	\item Online online learning, batch learning does not seek to minimize the number of mistakes that the learner makes
+		\begin{itemize}
+		\item Solution goes here
+		\end{itemize}
+
+	\end{enumerate}
+
+\item Prove the Perceptron mistake bound
+
+	\begin{itemize}
+	\item Solution goes here
+	\end{itemize}
+
+
+\item How many mistakes will the Perceptron algorithm make for disjunctions with $n$ attributes? To answer this, you will first have to identify what $R$ and $\gamma$ are for this concept class
+
+	\begin{itemize}
+	\item Solution goes here
+	\end{itemize}
+
+
+
+\item Prove the Winnow mistake bound
+
+
+	\begin{itemize}
+	\item Solution goes here
+	\end{itemize}
+
+
+
+\item You are given a binary classificaiton dataset where the examples are 100,000 dimensional Boolean vectors. You suspect that the true classifier could not be a function of more than 100 features. Given this information, would you prefer using the Perceptron or Winnow algorithm for learning? Why?
+
+
+	\begin{itemize}
+	\item Solution goes here
+	\end{itemize}
+
+
+
+\item You wish you learn a hidden concept $f$ using $m$ training examples that are drawn from a distribution $D$. If the training set is called $S$ and the hypothesis that your learning generates is $h$, write expressions for the training and generalization errors.
+
+	\begin{itemize}
+	\item Solution goes here
+	\end{itemize}
+
+
+
+
+\item Suppose our learning problem has $n$ binary features. What is the size of the hypothesis space consisting of all decision trees over this space?
+	\begin{itemize}
+	\item $2^{2^{n}}$
+	\end{itemize}
+
+\end{enumerate}
+
+
+\end{document}

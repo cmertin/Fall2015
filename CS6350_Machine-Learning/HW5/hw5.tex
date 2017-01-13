@@ -1,0 +1,48 @@
+\documentclass[12pt, fullpage,letterpaper]{article}
+
+\usepackage[margin=1in]{geometry}
+\usepackage{url}
+\usepackage{amsmath,amsthm,amssymb}
+\usepackage{undertilde}
+\usepackage{cancel}
+\usepackage{pgfplots}
+\usepackage{algorithm, algorithmic}
+\usepgfplotslibrary{polar}
+\usepgflibrary{shapes.geometric}
+\usetikzlibrary{calc}
+
+\pgfplotsset{my style/.append style={axis x line=middle, axis y line=
+middle, xlabel={$x$}, ylabel={$y$}, axis equal }}
+
+\newcommand{\semester}{Fall 2015}
+\newcommand{\assignmentId}{5}
+\newcommand{\releaseDate}{Nov 20, 2015}
+\newcommand{\dueDate}{Dec 8, 2015}
+
+\newcommand{\bx}{{\bf x}}
+\newcommand{\bw}{{\bf w}}
+\newcommand{\Grad}[1]{\vec{\nabla} #1 }
+\renewcommand{\P}[1]{\left( #1\right)}
+\title{CS 5350/6350: Machine Learining \semester}
+\author{Homework \assignmentId\\Christopher Mertin}
+\date{Handed out: \releaseDate\\
+  Due date: \dueDate}
+
+\begin{document}
+\maketitle
+
+\input{general-instructions}
+
+\input{naive-bayes}
+
+\input{em}
+
+\input{experiment}
+
+\input{logistic-regression}
+
+\end{document}
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: t
+%%% End:

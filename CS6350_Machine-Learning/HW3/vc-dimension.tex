@@ -1,0 +1,202 @@
+\section{VC Dimension}
+\label{sec:vc-dimension}
+\begin{enumerate}
+\item ~[5 points] Assume that the three points below can be labeled
+  in any way.  Show with pictures how they can be shattered by a
+  linear classifier.  Use filled dots to represent positive classes
+  and unfilled dots to represent negative classes.
+
+
+  \begin{tikzpicture}
+    \begin{axis}[my style, xtick={-1,0,...,3}, ytick={-1,0,...,3},
+      xmin=-1, xmax=3, ymin=-1, ymax=3]
+      \addplot[mark=*,only marks] coordinates {(2,2)(1,1)(1,2)};
+    \end{axis}
+  \end{tikzpicture}
+
+%%%%%%%%%%%%%%% 1st set
+  \begin{tikzpicture}
+    \begin{axis}[my style, xtick={-1,0,...,3}, ytick={-1,0,...,3},
+      xmin=-1, xmax=3, ymin=-1, ymax=3]
+      \addplot[mark=o,only marks] coordinates {(1,1)};
+      \addplot[mark=*,only marks] coordinates {(1,2)};
+      \addplot[mark=*,only marks] coordinates {(2,2)};
+      \draw [draw=red, dashed, ultra thick] (axis cs: -1,1.5) -- (axis cs: 3,1.5);
+      %\draw [->, draw=red, ultra thick] (axis cs: 1.5,1.5) -- (axis cs: 1.5, 2);
+    \end{axis}
+  \end{tikzpicture}
+  \begin{tikzpicture}
+    \begin{axis}[my style, xtick={-1,0,...,3}, ytick={-1,0,...,3},
+      xmin=-1, xmax=3, ymin=-1, ymax=3]
+      \addplot[mark=*,only marks] coordinates {(1,1)};
+      \addplot[mark=o,only marks] coordinates {(1,2)};
+      \addplot[mark=*,only marks] coordinates {(2,2)};
+      \draw [draw=red, dashed, ultra thick] (axis cs: -.75,0.5) -- (axis cs: 3,3);
+      %\draw [->, draw=red, ultra thick] (axis cs: 1.35,1.75) -- (axis cs: 1.5, 1.5);
+    \end{axis}
+  \end{tikzpicture}
+
+%%%%%%%%%%%%%%% 2nd set
+  \begin{tikzpicture}
+    \begin{axis}[my style, xtick={-1,0,...,3}, ytick={-1,0,...,3},
+      xmin=-1, xmax=3, ymin=-1, ymax=3]
+      \addplot[mark=*,only marks] coordinates {(1,1)};
+      \addplot[mark=*,only marks] coordinates {(1,2)};
+      \addplot[mark=o,only marks] coordinates {(2,2)};
+      \draw [draw=red, dashed, ultra thick] (axis cs: 1.5,-1) -- (axis cs: 1.5,3);
+      %\draw [->, draw=red, ultra thick] (axis cs: 1.5,1.5) -- (axis cs: 1.5, 2);
+    \end{axis}
+  \end{tikzpicture}
+ \begin{tikzpicture}
+    \begin{axis}[my style, xtick={-1,0,...,3}, ytick={-1,0,...,3},
+      xmin=-1, xmax=3, ymin=-1, ymax=3]
+      \addplot[mark=*,only marks] coordinates {(1,1)};
+      \addplot[mark=o,only marks] coordinates {(1,2)};
+      \addplot[mark=o,only marks] coordinates {(2,2)};
+      \draw [draw=red, dashed, ultra thick] (axis cs: -1,1.5) -- (axis cs: 3,1.5);
+      %\draw [->, draw=red, ultra thick] (axis cs: 1.5,1.5) -- (axis cs: 1.5, 2);
+    \end{axis}
+  \end{tikzpicture}
+
+%%%%%%%%%%%%%%% 3rd set
+  \begin{tikzpicture}
+    \begin{axis}[my style, xtick={-1,0,...,3}, ytick={-1,0,...,3},
+      xmin=-1, xmax=3, ymin=-1, ymax=3]
+      \addplot[mark=o,only marks] coordinates {(1,1)};
+      \addplot[mark=o,only marks] coordinates {(1,2)};
+      \addplot[mark=*,only marks] coordinates {(2,2)};
+      \draw [draw=red, dashed, ultra thick] (axis cs: 1.5,-1) -- (axis cs: 1.5,3);
+      %\draw [->, draw=red, ultra thick] (axis cs: 1.5,1.5) -- (axis cs: 1.5, 2);
+    \end{axis}
+  \end{tikzpicture}
+\begin{tikzpicture}
+    \begin{axis}[my style, xtick={-1,0,...,3}, ytick={-1,0,...,3},
+      xmin=-1, xmax=3, ymin=-1, ymax=3]
+      \addplot[mark=o,only marks] coordinates {(1,1)};
+      \addplot[mark=*,only marks] coordinates {(1,2)};
+      \addplot[mark=o,only marks] coordinates {(2,2)};
+      \draw [draw=red, dashed, ultra thick] (axis cs: -.75,0.5) -- (axis cs: 3,3);
+      %\draw [->, draw=red, ultra thick] (axis cs: 1.35,1.75) -- (axis cs: 1.5, 1.5);
+    \end{axis}
+  \end{tikzpicture}
+
+%%%%%%%%%%%%%%% 4th set
+  \begin{tikzpicture}
+    \begin{axis}[my style, xtick={-1,0,...,3}, ytick={-1,0,...,3},
+      xmin=-1, xmax=3, ymin=-1, ymax=3]
+      \addplot[mark=*,only marks] coordinates {(1,1)};
+      \addplot[mark=*,only marks] coordinates {(1,2)};
+      \addplot[mark=*,only marks] coordinates {(2,2)};
+      \draw [draw=red, dashed, ultra thick] (axis cs: -1,-1) -- (axis cs: 3,2);
+      %\draw [->, draw=red, ultra thick] (axis cs: 1.5,1.5) -- (axis cs: 1.5, 2);
+    \end{axis}
+  \end{tikzpicture}
+\begin{tikzpicture}
+    \begin{axis}[my style, xtick={-1,0,...,3}, ytick={-1,0,...,3},
+      xmin=-1, xmax=3, ymin=-1, ymax=3]
+      \addplot[mark=o,only marks] coordinates {(1,1)};
+      \addplot[mark=o,only marks] coordinates {(1,2)};
+      \addplot[mark=o,only marks] coordinates {(2,2)};
+       \draw [draw=red, dashed, ultra thick] (axis cs: -1,-1) -- (axis cs: 3,2);
+      %\draw [->, draw=red, ultra thick] (axis cs: 1.35,1.75) -- (axis cs: 1.5, 1.5);
+    \end{axis}
+  \end{tikzpicture}
+
+  
+\item {\bf VC-dimension of axis aligned rectangles in $\mathbb{R}^d$}:
+  Let $H^d_{rec}$ be the class of axis-aligned rectangles in
+  $\mathbb{R}^d$. When $d=2$, this class simply consists of rectangles
+  on the plane, and labels all points strictly outside the rectangle
+  as negative and all points on or inside the rectangle as positive.
+  In higher dimensions, this generalizes to $d$-dimensional boxes,
+  with points outside the box labeled negative.
+
+  \begin{enumerate}
+  \item ~[10 points] Show that the VC dimension of $H^2_{rec}$ is 4.
+
+\begin{tikzpicture}
+    \begin{axis}[my style, xtick={-1,0,...,3}, ytick={-1,0,...,3},
+      xmin=-1, xmax=3, ymin=-1, ymax=3]
+      \addplot[mark=*,only marks] coordinates {(.2,1.8)};
+      \addplot[mark=*,only marks] coordinates {(2.8,.2)};
+      \addplot[mark=o,only marks] coordinates {(3.2,1)};
+      \addplot[mark=o,only marks] coordinates {(1.5,2.2)};	
+       \draw [draw=blue, dashed, ultra thick] (axis cs: 0,0) -- (axis cs: 0,2);
+       \draw [draw=blue, dashed, ultra thick] (axis cs: 0,2) -- (axis cs: 3,2);
+       \draw [draw=blue, dashed, ultra thick] (axis cs: 3,2) -- (axis cs: 3,0);
+      \draw [draw=blue, dashed, ultra thick] (axis cs: 3,0) -- (axis cs: 0,0);
+      %\draw [->, draw=red, ultra thick] (axis cs: 1.35,1.75) -- (axis cs: 1.5, 1.5);
+    \end{axis}
+  \end{tikzpicture}
+
+\begin{itemize}
+\item Need 4 because we need to define the outer regions of the box. Since the box is axis-aligned, that means that two of the sides are already defined so we need to restrict them such that the other two are as well. We then need to define the {\em inside} of the box by having {\em at least} two points to define the max. 5 points in this instance cannot be shattered. 
+\end{itemize}
+
+
+  \item ~[10 points] Generalize your argument from the previous proof
+    to show that for $d$ dimensions, the VC dimension of $H^d_{rec}$
+    is $2d$.
+\begin{itemize}
+\item To generalize the logic in the above step, each dimension needs at least 2 points so that a line can shatter them. In the previous example, the blue line on the right shatters the points $(2.8,0.2)$ and $(3.2,1.0)$, as does the line for the other two points. Therefore, for the line to shatter the points, there must be two in each dimension. It is only restrictecd to 2 because the box is axis-aligned meaning that two of the lines run along the axis of the box and are therefore already defined.
+\end{itemize}
+  \end{enumerate}
+  
+\item In the lectures, we considered the VC dimensions of infinite
+  concept classes. However, the same argument can be applied to finite
+  concept classes too. In this question, we will explore this setting.
+
+  \begin{enumerate}
+  \item ~[10 points] Show that for a finite hypothesis class
+    $\mathcal{C}$, its VC dimension can be at most
+    $\log_2\left(|\mathcal{C}|\right)$. (Hint: You can use
+    contradiction for this proof. But not necessarily!)
+
+\begin{itemize}
+\item First, we can assume that $VC(\left|\mathcal{C}\right|)=d$, where $d$ is the number of dimensions and $\left|\mathcal{C} \right|$ is the size of the hypothesis class. From here, we can come to the conclusion that there are $2^{d}$ {\em unique} hypotheses in the hypothosis space in order to shatter $d$ instances. Therefore, we have the following
+
+\begin{align*}
+2^{d} &\leq \left| \mathcal{C}\right|\\
+d\log_{2}(2) &\leq \log_{2}(\left| \mathcal{C}\right|)\\
+VC(\left| \mathcal{C}\right|) = d &\leq \log_{2}(\left| \mathcal{C}\right| )
+\end{align*}
+
+Where the last relation comes about since $VC(\left| \mathcal{C}\right|) = d$.
+\end{itemize}
+  \item ~[5 points] Find an example of a class $\mathcal{C}$ of
+    functions over the real interval $X = [0,1]$ such that
+    $\mathcal{C}$ is an {\bf infinite} set, while its VC dimension is
+    exactly one.
+
+\begin{tikzpicture}
+\node at (4.15,-.25) {$a$};
+
+    \begin{axis}[my style, xtick={0,1}, ytick={0,.5,1,1.5,2},
+      xmin=0, xmax=1, ymin=-0, ymax=2]
+\draw[fill=red,opacity=.7]
+    (axis cs:0,0) -- (axis cs:0,1.75) -- (axis cs:.75,1.75) -- (axis cs:.75,0) -- cycle ;
+\draw[fill=blue,opacity=.7]
+    (axis cs:.75,0) -- (axis cs:.75,1.75) -- (axis cs:1,1.75) -- (axis cs:1,0) -- cycle ;
+      %\draw [->, draw=red, ultra thick] (axis cs: 1.35,1.75) -- (axis cs: 1.5, 1.5);
+    \end{axis}
+  \end{tikzpicture}
+
+\begin{itemize}
+\item Such that the dividing line is at some point $(0,a)$ and $(a,1)$ where one region is marked as positive and the other as negative. By confining the points to these two regions, there are an infinite number of points in each region but they can be classified by a single line.
+\end{itemize}
+  \item ~[5 points] Give an example of a {\bf finite} class
+    $\mathcal{C}$ of functions over the same domain $X = [0,1]$ whose
+    VC dimension is exactly $\log_2(|\mathcal{C}|)$.
+
+\begin{itemize}
+\item We can use the example from question 1 of this section as a case. If you have $N$ literals then you will have a concept class size of $2^{N}$, which would have a VC-dimension of $N$ if you take the size to be $\log_{2}\left( 2^{N}\right)$.
+\end{itemize}
+
+  \end{enumerate}
+  
+\end{enumerate}
+
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: "hw3"
+%%% End:

@@ -1,0 +1,82 @@
+\section{HAPPY HOLIDAYS Extra Credit}
+\label{sec:logistic-regression}
+\textbf{25pts} You've seen stochastic gradient decent applied to
+logistic regression. Now we ask why this is a viable strategy for
+optimizing this objective. Prove that SGD will find the optimal value
+for this function. This can be done by demonstrating that the
+objective is convex. There are many ways to prove this. One of the
+most straightforward ways to show this is demonstrate that the Hessian
+is positive-semidefninite.
+\begin{enumerate}
+\item ~[5 points] Find the Gradient of:
+\[\sum_{i=1}^m \log\P{1+ \exp(-y_i\mathbf{w}^T\mathbf{x}_i)} + \frac{1}{\sigma^2}\mathbf{w}^T\mathbf{w}\]
+\begin{itemize}
+\item The gradient of any function is defined as
+\begin{align}
+\Grad{f(\mathbf{x})} &= \sum_{i=1}^{\mathcal{D}}\frac{\partial f(\mathbf{x})}{\partial x_{i}}\hat{e}_{i}\\
+\intertext{where $\mathcal{D}$ is the dimensionality/number of dependent variables in $f(\mathbf{x})$ and $\hat{e}_{i}$ is the normal vector for that coordinate -- a value of 1 for all dimensions in cartesian space. This requires a derivative over $\mathbf{x}$ and $\mathbf{w}$ which is}
+\Grad{f(\mathbf{x}_{i})} &= \sum_{i=1}^{\mathcal{D}}\frac{\partial f(\mathbf{x}_{i})}{\partial \mathbf{w}} + \frac{\partial f(\mathbf{x}_{i})}{\partial \mathbf{x}_{i}}\\
+\intertext{We can rewrite our equation $f(\mathbf{x}_{i})$ to make it easier to differentiate}
+f(\mathbf{x}_{i}) &= \sum_{i=1}^{n}\log\P{1+\exp(-y_{i}\mathbf{w}^{T}\mathbf{x}_{i})} + \frac{\left|\left| \mathbf{w}\right|\right|^{2}}{\sigma^{2}}\\
+\intertext{where the derivative of a sum of a function is the sum of the derivative of that function, so the differentials can be brought inside the sum and the respected differentials can be taken and the partial derivative outside the braces denotes that segment representing that differential of $f(\mathbf{x}_{i})$}
+\Grad{f(\mathbf{x}_{i})} &= \left\{ \sum_{i=1}^{n}\frac{-y_{i}\mathbf{x}_{i}}{\exp(y_{i}\mathbf{w}^{T}\mathbf{x}_{i})+1} + \frac{2\left|\left|\mathbf{w}\right|\right|}{\sigma^{2}}\right\}_{\frac{\partial f}{\partial \mathbf{w}}} + \left\{ \sum_{i=1}^{n}\frac{-y_{i}\mathbf{w}^{T}}{\exp(y_{i}\mathbf{w}^{T}\mathbf{x}_{i})+1} \right\}_{\frac{\partial f}{\partial \mathbf{x}}}
+\end{align}
+\end{itemize}
+\item ~[5 points] Find the Hessian of (a).
+\begin{itemize}
+\item The Hessian Matrix is defined as
+\begin{align}
+\boldsymbol{\mathcal{H}}\left(f(\mathbf{x}_{i})\right) &= \left[ \begin{array}{l l}
+\frac{\partial^{2}f}{\partial \mathbf{x}_{i}^{2}} & \frac{\partial^{2}f}{\partial \mathbf{x}_{i}\partial \mathbf{w}}\\
+\frac{\partial^{2}f}{\partial \mathbf{w} \partial \mathbf{x}_{i}} & \frac{\partial^{2}f}{\partial \mathbf{w}^{2}}
+\end{array} \right]\\
+\frac{\partial^{2}f(\mathbf{x}_{i})}{\partial \mathbf{x}_{i}^{2}} &= \sum_{i=1}^{n} \frac{\left|\left|\mathbf{w}\right|\right|^{2}y_{i}^{2}e^{\varsigma_{i}}}{\left(e^{\varsigma_{i}}+1\right)^{2}}\\
+\frac{\partial^{2}f(\mathbf{x}_{i})}{\partial \mathbf{x}_{i}\partial \mathbf{w}} &= \sum_{i=1}^{n}\frac{y_{i}\left[e^{\varsigma_{i}}\left(\varsigma_{i}-1\right)-1\right]}{\left(e^{\varsigma_{i}}+1\right)^{2}}\\
+\frac{\partial^{2}f(\mathbf{x}_{i})}{\partial \mathbf{w} \partial \mathbf{x}_{i}} &= \frac{\partial^{2}f(\mathbf{x}_{i})}{\partial \mathbf{x}_{i}\partial \mathbf{w}} = \sum_{i=1}^{n}\frac{y_{i}\left[e^{\varsigma_{i}}\left(\varsigma_{i}-1\right)-1\right]}{\left(e^{\varsigma_{i}}+1\right)^{2}}\\
+\frac{\partial^{2}f(\mathbf{x}_{i})}{\partial \mathbf{w}^{2}} &= \sum_{i=1}^{n}\frac{\left|\left|\mathbf{x}_{i}\right|\right|^{2}y_{i}^{2}e^{\varsigma_{i}}}{\left(e^{\varsigma_{i}}+1\right)^{2}}+\frac{2}{\sigma^{2}}
+\intertext{where $\varsigma_{i} = \mathbf{w}^{T}\mathbf{x}_{i}y_{i}$}\nonumber
+\end{align}
+\end{itemize}
+\item ~[10 points] prove that the Hessian is positive semidefinite.
+\begin{itemize}
+\item A matrix is {\em positive semidefinite} if and only if $\mathbf{b}^{T}\boldsymbol{\mathcal{H}}\mathbf{b}>\vec{0}\ \forall\ \mathbf{b}\neq\vec{0}$, where $\mathbf{b}$ is a vector. $\boldsymbol{\mathcal{H}}(f(\mathbf{x}_{i}))$ can be re-written as, by using Einstein Summation Notation
+\begin{align}
+\boldsymbol{\mathcal{H}} &= \left[ \begin{array}{l l}
+\frac{\left|\left|\mathbf{w}\right|\right|^{2}y_{i}^{2}e^{\varsigma_{i}}}{\left(e^{\varsigma_{i}}+1\right)^{2}} & \frac{y_{i}\left[e^{\varsigma_{i}}\left(\varsigma_{i}-1\right)-1\right]}{\left(e^{\varsigma_{i}}+1\right)^{2}}\\
+\frac{y_{i}\left[e^{\varsigma_{i}}\left(\varsigma_{i}-1\right)-1\right]}{\left(e^{\varsigma_{i}}+1\right)^{2}} & \frac{\left|\left|\mathbf{x}_{i}\right|\right|^{2}y_{i}^{2}e^{\varsigma_{i}}}{\left(e^{\varsigma_{i}}+1\right)^{2}}+\frac{2}{\sigma^{2}}
+\end{array} \right]\\
+\intertext{where $\varsigma_{i} = \mathbf{w}^{T}\mathbf{x}_{i}y_{i}$}\nonumber
+\intertext{We only care about if it is going to be negative, so without loss of generality we can remove all the norms, squares, and denominators since they are {\em always} positive. We can also generalize our vector $\mathbf{b}$ as $\mathbf{b} = \left(\alpha_{1},\alpha_{2}\right)^{T}$, where $\alpha_{1}$ and $\alpha_{2}$ can be anything}
+\boldsymbol{\mathcal{H}}^{\prime} &= \left[ \begin{array}{l l}
+e^{\varsigma_{i}} & e^{\varsigma_{i}}(\varsigma_{i}-1)-1\\
+e^{\varsigma_{i}}(\varsigma_{i}-1)-1 & e^{\varsigma_{i}}+\frac{2}{\sigma^{2}}
+\end{array} \right]\\
+\intertext{where $\mathbf{b}^{T}\boldsymbol{\mathcal{H}}^{\prime}\mathbf{b}$ can be generalized with the following result}
+\mathbf{b}^{T} \left[\begin{array}{l l} x_{1} & x_{2}\\ x_{3} & x_{4}\end{array}\right]    \mathbf{b} &= x_{1}\alpha_{1}^{2} + x_{4}\alpha_{2}^{2} + \alpha_{1}\alpha_{2}(x_{2}+x_{3})\\
+\intertext{when applied to $\boldsymbol{\mathcal{H}}^{\prime}$ results in}
+\mathbf{b}^{T}\boldsymbol{\mathcal{H}}^{\prime}\mathbf{b} &= \alpha_{1}^{2}e^{\varsigma_{i}} + \alpha_{2}^{2}\left(e^{\varsigma_{i}}+\frac{2}{\sigma^{2}}\right) + 2\alpha_{1}\alpha_{2}\left(e^{\varsigma_{i}}(\varsigma_{i}-1)-1 \right)\\
+\intertext{Where there's two instances that we need to prove. (1) If $\alpha_{1},\alpha_{2}>0$ then $\alpha_{1}\alpha_{2}(x_{2}+x_{3})>0$ and (2) if $\alpha_{1}>0$ and $\alpha_{2}<0$, then $\alpha_{1}^{2}x_{1}+\alpha_{2}^{2}x_{2}>\alpha_{1}\alpha_{2}(x_{2}+x_{3})$.}
+\alpha_{1},\alpha_{2}>0 \Rightarrow \alpha_{1}\alpha_{2}(x_{2}+x_{3})>0\\
+\alpha_{1}\alpha_{2}(x_{2}+x_{3}) &= 2\alpha_{1}\alpha_{2}\varsigma_{i}e^{\varsigma_{i}}-2e^{\varsigma_{i}}-2>0\\
+&\underbrace{\varsigma_{i}e^{\varsigma_{i}}-e^{\varsigma_{i}}-1}_{>\ 0\text{ if }\varsigma_{i}e^{\varsigma_{i}}>e^{\varsigma_{i}}-1};\quad\varsigma_{i}\neq 0\\
+&\Rightarrow \varsigma_{i}e^{\varsigma_{i}}>e^{\varsigma_{i}}-1\\
+&\Rightarrow \varsigma_{i}>1-e^{-\varsigma_{i}}\qed
+\intertext{where $\varsigma_{i}\geq 1\ \forall\ i$. Now for the alternative case where if $\alpha_{1}>0$ and $\alpha_{2}<0$, that $\alpha_{1}^{2}x_{1}+\alpha_{2}^{2}x_{2}>\alpha_{1}\alpha_{2}(x_{2}+x_{3})$}
+\alpha_{1}^{2}e^{\varsigma_{i}}+\alpha_{2}^{2}\left(e^{\varsigma_{i}}+\frac{2}{\sigma^{2}}\right) &> \alpha_{1}\alpha_{2}\left[ e^{\varsigma_{i}}(\varsigma_{i}-1)-1 \right]\\
+\left[ \alpha_{1}^{2} + \alpha_{2}^{2} + \frac{2}{\sigma^{2}e^{\varsigma_{i}}}\right] &> \left[ \alpha_{1}\alpha_{2}(\varsigma_{i}-1)-e^{-\varsigma_{i}} \right]\\
+\intertext{if $\varsigma_{i}\gg 1$}
+\underbrace{\alpha_{1}^{2}+\alpha_{2}^{2}}_{>\ 0} &> \underbrace{\alpha_{1}\alpha_{2}}_{<\ 0}\underbrace{\left(\varsigma_{i}-1 \right)}_{>\ 0}\qed
+\intertext{for $\varsigma_{i}\geq 0$ (always)}
+\underbrace{\alpha_{1}^{2}+\alpha_{2}^{2}}_{>\ 0}+\underbrace{e^{-\varsigma_{i}}}_{\geq\ 1}\underbrace{\left(\frac{2}{\sigma^{2}}+1\right)}_{>\ 0} &> \underbrace{\alpha_{1}\alpha_{2}}_{<\ 0}\underbrace{(\varsigma_{i}-1)}_{>\ 0}\qed
+\end{align}
+\end{itemize}
+\item ~[5 points] Why does this prove that we are GUARANTEED to have within $\epsilon>0$ of the right answer?
+\begin{itemize}
+\item Because the Hessian Matrix of the function is positive-semidefinite, the given function is convex. On top of which, since we are maximizing the function, we are required to step with the gradient and stop when the slope is less than some tolerance $(\epsilon)$. The gradient gives the slope/direction of the greatest change and we ``walk'' in teh direction which makes the gradient zero. We are guarenteed that one exists since the Hessian is positive-semidefinite.
+\end{itemize}
+\end{enumerate}
+
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: "hw5"
+%%% End:

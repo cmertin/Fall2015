@@ -1,0 +1,38 @@
+
+Sanity Check. Running Perceptron Algorithm on Table 2
+Number of Updates: 4
+Weight Vector:
+[ 0.   0.1  0.1  0.1]
+
+Running over the 10-Dimensional data
+Normal Perceptron
+Updates: 35 Accuracy: 1.0
+Margin Perceptron
+Updates: 33 Accuracy: 1.0
+
+Running Perceptron over the d0 data
+    Dimension: 10
+    Dimension: 20
+    Dimension: 30
+    Dimension: 40
+    Dimension: 50
+    Dimension: 60
+    Dimension: 70
+    Dimension: 80
+    Dimension: 90
+    Dimension: 100
+Plots d0_updates.pdf and d0_accuracy.pdf saved
+
+Running Perceptron over the d1 data
+    Dimension: 10
+    Dimension: 20
+    Dimension: 30
+    Dimension: 40
+    Dimension: 50
+    Dimension: 60
+    Dimension: 70
+    Dimension: 80
+    Dimension: 90
+    Dimension: 100
+Plots d1_updates.pdf and d1_accuracy.pdf saved
+Done!

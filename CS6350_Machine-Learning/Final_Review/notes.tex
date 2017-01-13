@@ -1,0 +1,737 @@
+\documentclass{article}
+\usepackage[margin=.75in]{geometry}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{graphicx}
+\usepackage{algorithm}
+\usepackage{algorithmic}
+\usepackage{enumitem}
+\usepackage{xcolor}
+\usepackage{float}
+\newcommand{\Norm}[1]{\left|\left| #1\right|\right|}
+\newcommand{\abs}[1]{\left| #1\right|}
+\newcommand{\BigO}[1]{\mathcal{O}\left( #1\right)}
+\renewcommand{\dim}{\mathcal{D}}
+\newcommand{\Ex}[1]{\left< #1\right>}
+\newcommand{\Grad}[1]{\vec{\nabla} #1 }
+\newcommand{\sgn}[1]{\text{sgn}\left( #1\right)}
+
+
+\setlength\parindent{0pt}
+
+\begin{document}
+\begin{center}
+{\huge \bf CS 6350 Final Exam Review (Notes)}
+\end{center}
+
+{\large PAC Learning}
+\begin{itemize}
+\item Instance Space: $\{X\}$, the set of examples
+\item Concept Space: $\{C\}$, the set of possible target functions: $f\in C$ is the hidden target function.
+\begin{itemize}
+\item {\em Example:} All $n$-conjunctions; all $n$-dimensional linear functions,...
+\end{itemize}
+\item Hypothesis Space: $\{H\}$, the set of all possible hypotheses that the learning algorithm explores
+\item Training Instances: $Sx\{-1,1\}$, Positive and negative examples of the target concept ($S$ is a finite subset of $x$)
+\item Want Hypothesis $h\in H$ such that $h(x)=f(x)$
+\end{itemize}
+
+{\bf Error of hypothesis:} Given a distribution $\mathcal{D}$ over examples, the {\em error} of a hypothesis $h$ with respect to a target concept $f$ is $err_{\mathcal{D}}(h) = Pr_{x\sim\mathcal{D}}\left[h(x)\neq f(x)\right]$.
+
+{\bf Empirical error:} Contrast true error against emperical error. For a target concept $f$, the emperical error of a hypothesis $h$ is defined for a training set $S$ as the fraction of examples $x\in S$ for which functions $f\neq h$, denoted by $err_{s}(h)$.
+
+{\bf Overfitting:} When the emperical error on the training set $err_{s}(h)$ is substancially lower than $err_{\mathcal{D}}(h)$.
+
+{\large Batch Learning}
+
+{\em Goal:} To devise good learning algorithms that avoid overfitting
+\begin{itemize}
+\item Not fooled by functions that only appear to be good because they explain the training set very well
+\end{itemize}
+
+\begin{center}
+\noindent\parbox[t]{.4\textwidth}{\raggedright%
+\textbf{\textit{Online Learning}}
+\begin{itemize}[topsep=0pt,itemsep=-2pt,leftmargin=13pt]
+\item No assumptions about the distribution of examples
+\item Learning is a sequence of trials
+\begin{itemize}[topsep=0pt,itemsep=-2pt,leftmargin=13pt]
+\item Learner sees a single example, makes prediction. If there is a mistake, then update the hypothesis
+\end{itemize}
+\item {\em Goal:} To bound the total number of mistakes 
+\end{itemize}
+}%
+\parbox[t]{.4\textwidth}{\raggedright%
+\textbf{\textit{Batch Learning}}
+\begin{itemize}[topsep=0pt,itemsep=-2pt,leftmargin=13pt]
+\item Examples are drawn from a fixed (perhaps unknown) probability distribution $\mathcal{D}$ over the instance space
+\item Learning uses a training set $S$, drawn from the distribution $\mathcal{D}$
+\item {\em Goal:} Find hypothesis that has a low chance of making a mistake on a new example in $\mathcal{D}$
+\end{itemize}
+}
+\end{center}
+
+Suppose we are learning a conjunctive concept with a dimensional boolean feature using $m$ training examples. If 
+
+\begin{align}
+m > \frac{n}{\epsilon}\left(\log(n)-\log(\delta)\right)
+\end{align}
+
+then with probability $> 1-\delta$, the error of the learned hypothesis $err_{\mathcal{D}}(h)$ will be less than $\epsilon$
+
+{\em Proof}
+
+We can say that $p(z)$ is the probability that after training $z$ causes a mistake. The {\em Union Bound} states: For a set of events, the probability that at least one happens is less than the sum of the probabilities of random events. Using this, we can get a bound such as
+
+\begin{align}
+err_{\mathcal{D}}(h)&\leq\sum_{z\in h}p(z)\\
+\intertext{Where we call the literal $z$ bad if $p(z)>\frac{\epsilon}{n}$ where $n$ is the dimensionality. Without loss of generality, we can let $z$ be a bad literal. The probability that it will not be eliminated by one training example is defined as}
+Pr(z\text{ survives one example}) &< 1-Pr(z\text{ eliminated by one example})\\
+             & 1-\frac{\epsilon}{n}
+\intertext{which is equivalent to the probability that $z$ isn't eliminated for that one example. This can be generalized for $m$ examples via multiplication of probabilities, which results in}
+Pr(z\text{ not elminated for $m$ examples}) &< \left(1-\frac{\epsilon}{n}\right)^{m}
+\intertext{where we can have {\em at most} $n$ bad literals, which results in}
+Pr(\text{\underline{Any} bad literals survives an example}) &< n\left(1-\frac{\epsilon}{n}\right)^{m}\label{eq:batch_prob}
+\intertext{We want to minimize the probability in Equation~(\ref{eq:batch_prob}), as we want the probability that any $z$ survives all of them is less than $\delta$}
+n\left(1-\frac{\epsilon}{n}\right)^{m} &< \delta
+\intertext{where we know from Taylor Series Expansion $e^{-x}=1-x+\frac{x^{2}}{2!}-\cdots$. We can use a first order approximation to approximate our quantity as being exponential, resulting in}
+ne^{-\frac{m\epsilon}{n}} &< \delta\\
+\text{solve for $m$} &\rightarrow m>\frac{n}{\epsilon}\left(\log\left(\frac{n}{\delta}\right)\right)\qed
+\end{align}
+
+If $m$ has this property, then we can say
+
+\begin{itemize}
+\item Probability of no bad literals: $1-\delta$
+\item {\em i.e.} with probability $1-\delta$, we will have $err_{\mathcal{D}}(h)<\epsilon$
+\end{itemize}
+
+{\em Realistic Expectation of a Good Learner:} With a high probability, the learner will learn a close approximation to the target concept
+
+{\em PAC Learning:}
+
+\begin{itemize}
+\item Given small parameters $\delta$, $\epsilon$, there is a probability of $1-\delta$ a learner produces $h(x)$ with an error of at most $\epsilon$
+\end{itemize}
+
+{\em Consistent Distribution Assumption:} Only way we can do this. We assume that the data in $\mathcal{D}$ is of a consistent distribution throughout the data and it isn't built by multiple distributions
+
+We also need to ipose two limitations:
+\begin{itemize}
+\item {\em Polynomial \underline{sample complexity}}:
+\begin{itemize}
+\item Is there enough info in the sampel to distinguish the hypothesis $h$ that approximates $f$?
+\end{itemize}
+\item {\em Polynomial \underline{time complexity}}:
+\begin{itemize}
+\item Is there an efficient algorithm to sample the data and produce $h$?
+\end{itemize}
+\end{itemize}
+
+{\large Occam's Razor}
+
+{\bf Claim:} The probability $h\in H$ that:
+\begin{itemize}
+\item Is consistent (yet bad) with $m$ examples
+\item Has error $err_{\mathcal{D}}(h)>\epsilon$
+\end{itemize}
+is less than $\abs{H}(1-\epsilon)^{m}$
+
+{\em Proof:} Let $h$ be such a bad hypothesis with error$>\epsilon$. The probability that $h$ is consistant with one exapmle is $Pr(f(x)=h(x))<1-\epsilon$. 
+
+\begin{align}
+\intertext{The given training set consists of $m$ examples drawn independently so, the probability that $h$ is consistent with $m$ examples$<(1-\epsilon)^{m}$. From this, the probability that a bad hypothesis$\in H$ is consistent with no examples is $\abs{H}(1-\epsilon)^{m}$. We want to bound this and make it small, so we say}
+\abs{H}(1-\epsilon)^{m} &< \delta\\
+\ln\left(\abs{H}\right) + m\ln(1-\epsilon) &< \ln(\delta)
+\intertext{where we can again use a first order Taylor Series Approximation of $e^{-x}$ on $(1-\epsilon)$, and then solve for $m$ which gives}
+m & > \frac{1}{\epsilon}\left(\ln\left(\abs{H}\right)-\ln(\delta)\right)
+\intertext{where the probability of a hypothesis $h\in H$ is consistent with a training set of size $m$ is $1-\delta$ and will have an error$<\epsilon$ on future examples}
+\end{align}
+
+This is called {\em Occam's Razor} because it expresses a preference towards smaller hypothesis spaces.
+
+{\em What functions are PAC Learnable?}
+
+\begin{itemize}
+\item $\abs{H}=$ number of conjunctions of $n$ variables = $3^{n}$ so $\ln(\abs{H}) = n\ln(3)$
+\item Number of examples needed such that $m > \frac{1}{\epsilon}\left(\ln(\abs{H}) - \ln(\delta)\right) = \frac{1}{\epsilon}\left(n\ln(3)-\ln(\delta)\right)$ where $\delta$ is the confidence of finding a hypothesis space to classify the data
+\end{itemize}
+
+Not all functions are PAC Learnable though. The following is an example of a few functions which are both PAC Learnable and aren't.
+
+\begin{itemize}
+\item {\bf 3-CNF}: $(\ell_{1,1}\vee\ell_{1,2}\vee\ell_{1,3})\wedge(\ell_{2,1}\vee\ell_{2,2}\vee\ell_{2,3})\wedge\cdots$, where each conjunct can have at most 3 literals (variables or its negatation). 
+\begin{itemize}
+\item {\em Sample Complexity}:
+\begin{itemize}
+\item Number of conjuncts = $\BigO{(2n)^{3}}$
+\item A $3$-CNF is a conjunction with this many variables
+\item $\abs{H} = $ number of 3-CNF's = $\BigO{2^{(2n)^{3}}}$
+\item $\log(\abs{H}) = \BigO{n^{3}}$
+\end{itemize}
+\end{itemize}
+\item {\bf General Boolean Functions}:
+\begin{itemize}
+\item $\abs{H} = $ number of boolean functions exist with $n$ variables: $2^{2^{n}}$
+\item $\log(\abs{H}) = 2^{n}\log(2)$ which is exponential in $n$ so it is {\bf not} PAC Learnable
+\end{itemize}
+\end{itemize}
+
+The following goes over a small list of functions and their sample complexity
+
+\begin{itemize}
+\item {\bf $\boldsymbol{k}$-CNF}: Conjunctions of any number hof clauses where each disjunctive clause has at most $k$ literals
+\item {\bf $\boldsymbol{k}$-clause-CNF}: Conjunctives have at most $k$-disjunctive clauses
+
+\begin{align*}
+f &= C_{1}\wedge C_{2}\wedge\cdots \wedge C_{k}\\
+C_{i} &= \ell_{1}\vee \ell_{2}\vee \cdots \vee \ell_{n}\\
+\ln\left(\abs{\text{$k$-caluse-CNF}}\right) &= \BigO{kn}
+\end{align*}
+
+\item {\bf $\boldsymbol{k}$-DNF}: Disjunctions of any number of terms wher eeach conjunctive term has at most $k$-literals
+
+\begin{align*}
+f &= T_{1}\vee T_{2}\vee\cdots\vee T_{n}\\
+T_{i} &= \ell_{1}\wedge\ell_{2}\wedge\cdots\wedge\ell_{k}
+\end{align*}
+
+\item {\bf $\boldsymbol{k}$-term-DNF}: Disjunctions of at most $k$-conjunctive terms. $\abs{H}=k\text{-CNF}$ since a $k$-term-DNF can be written as a $k$-CNF
+\end{itemize}
+
+{\large Agnostic Learning}
+
+\begin{itemize}
+\item So far assumed that learning algorithms would find a concept
+\item What if: For a given data set, you're trying to learn a given concept $f$ by using $h\in H$, but $f\notin H$?
+\end{itemize}
+
+With agnostic learning, you're not guarenteed that the training error will be zero.
+
+{\em Goal}: Find a classifier $h\in H$ with a low training error
+
+\begin{align}
+err_{s}(h) &= \frac{\abs{\{f(x)\neq h(x),x\in S\}}}{m}
+\intertext{which defines the fraction of traiing examples that were missclassified. We {\em want} a guarentee that a hypothesis with a small training error will have a good accuracy on unseen examples}
+err_{\dim}(h) &= Pr_{x\sim\dim}(f(x)\neq h(x))
+\end{align}
+
+What we need to look at are the {\em tail bounds}: how far a random variable can get from its mean. This can be done with a few different inequalities
+
+\begin{itemize}
+\item {\em Markov's Inequality}: Bounds the probability that a non-negative random variable exceedes a fixed value
+
+\begin{align}
+P(x\geq a) &\leq \frac{\Ex{x}}{a}
+\end{align}
+
+\item {\em Chebyshev's Inequality}: Bounds the probability that a random variable differs from its expected value by more than a fixed number of standard deviations
+
+\begin{align}
+P(\abs{x-\mu}\geq k\sigma) &\leq \frac{1}{k^{2}}
+\end{align}
+
+We want to bound the sums of random variables since the training error depends on the number of errors in the training set. We can do so with the following inequality
+
+\item {\bf Hoeffding's Inequality}: Upper bounds on how much the sum of a set of random variables differs from its expected value
+
+\begin{align}
+P(\mu>\bar{\mu}+\epsilon) &\leq e^{-2m\epsilon^{2}}
+\end{align}
+
+where $\mu$ is the espected mean, and $\bar{\mu}$ is the empirical mean (the mean over $m$ trials). The empirical mean will not be too far from the expected mean if there are many samples. Hoeffding's Inequality also quantifies the convergence of this since it exponentially decays.
+\end{itemize}
+
+{\em Applying this to Agnostic Learning}
+
+Suppose we consider the true error (generalized error) $err_{\dim}(h)$ to be a random variable. The training error over $m$ examples $err_{s}(h)$ is the empirical estimate of this true error. By Hoeffding's Inequality:
+
+\begin{align}
+P(err_{\dim}(h) &> err_{s}(h) + \epsilon) \leq 2e^{-2m\epsilon^{2}}\\
+err_{\dim}(h) &= Pr_{x\sim\dim}(f(x)\neq h(x))\\
+err_{s}(h) &= \frac{\abs{\{f(x)\neq h(x),x\in S\}}}{m}
+\end{align}
+
+Therefore, the probability that a single hypothesis $h$ has an empirical error more than $\epsilon$ away from the true error is bounded by $2e^{-2m\epsilon^{2}}$. Therefore, to achieve this, the learner looks for the best $h$ possible to minimize the error. The probability that there is a hypothesis in $H$ whose training error is $\epsilon$ away from the true error is bounded by
+
+\begin{align}
+P(\exists h,err_{\dim}(h)&>err_{s}(h)+\epsilon) \leq \abs{H}e^{-2m\epsilon^{2}}\\
+\intertext{we want it to be bounded by some value $\delta$ which we can make arbitrarily small}
+\abs{H}e^{2m\epsilon^{2}} & \leq \delta\\
+m & \geq \frac{1}{2\epsilon^{2}}\left(\ln(\abs{H}) - \ln(\delta)\right)
+\end{align}
+
+{\em Guarentee}: Probability $1-\delta$ that the training error is not off by more than $\epsilon$ from the generalized error. We can expand this to the {\em generalization bound}: bound by how much the error will deviate from the training error
+
+\begin{align}
+err_{\dim}(h)-err_{s}(h) &\leq \sqrt{\frac{\ln(\abs{H})-\ln(\delta)}{2m}}
+\end{align}
+
+\begin{itemize}
+\item {\bf Occam's Razor}: When the hypothesis space contains the true concept
+\begin{align}
+m &> \frac{1}{\epsilon}\left(\ln(\abs{H})-\ln(\delta)\right)
+\end{align}
+\item {\bf Agnostic Learning}: When the hypothesis space {\em may not} contain the concept
+\begin{align}
+m &> \frac{1}{2\epsilon^{2}}\left(\ln(\abs{H})-\ln(\delta)\right)
+\end{align}
+\end{itemize}
+
+{\large VC Dimensions and Shattering}
+
+{\bf Shattering}: A set of $S$ examples is {\em shattered} by a set of functions $H$ if for every position of the examples in $S$ into positive and negative examples, there is a function in $H$ that gives exactly these labels to these examples.
+
+{\em Intuition}: A rich set of functions shatters a large set of points
+
+\textcolor{red}{\bf SHOW EXAMPLES FROM SLIDE 102 IN COLT}
+
+If an arbitrairly large finite subset of the instance space $X$ can be shattered by a hypothesis space $H$, then the VC Dimension is infinite. The larger the subset $X$ can be shattered, the more expressive a hypothesis space is, {\em i.e.} less biased. 
+
+{\bf VC Dimension}: The VC Dimension of a hypothesis space $H$ over instance space $X$ is the size of the largest {\em finite} subset of $X$ that is shattered by $H$.
+
+\begin{itemize}
+\item If there {\em exists} any subset of size $d$ that can be shattered, then $VC(H)\geq d$
+\item If {\em no subset} of size $d$ can be shattered, then $VC(H) < d$
+\end{itemize}
+
+\begin{table}[!h]
+\centering
+\begin{tabular}{l c c}
+\hline\hline
+{\bf Concept Class} & $\boldsymbol{VC(H)}$ & {\bf Why?}\\
+\hline
+Half Intervals & 1 & There is a dataset of size 1 that can be shattered. No dataset of size 2 can\\
+Intervals & 2 & There is a dataset of size 2 that can be shattered. No dataset of size 3 can\\
+Half-Spaces & 3 & There is a dataset of size 3 that can be shattered. No dataset of size 4 can\\
+Linear Threshold Unit & $d+1$\\
+Neural Networks & \# Parameters\\
+1-Nearest Neighbors & Infinite\\
+\hline
+\end{tabular}
+\end{table}
+
+We can take these results and apply them just like we did before to get a bound, such as
+
+\begin{align}
+m &> \frac{1}{\epsilon}\left(8VC(H)\log\left(\frac{13}{\epsilon}\right)+4\log\left(\frac{2}{\delta}\right)\right)
+\intertext{with a probability $1-\delta$ has error$<\epsilon$. We can combine the VC Dimension with Agnostic Learning to get a bound on the error as well, which is}
+err_{\dim}(h) &\leq err_{s}(h) + \sqrt{\frac{VC(H)\ln\left(\frac{2m}{VC(H)}+1\right)+\ln\left(\frac{4}{\delta}\right)}{m}}
+\end{align}
+
+{\large Boosting}
+
+Boosting is a general approach for constructing a {\em strong learner} given a collection of (possibly infinite) weak learners. It uses the {\em Ensemble Method}:
+
+\begin{itemize}
+\item Class of learning algorithms that composes classifiers using other classifiers as building blocks
+\item Boosting as strong theoretical guarentees than other ensemble methods
+\end{itemize}
+
+{\em Goal}: Automatically categorize your data based on a set of basic rules
+
+{\bf Boosting}: A general method for converting rough ``rules of thumb'' into accurate prediction classifiers
+
+{\bf General Boosting Approach}:
+\begin{enumerate}
+\item Select a small set of examples
+\item Derive a rough ``rule of thumb''
+\item Select a second set of examples
+\item Derive a rough ``rule of thumb''
+\item Repeat $T$ times...
+\item Combine all ``rules of thumb'' into a single prediction rule
+\end{enumerate}
+
+The weighted classification error is defined as 
+
+\begin{align}
+\epsilon_{t} &= \frac{1}{2}-\frac{1}{2}\left(\sum_{i=1}^{m}D_{t}(i)y_{i}h(x_{i})\right)
+\end{align}
+
+\begin{algorithm}
+\begin{algorithmic}
+\STATE{Initialize $D_{1}(i)=\frac{1}{m}\ \forall\ i=\{1,2,\ldots,m\}$}
+\FOR{$t=1,2,\cdots$\TO $T$}
+  \STATE{Find classifier $h_{t}$ whose {\em weighted classificaiton error} is better than chance}
+  \STATE{Compute it's vote $\alpha_{t} = \frac{1}{2}\ln\left(\frac{1-\epsilon_{t}}{\epsilon_{t}}\right)$}
+  \STATE{Update values of weights for training examples $D_{t+1} = \frac{D_{t}}{Z_{t}}\cdot\exp(-\alpha_{t}y_{i}h_{t}(\mathbf{x}_{i}))$}
+\ENDFOR
+\RETURN{final hypothesis$=\text{sgn}\left(\sum_{t}\alpha_{t}h_{t}(\mathbf{x})\right)$}
+\end{algorithmic}
+\caption{AdaBoost$\left(\left\{(\mathbf{x}_{i},y_{i})\right\}_{m}\right)$}
+\end{algorithm}
+
+{\em Why use AdaBoost}:
+\begin{itemize}
+\item Simple, fast, and only one additional tuning parameter $(T)$
+\item Use with any weak learning algoirthm, only need classifiers which are slightly better than chace
+\end{itemize}
+
+{\em Caveats}:
+\begin{itemize}
+\item Performance depends on data sets and weak learners
+\item Can fail if weak learners are too complex (overfitting)
+\item Can fail is weak learners are too weak (underfitting)
+\end{itemize}
+
+{\large Support Vector Machines}
+
+The {\em margin} of a hyperplane for a dataset is the distance between the hyperplane and the datapoint nearest to it. The larger the margin, the better as it generalizes the learner more and gives more ``buffer room'' for new examples.
+
+{\em Theorem Vapuik}:
+\begin{itemize}
+\item Let $H$ be the set of linear classifiers that separate the training set by a margin of at least $\gamma$, then
+\begin{align}
+VC(H) &\leq \min\left(\frac{R^{2}}{\gamma^{2}},d\right)+1\\
+R &= \text{Radius of smallest sphere containing the data}\\
+\text{Larger Margin} &\Rightarrow \text{lower VC Dimension}\\
+\text{Lower VC Dimension} &\Rightarrow \text{Better Generalization Bound}\\
+\gamma &= \max_{\mathbf{w}}\min_{(\mathbf{x}_{i},y_{i})}\frac{y_{i}(\mathbf{w}^{T}\mathbf{x}_{i}+b)}{\Norm{\mathbf{w}}}\\
+\text{SVM Prediction} &= \text{sgn}(b+\mathbf{w}^{T}\mathbf{x})
+\end{align}
+\end{itemize}
+
+{\large Max Margin Classifiers}
+
+{\em Learning a classifier}: $\min\Norm{\mathbf{w}}$ such that the closest example is at distance $\frac{1}{\Norm{\mathbf{w}}}$. For the learning problem, we waant to minimize $\frac{1}{2}\mathbf{w}^{T}\mathbf{w}$ such that $y_{i}\mathbf{w}^{T}\mathbf{x}_{i}\geq 1$, which is true for eveyr example. The closest point is going to be defined as $y_{i}\mathbf{w}^{T}\mathbf{x}_{i}=1$. This is known as the {\em Hard SVM} since it requires all of the points to be outside the margin.
+
+The {\em Soft SVM} will allow some data to ``break into the margin'' and ignore some of the examples that make the margin smaller or inseparable. To do this we need to introduce a {\em slack variable} for each example, $\xi_{i}$, where we're going to require that $y_{i}\mathbf{w}^{T}\mathbf{x}_{i}\geq 1-\xi_{i} and xi_{i}\geq 0\ \forall i$. This slack variable will allow some to break into the margin. If a new slack variable is zero, the example is either on or outside the margin. We now have a new optimization problem where we want to $\min_{\mathbf{w},\xi}\frac{1}{2}\mathbf{w}^{T}\mathbf{w}+C\sum_{i}\xi_{i}$, where we want to minimize the total slack, $C$ is the tradeoff between the two terms, and $\frac{1}{2}\mathbf{w}^{T}\mathbf{w}$ is to maximize the margin. We can elminimate our slack variables and rewrite it such as
+
+\begin{align}
+\min_{\mathbf{w}}\frac{1}{2}\mathbf{w}^{T}\mathbf{w}+C\sum_{i}\underbrace{\max(0,1-y_{i}\mathbf{w}^{T}\mathbf{x}_{i})}_{Hinge\ Loss\ Function}
+\end{align}
+
+{\em General Learning Principle}: \underline{Risk Minimization}: Define a ``loss'' over the training data as a function of a hypothesis. Learning is finding the hypothesis that has the lowest loss on the training data.
+
+{\em Regularized Risk Minimization}: We define a regularzation function that penalizes over-complex hypotheses. The capacity control gives better generalization of the learner. Learning is we want to find $h(x)$ that is lowest $[regularization + loss\ on\ training\ data]$
+
+\begin{align}
+\min_{\mathbf{w}}\underbrace{\frac{1}{2}\mathbf{w}^{T}\mathbf{w}}_{Regularization\ Term}+\underbrace{C}_{Hyper\ Parameter}\sum_{i}\underbrace{\max(0,1-y_{i}\mathbf{w}^{T}\mathbf{x}_{i})}_{Empirical\ Loss}
+\end{align}
+
+{\bf Regularization Term}:
+\begin{itemize}
+\item Maximizes the margin
+\item Imposes a preference over the hypothesis space and pushes for better generalization
+\item Can be replaced with other regularization terms which impose other preferences
+\end{itemize}
+
+{\bf Empirical Loss}:
+\begin{itemize}
+\item Hinges loss
+\item Penalizes weight vectors that make mistakes
+\item Can be replaces with other loss functions which impose preferences
+\end{itemize}
+
+{\bf Hyper Parameter}: Controls the trade off between a large margin and a small hinge-loss
+
+{\large Gradient Descent}
+
+\begin{algorithm}[H]
+\begin{algorithmic}
+\STATE{Initialize $\mathbf{w}^{0}$}
+\FOR{$t=1,2,3,\ldots$}
+\STATE{Compute $\Grad{J(\mathbf{w}_{t})}$}
+\STATE{Update $\mathbf{w}_{t+1} = \mathbf{w}_{t} - r\Grad{J(\mathbf{w}_{t})}$}
+\ENDFOR
+\RETURN{final $\mathbf{w}$}
+\end{algorithmic}
+\caption{Gradient Descent for SVM}
+\label{alg:GD_SVM}
+\end{algorithm}
+
+However, Algorithm \ref{alg:GD_SVM} requires summing over the {\em entire} training set, which is really slow and doesn't scale well. An alternative that we can use is {\em Stochastic Gradient Descent} which treats each individual example as the entire data set. This implementation can be seen in Algorithm~\ref{alg:SGD_SVM}
+
+\begin{algorithm}[H]
+\begin{algorithmic}
+\STATE{Initialize $\mathbf{w}^{0}$}
+\FOR{$epoch=1,2,3,\ldots,\ $\TO$T$}
+\STATE{Pick random example $(\mathbf{x}_{i},y_{i})$ from $S$}
+\STATE{Treat $(\mathbf{x}_{i},y_{i})$ as the full dataset and take the gradient for that example\\\hspace{7em}$J(\mathbf{w}_{t}) = \frac{1}{2}\mathbf{w}^{T}\mathbf{w}+C\max(0,1-y_{i}\mathbf{w}^{T}\mathbf{x}_{i})$}
+\STATE{$\gamma_{t}=\frac{\gamma_{0}}{1+(\gamma_{0}\cdot t)/C}$}
+\STATE{Update: $\mathbf{w}_{t}=\mathbf{w}_{t-1}+\gamma_{t}\Grad{J(\mathbf{w}_{t-1})}$}
+\ENDFOR
+\RETURN{final $\mathbf{w}$}
+\end{algorithmic}
+\caption{Stoichastic Gradient Descent($S=\{(\mathbf{x}_{i},y_{i})\}_{m}$)}
+\label{alg:SGD_SVM}
+\end{algorithm}
+
+Algorithm \ref{alg:SGD_SVM} is guarenteed to converge to the minimum of $J(\mathbf{w})$ if $\gamma_{t}$ is small enough and $J(\mathbf{w})$ is a convex function. 
+
+There is also the case of {\em Stoichastic sub-gradient descent}, which takes the following function
+
+\begin{align}
+J(\mathbf{w}_{t}) &= \frac{1}{2}\mathbf{w}^{T}\mathbf{w}+C\max(0,1-y_{i}\mathbf{w}^{T}\mathbf{x}_{i})\label{eq:SSGD}
+\end{align}
+
+Where the emperical loss function in Equation \ref{eq:SSGD} is non-differentialbale. The general technique is to solve the max and then compute the gradient for each case. This technique can be seen in Algorithm~\ref{alg:SSGD}
+
+\begin{algorithm}[H]
+\begin{algorithmic}
+\STATE{Initialize $\mathbf{w}=\vec{0}$}
+\FOR{$epoch = 1,2,3,\ldots,\ $\TO $T$}
+\STATE{Shuffle data}
+  \FOR{each training example $(\mathbf{x}_{i},y_{i})\in S$}
+  \IF{$y_{i}\mathbf{w}^{T}\mathbf{x}_{i}\leq 1$}
+     \STATE{$\mathbf{w}_{t} = (1-\gamma_{t})\mathbf{w}_{t-1} + \gamma_{t}Cy_{i}\mathbf{x}_{i}$}
+  \ELSE
+     \STATE{$\mathbf{w}_{t} = (1-\gamma_{t})\mathbf{w}_{t-1}$}
+  \ENDIF
+  \ENDFOR
+\ENDFOR
+\RETURN{$\mathbf{w}$}
+\end{algorithmic}
+\caption{Stoichastic Sub Gradient Descent}
+\label{alg:SSGD}
+\end{algorithm}
+
+{\large Non-Linear Models (Support Vectors, Kernels, and Duals)}
+
+Let's say we have some vector $\mathbf{x}$ and we want to find a weight vector for it, but it's not linearly separable in 2 dimensions. We can map it to higher dimensions and predict using $\mathbf{w}^{T}\phi(x_{1},x_{2})\geq b$
+
+\begin{align}
+\phi(\mathbf{x}) &= \left[\begin{array}{c} x_{1}\\ x_{2}\\ x_{1}^{2}\\ x_{2}^{2}\end{array}\right]
+\end{align}
+
+We can make our prection via $\sgn{\mathbf{w}^{T}\mathbf{x}}$ and $\mathbf{w}^{T}\mathbf{x} = \sum_{i}\alpha_{i}y_{i}\mathbf{x}^{T}_{i}\mathbf{x}$ meaning that we only need to compute the dot products between the training examples and a new example $\mathbf{x}_{i}$, even if we map it to higher dimensions. We can define a kernel $\kappa(\mathbf{x},\mathbf{z})=\phi(\mathbf{x})^{T}\phi(\mathbf{z})$, which changes to $\sgn{\mathbf{w}^{T}\phi(\mathbf{x})} = \sgn{\sum_{i}\alpha_{i}y_{i}\kappa(\mathbf{x}_{i},\mathbf{x})}$, but is there a way to compute $\kappa$ efficiently instead of doing the dot product? 
+
+{\em Kernel Trick}: You want to work with a degre 2 polynomial features, $\phi(\mathbf{x})$, then your dot product will be in space $\frac{n(n+1)}{2}$. To overcome this, a function $\kappa(\mathbf{x},\mathbf{z})$ is a valid kernel {\em if} it corresponds to an innder product in some (perhaps infinite dimensional) feature space.
+
+{\em General Condition}: Construct a gram matrix $\{\kappa(\mathbf{x}_{i},\mathbf{z}_{j})\}$ and check to see if it's positive semi-definite. The Gram Matrix is the set of all $n$ vectors $S=\{\mathbf{x}_{1},\mathbf{x}_{2},\ldots,\mathbf{x}_{n}\}$ and is the $n\times n$ matrix $G$, such that $G_{i,j} = \mathbf{x}_{i}^{T}\mathbf{x}_{j}$. 
+
+{\em Showing a Kernel Function $\kappa$ is a Valid Kernel}:
+\begin{itemize}
+\item {\em Direct Approach}: If you have $\phi(\mathbf{x})$, you have the gram matrix and it's easy to see it's positive semi-definite
+\item {\em Indirect Approach}: If you have the kernel, write down the kernel matrix $K_{i,j}$, and show it is a legitimate kernel, without explicit construction of $\phi(\mathbf{x})$
+\end{itemize}
+
+The kernel can be shown that it's valid and positive semi-definite in the following way, which is known as {\em Mercer's condition}. Let $\kappa(\mathbf{x},\mathbf{z})$ be a function that maps two $n$-dimensional vectors to a real number. $\kappa$ is a valid kernel for every set $\{\mathbf{x}_{1},\mathbf{x}_{2},\ldots,\mathbf{x}_{n}\}$ for any choice of real valued $\{c_{1},c_{2},\ldots,c_{n}\}$ we have
+
+\begin{align}
+\sum_{j}\sum_{i}c_{i}c_{j}\kappa(\mathbf{x}_{i},\mathbf{x}_{j})&\geq 0
+\end{align}
+
+{\em Types of Kernels}:
+\begin{itemize}
+\item {\em Polynomial Kernels}:
+\begin{itemize}
+\item Linear kernels: $\kappa(\mathbf{x},\mathbf{z}) = \mathbf{x}^{T}\mathbf{z}$
+\item Polynomial Kernels of degree $d$: $\kappa(\mathbf{x},\mathbf{z}) = (\mathbf{x}^{T}\mathbf{z})^{d}$
+\begin{itemize}
+\item Only $d^{th}$ order interactions
+\end{itemize}
+\item Polynomial kernel up to degree $d$: $\kappa(\mathbf{x},\mathbf{z})=(\mathbf{x}^{T}\mathbf{z}+c)^{d},\ c>0$
+\begin{itemize}
+\item All interactions of order $d$ and lower
+\end{itemize}
+\end{itemize}
+\item {\em Gaussian Kernel}:
+\begin{itemize}
+\item $\kappa_{rbf}(\mathbf{x},\mathbf{z}) = \exp\left(-\frac{\Norm{\mathbf{x}-\mathbf{z}}^{2}}{c}\right)$
+\item $\Norm{\mathbf{x}-\mathbf{z}}^{2}=$ Squared euclidean distance
+\item $c = \sigma^{2} = $ Free parameter
+\item $\kappa(\mathbf{x},\mathbf{z})\approx 1$ when $\mathbf{x}$ and $\mathbf{z}$ are close, and $\kappa(\mathbf{x},\mathbf{z})\approx 0$ when dissimilar
+\end{itemize}
+\end{itemize}
+
+{\em Kernel Trick Example}: Consider a space of $3^{n}$ monomials (positive and negative literals)
+
+\begin{align}
+\kappa(\mathbf{x},\mathbf{z}) &= \sum_{i}\phi_{i}^{T}(\mathbf{x})\phi_{i}(\mathbf{z}) = 2^{\text{same}(\mathbf{x},\mathbf{z})}\\
+\text{same}(\mathbf{x},\mathbf{z}) &= \text{number of features which are the same for $\mathbf{x}$ and $\mathbf{z}$}
+\end{align}
+
+{\large Loss Minimization}
+
+{\em Situation}:
+\begin{itemize}
+\item Define a function $L$ that penalizes bad hypotheses
+\item {\em Learning}: Pick a function $h\in H$ to minimize the expected loss
+
+\begin{align}
+\min_{h\in H}E_{\mathbf{x}\sim\dim}[L(h(\mathbf{x}),f(\mathbf{x}))]
+\intertext{But the distribution $\dim$ is unknown. Instead, minimize the {\em empirical loss} on the training set}
+\min_{h\in H}\frac{1}{m}\sum_{i}L(h(\mathbf{x}_{i}),f(\mathbf{x}_{i}))
+\intertext{However, we need to shy away from using complex hypotheses to avoid overfitting, which is achieved by using a {\em regularizer}, which penalizes complex hypotheses. This turns our minimization problem into}
+\min_{h\in H}\text{regularizer}(h)+C\frac{1}{m}\sum_{i}L(h(\mathbf{x}_{i}),f(\mathbf{x}_{i}))
+\end{align}
+
+{\em Loss Functions}:
+\begin{itemize}
+\item Perceptron Loss Function
+\[
+L_{\text{perceptron}}(y,\mathbf{x},\mathbf{w}) = \max(0,-y\mathbf{w}^{T}\mathbf{x})
+\]
+\item Hinge Loss (SVM)
+\[
+L_{\text{hinge}}(y,\mathbf{x},\mathbf{w}) = \max(0,1-y\mathbf{w}^{T}\mathbf{x})
+\]
+\item Exponential Loss (AdaBoost)
+\[
+L_{\text{exponential}}(y,\mathbf{x},\mathbf{w}) = \exp(-y\mathbf{w}^{T}\mathbf{x})
+\]
+\item Logistic Loss (Logistic Regression)
+\[
+L_{\text{logistic}}(y,\mathbf{x},\mathbf{w}) = \log(1+\exp(-y\mathbf{w}^{T}\mathbf{x}))
+\]
+\end{itemize}
+\end{itemize}
+
+{\large Probabilistic Learning}
+
+Two different notions of probabilistic learning:
+\begin{itemize}
+\item {\em Learning Probabilistic Concepts}:
+\begin{itemize}
+\item The learned concept is a function $c:X\rightarrow[0,1]$
+\item $c(x)$ may be interpreted as the probability that the label 1 is assigned to $x$
+\item The learning theory that we have studied before is applicable (with some extensions)
+\end{itemize}
+\item {\em Bayesian Learning}: Use of probabilistic criterion in selecting a hypothesis
+\begin{itemize}
+\item The hypothesis can be deterministic, a Boolean function
+\item The criterion for selecting the hypothesis is probabilistic
+\end{itemize}
+\end{itemize}
+
+{\em Bayseian Learning}:
+
+{\em Goal:} To find the {\em best} hypothesis from some space $H$ of hypotheses, using the observed data $\dim$. We define the {\em best} as being the {\em most probable hypothesis} in $H$. In order to do that, we need to assume a probability distribution over the class $H$. We also need to know something about the relation between the data and the hypothesis. 
+
+{\bf Bayes Theorem}:
+\begin{align}
+\underbrace{P(Y|X)}_{\text{Posterior}} &= \frac{\overbrace{P(X|Y)}^{\text{Likelihood}}\overbrace{P(Y)}^{Prior}}{\underbrace{P(X)}_{observed}}
+\end{align}
+\begin{itemize}
+\item {\em Posterior Probability}: What is the probability of $Y$ given that $X$ is observed?
+\item {\em Likelihood}: What is the likelihood of observing $X$ given a specific $Y$?
+\item {\em Prior Probability}: What is our belief in $Y$ before we see $X$?
+\item {\em Observed Probability}: What is the probability that $X$ is observed (independent about any knowledge about the hypothesis)?
+\end{itemize}
+
+{\bf Probability Refresher}:
+\begin{itemize}
+\item {\em Product Rule}: $P(A\wedge B) = P(A,B) = P(A|B)P(B) = P(B|A)P(A)$
+\item {\em Sum Rule}: $P(A\vee B) = P(A) + P(B) - P(A,B)$
+\item Events $A$ and $B$ are independent if:
+\begin{itemize}
+\item $P(A,B) = P(A)P(B)$
+\item Equivalently, $P(A|B) = P(A),\ P(B|A)=P(B)$
+\end{itemize}
+\item {\em Theorem of Total Probability}: For mutually exclusive events $A_{1},A_{2},\ldots,A_{n}$ ({\em i.e.} $A_{i}\cap A_{j} = \emptyset$) with $\sum_{i}P(A_{i})= 1$
+
+\[
+P(B) = \sum_{i=1}^{n}P(B|A_{i})P(A_{i})
+\]
+
+\end{itemize}
+
+
+{\em Choosing a Hypothesis}:
+\begin{itemize}
+\item {\em Maximum a Posteriori} hypothesis $h_{MAP}$
+\begin{align}
+h_{MAP} &= \arg \max_{h\in H}P(h|D)\\
+ & \arg \max_{h\in H} \frac{P(D|h)P(h)}{P(D)}\\
+ & \arg \max_{h\in H} P(D|h)P(h)
+\end{align}
+\item {\em Maximum Likelihood} hypothesis $h_{ML}$
+\begin{align}
+h_{ML} &= \arg \max_{h\in H}P(D|h)
+\end{align}
+Often computationally easier to maximize the {\em log likelihood}
+\end{itemize}
+
+{\bf Na\"{i}ve Bayes Classification}: Can learn functions that predict probabilities of outcomes (different from using a probabilistic criterion to learn). {\em Maximum a posteriori (MAP) Prediction} as opposed to MAP Learning
+
+{\em MAP Prediction}:
+\begin{align}
+\intertext{From Bayes rule for predicting $y$ given an input $x$}
+P(Y=y|X=x) &= \frac{P(X=x|Y=y)P(Y=y)}{P(X=x)}
+\intertext{predict $y$ for the input $x$ using}
+\arg \max_{y}\underbrace{P(X=x|Y=y)}_{Likelihood}\underbrace{P(Y=y)}_{Prior}
+\end{align}
+\begin{itemize}
+\item {\em Likelihood} of observing this input $x$ when the label is $y$
+\item {\em Prior} probability of the label being $y$
+\end{itemize}
+
+{\em The Na\"{i}ve Bayes Assumption}: What if all the features were conditionally independent given the label?
+
+\[
+P(x_{1},x_{2},\ldots,x_{d}|y) = P(x_{1}|y)P(x_{2}|y)\cdots P(x_{d}|y)
+\]
+
+We require only $d$ number for each label. $kd$ features overall.
+
+\begin{itemize}
+\item {\em Assumption}: Features are conditionally independent given the label $y$
+\item To predict, we need two sets of probabilities
+\begin{itemize}
+\item Prior $p(y)$
+\item For each $x_{i}$, we have the likelihood $p(x_{i}|y)$
+\end{itemize}
+\item {\em Decision Rule}:
+
+\begin{align}
+h_{NB}(\mathbf{x}) &= \arg \max_{y}p(y)p(x_{1},x_{2},\ldots,x_{d}|y)\\
+ & \arg \max_{y}p(y)\prod_{i=1}^{d}p(x_{i}|y)
+\end{align}
+\end{itemize}
+
+We can apply this to the Maximum Likelihood Estimation which is defined as
+
+\begin{align}
+h_{ML} &= \arg\max_{h\in H}P(\dim|h)\\
+ & = \arg\max_{h}\prod_{i=1}^{m}p((x_{i},y_{i})|h)
+\intertext{where each example in the dataset is {\em independently and identically distributed}, so we can represent $p(\dim|h)$ as this product.}
+&= \arg\max_{h}\prod_{i=1}^{m}p(x_{i}|y_{i},h)p(y_{i}|h)\\
+&= \arg\max_{h}\prod_{i=1}^{m}p(y_{i}|h)\prod_{j}p(x_{i,j}|y_{i},h)\\
+&= \arg\max_{h}\sum_{i=1}^{m}\log(p(y_{i}|h))+\sum_{i}\sum_{j}\log(p(x_{i,j}|y_{i},h))
+\intertext{For sipmlicity, suppose there are two labels $[1,0]$ and all the features are binary. {\em Prior}: $p(y=1)=p$ and $p(y=0)=1-p$, while the {\em Likelihood} for each feature given a label is $p(x_{j}=1|y=1)=a_{j}$ and $p(x_{j}=0|y=1)=1-a_{j}$; $p(x_{j}=1|y=0)=b_{j}$ and $p(x=0|y=0)=1-b_{j}$. This leads to}
+p(y_{i}|h) &= p^{[y_{i}=1]}(1-p)^{[y_{i}=0]}
+\intertext{where $[z]$ is called the {\em indicator function} where its value is 1 if the argument $z$ is true, and zero otherwise}
+p(x_{i,j}|y_{i},h) &= a_{j}^{[y_{i}=1,x_{i,j}=1]}(1-a_{j})^{[y_{i}=1,x_{i,j}=0]}\times b_{j}^{[y_{i}=0,x_{i,j}=1]}(1-b_{j})^{[y_{i}=0,x_{i,j}=0]}
+\end{align}
+
+{\em Learning}:
+\begin{itemize}
+\item Count how often features occur with each label. Normalize them to get likelihoods
+\item Priors from fraction of examples with each label
+\item Generalizes to multiclass
+\end{itemize}
+
+{\em Prediction}:
+\begin{itemize}
+\item Use learned probabilities to find highest scoring label
+\end{itemize}
+
+{\em Caveats with Na\"{i}ve Bayes}
+\begin{itemize}
+\item Features need not be conditionally independent
+\[
+p(x|y) \neq \prod_{j}p(x_{j}|y)
+\]
+Works reasonably well even when this assumption is violated
+\item Not enough training data to get good estimates of the probabilities from counts
+The basic operation for learning likelihoods is counting how often a feature occurs with a label. What if we never see a particular feature with a particular label? Should we treat those counts as zero? (that will make the probability zero) {\em Answer}: Smoothing:
+\begin{itemize}
+\item Add fake counts (very small numbers so that the counts are not zero)
+\item The bayesian interpretation of smoothing: {\em Priors} on the hypothesis (MAP Learning)
+\end{itemize}
+\end{itemize}
+
+{\em Decision Boundaries of the Na\"{i}ve Bayes}
+
+\begin{align}
+\intertext{Consider the two class case. We predict the label to be $+$ if}
+p(y=+)\prod_{j}p(x_{i,j}|y=+) &> p(y=-)\prod_{j}p(x_{i,j}|y=-)\\
+\frac{p(y=+)\prod_{j}p(x_{i,j}|y=+)}{p(y=-)p(x_{i,j}|y=-)} &> 1
+\intertext{where we can take the log to simplify and get}
+\log\left(\frac{p(y=0|x)}{p(y=1|x)}\right) = \mathbf{w}^{T}\mathbf{x}+b
+\end{align}
+
+\end{document}

@@ -1,0 +1,759 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<title>CS 6350 - Homework 1</title>
+<!-- 2015-09-10 Thu 10:52 -->
+<meta  http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta  name="generator" content="Org-mode" />
+<meta  name="author" content="Christopher Mertin" />
+<style type="text/css">
+ <!--/*--><![CDATA[/*><!--*/
+  .title  { text-align: center; }
+  .todo   { font-family: monospace; color: red; }
+  .done   { color: green; }
+  .tag    { background-color: #eee; font-family: monospace;
+            padding: 2px; font-size: 80%; font-weight: normal; }
+  .timestamp { color: #bebebe; }
+  .timestamp-kwd { color: #5f9ea0; }
+  .right  { margin-left: auto; margin-right: 0px;  text-align: right; }
+  .left   { margin-left: 0px;  margin-right: auto; text-align: left; }
+  .center { margin-left: auto; margin-right: auto; text-align: center; }
+  .underline { text-decoration: underline; }
+  #postamble p, #preamble p { font-size: 90%; margin: .2em; }
+  p.verse { margin-left: 3%; }
+  pre {
+    border: 1px solid #ccc;
+    box-shadow: 3px 3px 3px #eee;
+    padding: 8pt;
+    font-family: monospace;
+    overflow: auto;
+    margin: 1.2em;
+  }
+  pre.src {
+    position: relative;
+    overflow: visible;
+    padding-top: 1.2em;
+  }
+  pre.src:before {
+    display: none;
+    position: absolute;
+    background-color: white;
+    top: -10px;
+    right: 10px;
+    padding: 3px;
+    border: 1px solid black;
+  }
+  pre.src:hover:before { display: inline;}
+  pre.src-sh:before    { content: 'sh'; }
+  pre.src-bash:before  { content: 'sh'; }
+  pre.src-emacs-lisp:before { content: 'Emacs Lisp'; }
+  pre.src-R:before     { content: 'R'; }
+  pre.src-perl:before  { content: 'Perl'; }
+  pre.src-java:before  { content: 'Java'; }
+  pre.src-sql:before   { content: 'SQL'; }
+
+  table { border-collapse:collapse; }
+  td, th { vertical-align:top;  }
+  th.right  { text-align: center;  }
+  th.left   { text-align: center;   }
+  th.center { text-align: center; }
+  td.right  { text-align: right;  }
+  td.left   { text-align: left;   }
+  td.center { text-align: center; }
+  dt { font-weight: bold; }
+  .footpara:nth-child(2) { display: inline; }
+  .footpara { display: block; }
+  .footdef  { margin-bottom: 1em; }
+  .figure { padding: 1em; }
+  .figure p { text-align: center; }
+  .inlinetask {
+    padding: 10px;
+    border: 2px solid gray;
+    margin: 10px;
+    background: #ffffcc;
+  }
+  #org-div-home-and-up
+   { text-align: right; font-size: 70%; white-space: nowrap; }
+  textarea { overflow-x: auto; }
+  .linenr { font-size: smaller }
+  .code-highlighted { background-color: #ffff00; }
+  .org-info-js_info-navigation { border-style: none; }
+  #org-info-js_console-label
+    { font-size: 10px; font-weight: bold; white-space: nowrap; }
+  .org-info-js_search-highlight
+    { background-color: #ffff00; color: #000000; font-weight: bold; }
+  /*]]>*/-->
+</style>
+<link rel="stylesheet" type="text/css" href="http://www.cs.utah.edu/~cmertin/org-styles/styles/readtheorg/css/htmlize.css"/>
+<link rel="stylesheet" type="text/css" href="http://www.cs.utah.edu/~cmertin/org-styles/styles/readtheorg/css/readtheorg.css"/>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="http://www.cs.utah.edu/~cmertin/org-styles/styles/lib/js/jquery.stickytableheaders.js"></script>
+<script type="text/javascript" src="http://www.cs.utah.edu/~cmertin/org-styles/styles/readtheorg/js/readtheorg.js"></script>
+<script type="text/javascript">
+/*
+@licstart  The following is the entire license notice for the
+JavaScript code in this tag.
+
+Copyright (C) 2012-2013 Free Software Foundation, Inc.
+
+The JavaScript code in this tag is free software: you can
+redistribute it and/or modify it under the terms of the GNU
+General Public License (GNU GPL) as published by the Free Software
+Foundation, either version 3 of the License, or (at your option)
+any later version.  The code is distributed WITHOUT ANY WARRANTY;
+without even the implied warranty of MERCHANTABILITY or FITNESS
+FOR A PARTICULAR PURPOSE.  See the GNU GPL for more details.
+
+As additional permission under GNU GPL version 3 section 7, you
+may distribute non-source (e.g., minimized or compacted) forms of
+that code without the copy of the GNU GPL normally required by
+section 4, provided you include this license notice and a URL
+through which recipients can access the Corresponding Source.
+
+
+@licend  The above is the entire license notice
+for the JavaScript code in this tag.
+*/
+<!--/*--><![CDATA[/*><!--*/
+ function CodeHighlightOn(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(null != target) {
+     elem.cacheClassElem = elem.className;
+     elem.cacheClassTarget = target.className;
+     target.className = "code-highlighted";
+     elem.className   = "code-highlighted";
+   }
+ }
+ function CodeHighlightOff(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(elem.cacheClassElem)
+     elem.className = elem.cacheClassElem;
+   if(elem.cacheClassTarget)
+     target.className = elem.cacheClassTarget;
+ }
+/*]]>*///-->
+</script>
+<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js"></script>
+<script type="text/javascript">
+<!--/*--><![CDATA[/*><!--*/
+    MathJax.Hub.Config({
+        // Only one of the two following lines, depending on user settings
+        // First allows browser-native MathML display, second forces HTML/CSS
+        //  config: ["MMLorHTML.js"], jax: ["input/TeX"],
+            jax: ["input/TeX", "output/HTML-CSS"],
+        extensions: ["tex2jax.js","TeX/AMSmath.js","TeX/AMSsymbols.js",
+                     "TeX/noUndefined.js"],
+        tex2jax: {
+            inlineMath: [ ["\\(","\\)"] ],
+            displayMath: [ ['$$','$$'], ["\\[","\\]"], ["\\begin{displaymath}","\\end{displaymath}"] ],
+            skipTags: ["script","noscript","style","textarea","pre","code"],
+            ignoreClass: "tex2jax_ignore",
+            processEscapes: false,
+            processEnvironments: true,
+            preview: "TeX"
+        },
+        showProcessingMessages: true,
+        displayAlign: "center",
+        displayIndent: "2em",
+
+        "HTML-CSS": {
+             scale: 100,
+             availableFonts: ["STIX","TeX"],
+             preferredFont: "TeX",
+             webFont: "TeX",
+             imageFont: "TeX",
+             showMathMenu: true,
+        },
+        MMLorHTML: {
+             prefer: {
+                 MSIE:    "MML",
+                 Firefox: "MML",
+                 Opera:   "HTML",
+                 other:   "HTML"
+             }
+        }
+    });
+/*]]>*///-->
+</script>
+</head>
+<body>
+<div id="content">
+<h1 class="title">CS 6350 - Homework 1</h1>
+<div id="table-of-contents">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents">
+<ul>
+<li><a href="#sec-1">1. Decision Trees</a></li>
+<li><a href="#sec-2">2. Nearest Neighbors</a></li>
+<li><a href="#sec-3">3. Experiment</a>
+<ul>
+<li><a href="#sec-3-1">3.1. Cross Validation</a></li>
+<li><a href="#sec-3-2">3.2. Data Files</a></li>
+<li><a href="#sec-3-3">3.3. What to hand in for this problem</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-sec-1" class="outline-2">
+<h2 id="sec-1"><span class="section-number-2">1</span> Decision Trees</h2>
+<div class="outline-text-2" id="text-1">
+<ol class="org-ol">
+<li>Write  the  following  Boolean  functions  as  decision  trees.   (You  can  write your decision trees as a series of if-then-else statements, or use your favorite drawing program to draw a tree.  You can use 1 to represent True and 0 to represent False.)
+<ul class="org-ul">
+<li>\(x_{1} \wedge (x_{2}\vee x_{3})\)
+
+
+<div class="figure">
+<p><img src="./images/1a-LR.png" alt="1a-LR.png" />
+</p>
+</div>
+</li>
+
+<li>\(x_{1} \text{ xor } x_{2}\)
+
+
+<div class="figure">
+<p><img src="./images/1b-LR.png" alt="1b-LR.png" />
+</p>
+</div>
+</li>
+
+<li>The 2-of-3 function, whose value is true if at least two out of three Boolean features \(x_{1}\), \(x_{2}\), \(x_{3}\) are true. After you represent this function using a decision tree, say whether you think using a decision tree to represent m-of-n functions is a good idea.
+
+
+<div class="figure">
+<p><img src="./images/1c-LR.png" alt="1c-LR.png" />
+</p>
+</div>
+
+<p>
+Not a good idea for large data sets because you need \(m\times n\) leaves for m-of-n functions. The maximum depth of the tree is of size \(n\), however if \(m=n\) then this is a good idea as it would have to check all of the values anyways and thus only needs to store \(n+1\) leaves.
+</p>
+</li>
+</ul>
+</li>
+
+<li>In this problem we will manually build a decision tree to decide whether to wait for a table at a restaurant.  Training data is given in Table 1.  There are four features: Friday (Yes or No), Hungry (Yes or No), Patrons (None, Some, Full), and Type (French, Italian, Thai, Chinese).
+<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+<caption align="above"><span class="table-number">Table 1:</span> Training Data for the Restaurant Problem</caption>
+
+<colgroup>
+<col  class="left" />
+
+<col  class="left" />
+
+<col  class="left" />
+
+<col  class="left" />
+
+<col  class="left" />
+</colgroup>
+<thead>
+<tr>
+<th scope="col" class="left">Friday</th>
+<th scope="col" class="left">Hungry</th>
+<th scope="col" class="left">Patrons</th>
+<th scope="col" class="left">Type</th>
+<th scope="col" class="left">Wait?</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="left">No</td>
+<td class="left">Yes</td>
+<td class="left">Some</td>
+<td class="left">French</td>
+<td class="left">Yes</td>
+</tr>
+
+<tr>
+<td class="left">No</td>
+<td class="left">Yes</td>
+<td class="left">Full</td>
+<td class="left">Thai</td>
+<td class="left">No</td>
+</tr>
+
+<tr>
+<td class="left">No</td>
+<td class="left">No</td>
+<td class="left">Some</td>
+<td class="left">Chinese</td>
+<td class="left">Yes</td>
+</tr>
+
+<tr>
+<td class="left">Yes</td>
+<td class="left">Yes</td>
+<td class="left">Full</td>
+<td class="left">Thai</td>
+<td class="left">Yes</td>
+</tr>
+
+<tr>
+<td class="left">Yes</td>
+<td class="left">No</td>
+<td class="left">Full</td>
+<td class="left">French</td>
+<td class="left">No</td>
+</tr>
+
+<tr>
+<td class="left">No</td>
+<td class="left">Yes</td>
+<td class="left">Some</td>
+<td class="left">Italian</td>
+<td class="left">Yes</td>
+</tr>
+
+<tr>
+<td class="left">No</td>
+<td class="left">No</td>
+<td class="left">None</td>
+<td class="left">Chinese</td>
+<td class="left">No</td>
+</tr>
+
+<tr>
+<td class="left">No</td>
+<td class="left">Yes</td>
+<td class="left">Some</td>
+<td class="left">Thai</td>
+<td class="left">Yes</td>
+</tr>
+
+<tr>
+<td class="left">Yes</td>
+<td class="left">No</td>
+<td class="left">Full</td>
+<td class="left">Chinese</td>
+<td class="left">No</td>
+</tr>
+</tbody>
+</table>
+<ul class="org-ul">
+<li>How many possible functions are there to map these four features to a boolean decision? How many functions are consistent with the given training dataset?
+<ul class="org-ul">
+<li><b>Friday</b> has 2 possible values, so there are 2 combinations for it. <b>Hungry</b> also has 2 possible values, so 2 for it as well. <b>Patrons</b> has 3 combinations, and <b>Type</b> has 4 combinations. Therefore the total number of functions is \(2\cdot 2\cdot 3\cdot 4 = 48\) different functions.
+</li>
+<li><b>I DON'T KNOW WHAT THE SECOND PART IS ASKING!!!!</b>
+</li>
+</ul>
+</li>
+
+<li>What  is  the  entropy  of  the  labels  in  this  data? When calculating entropy, the base of the logarithm should be base 2.
+<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+<caption align="above"><span class="table-number">Table 2:</span> Attribute Entropy</caption>
+
+<colgroup>
+<col  class="left" />
+
+<col  class="right" />
+</colgroup>
+<thead>
+<tr>
+<th scope="col" class="left">Attribute</th>
+<th scope="col" class="right">Entropy</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="left">Friday</td>
+<td class="right">0.91830</td>
+</tr>
+
+<tr>
+<td class="left">Hungry</td>
+<td class="right">0.78036</td>
+</tr>
+
+<tr>
+<td class="left">Patrons</td>
+<td class="right">0.14439</td>
+</tr>
+
+<tr>
+<td class="left">Type</td>
+<td class="right">1.16830</td>
+</tr>
+</tbody>
+</table>
+</li>
+
+<li>What is the information gain of each of the features?
+
+<p>
+The information gain of the features is defined as
+</p>
+<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+<caption align="above"><span class="table-number">Table 3:</span> Information Gain</caption>
+
+<colgroup>
+<col  class="left" />
+
+<col  class="right" />
+</colgroup>
+<thead>
+<tr>
+<th scope="col" class="left">Attribute</th>
+<th scope="col" class="right">Information Gain</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="left">Friday</td>
+<td class="right">0.07305</td>
+</tr>
+
+<tr>
+<td class="left">Hungry</td>
+<td class="right">0.21072</td>
+</tr>
+
+<tr>
+<td class="left">Patrons</td>
+<td class="right">0.84669</td>
+</tr>
+
+<tr>
+<td class="left">Type</td>
+<td class="right">-0.17722</td>
+</tr>
+</tbody>
+</table>
+</li>
+
+<li>Which attribute will you use to construct the root of the tree using the ID3 algorithm?
+<ul class="org-ul">
+<li>The ID3 Algorithm chooses the root based on the largest amount of information gain, so it would be <i>Patrons</i>. It then goes down the list and chooses the next ones as the next highest information gain and so on until the tree describes the data.
+</li>
+</ul>
+</li>
+<li>Using the root that you selected in the previous question, construct a decision tree that represents the data. You do not have to use the ID3 algorithms here, you can show any tree with the chosen root.
+
+
+<div class="figure">
+<p><img src="./images/2e.png" alt="2e.png" />
+</p>
+<p><span class="figure-number">Figure 1:</span> Decision Tree from the ID3 Algorithm</p>
+</div>
+</li>
+
+<li>Suppose you are given three more examples, listed in table 2. Use your decision tree to predict the label for each example. Also report the accuracy of the classifier that you have learned.
+<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+<caption align="above"><span class="table-number">Table 4:</span> Test Data for the Restaurant Problem</caption>
+
+<colgroup>
+<col  class="left" />
+
+<col  class="left" />
+
+<col  class="left" />
+
+<col  class="left" />
+
+<col  class="left" />
+</colgroup>
+<thead>
+<tr>
+<th scope="col" class="left">Friday</th>
+<th scope="col" class="left">Hungry</th>
+<th scope="col" class="left">Patrons</th>
+<th scope="col" class="left">Type</th>
+<th scope="col" class="left">Wait?</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="left">Yes</td>
+<td class="left">Yes</td>
+<td class="left">Full</td>
+<td class="left">Italian</td>
+<td class="left">No</td>
+</tr>
+
+<tr>
+<td class="left">No</td>
+<td class="left">No</td>
+<td class="left">None</td>
+<td class="left">Thai</td>
+<td class="left">No</td>
+</tr>
+
+<tr>
+<td class="left">Yes</td>
+<td class="left">Yes</td>
+<td class="left">Full</td>
+<td class="left">Chinese</td>
+<td class="left">Yes</td>
+</tr>
+</tbody>
+</table>
+
+<ul class="org-ul">
+<li>Using these examples with the decision ntree in Figure 1, only 1 of the test cases is valid, the middle one, while the first and last case fail. In the decision tree, from the learning data, <i>Italian</i> is technically not needed for coming to the conclusions, but it was included into it as it failed during the test data. However, even though Italian was added, the solution was only taken from the learning data and not the test data. This was more to just stop it from "breaking" in not finding <i>Italian</i> in the type.
+</li>
+</ul>
+</li>
+</ul>
+</li>
+
+<li>Recall that the ID3 algorithm identies the best attribute to create the decision tree using the information gain heuristic. This heuristic uses the difference between the entropy of the data and the expected entropy of the splits to identify the root attribute. Here, we use entropy as a way quantify <i>impurity</i> of labels in the data.  However, we could use other measures of impurity instead of entropy within the same definition. In this question, we will explore the use of other impurity measures. 
+<ul class="org-ul">
+<li>One natural way to define impurity is to measure the misclassification rate.  This measures the error that we would have made if we had chosen the most frequent label. It is defined as
+\begin{equation}
+    Misclassification(S) = 1 - \max_{i}p_{i}
+  \end{equation}
+<p>
+Here, \(p_{i}\) is the fraction of examples that have a label \(i\) and the maximization is over all labels.
+</p>
+<ul class="org-ul">
+<li>Write down the definition of the information gain heuristic that uses the misclassification rate as its measure of impurity instead of entropy.
+</li>
+<li>Use your new heuristic to identifiy fthe root attribute for the data in Table 1.
+</li>
+</ul>
+</li>
+<li>Another heuristic that is used to define impurity is the Gini coefficient, which is defined as
+\begin{equation}
+    Gini(S) = \sum_{i}p_{i}(1-p_{i})
+  \end{equation}
+<p>
+Use the Gini coefficient to identify the root attribute for the training data in Table 1.
+</p>
+</li>
+</ul>
+</li>
+</ol>
+</div>
+</div>
+<div id="outline-container-sec-2" class="outline-2">
+<h2 id="sec-2"><span class="section-number-2">2</span> Nearest Neighbors</h2>
+<div class="outline-text-2" id="text-2">
+<p>
+The nearest neighbors algorithm partitions the space of examples into regions corresponding to  different  labels.   In  two  dimensions,  the  decision  boundaries  can  be  represented  as  a Voronoi diagram, which shows regions of the plane associated with each label.
+</p>
+<ol class="org-ol">
+<li>Using the Euclidean distance measure between points, show a Voronoi map corresponding to the nearest neighbor classifiation of the following four points.  (That is, draw a diagram that shows how the nearest neighbor classification of the following four points partitions the two dimensional plane.)
+
+<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+
+
+<colgroup>
+<col  class="left" />
+
+<col  class="right" />
+
+<col  class="right" />
+</colgroup>
+<thead>
+<tr>
+<th scope="col" class="left">Label</th>
+<th scope="col" class="right">x</th>
+<th scope="col" class="right">y</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="left">A</td>
+<td class="right">1</td>
+<td class="right">1</td>
+</tr>
+
+<tr>
+<td class="left">A</td>
+<td class="right">1</td>
+<td class="right">-1</td>
+</tr>
+
+<tr>
+<td class="left">B</td>
+<td class="right">-1</td>
+<td class="right">-1</td>
+</tr>
+
+<tr>
+<td class="left">C</td>
+<td class="right">2</td>
+<td class="right">-2</td>
+</tr>
+</tbody>
+</table>
+
+<ul class="org-ul">
+<li>Words
+</li>
+</ul>
+
+<div class="figure">
+<p><img src="./images/3a_Voronoi-recolor.png" alt="3a_Voronoi-recolor.png" />
+</p>
+<p><span class="figure-number">Figure 2:</span> Voronoi Map of the above data.</p>
+</div>
+
+<div class="org-src-container">
+
+<pre class="src src-python"><span style="color: #a020f0;">from</span> scipy.spatial <span style="color: #a020f0;">import</span> KDTree
+<span style="color: #a020f0;">import</span> matplotlib.pyplot <span style="color: #a020f0;">as</span> plt
+plt.rc(<span style="color: #8b2252;">"savefig"</span>, dpi=150)
+<span style="color: #a020f0;">import</span> numpy <span style="color: #a020f0;">as</span> np
+
+<span style="color: #a0522d;">points</span> = np.array([[1,1],[1,-1],[-1,-1],[2,-2]])
+<span style="color: #a0522d;">tree</span> = KDTree(points)
+<span style="color: #a0522d;">x</span> = np.linspace(-2.5, 2.5, 100)
+<span style="color: #a0522d;">y</span> = np.linspace(-2.5, 2.5, 100)
+<span style="color: #a0522d;">xx</span>, <span style="color: #a0522d;">yy</span> = np.meshgrid(x, y)
+<span style="color: #a0522d;">xy</span> = np.c_[xx.ravel(), yy.ravel()]
+plt.pcolor(x, y, tree.query(xy)[1].reshape(100, 100))
+plt.plot(points[:,0], points[:,1], <span style="color: #8b2252;">'ko'</span>)
+plt.xlabel(<span style="color: #8b2252;">"X"</span>)
+plt.ylabel(<span style="color: #8b2252;">"Y"</span>)
+plt.savefig(<span style="color: #8b2252;">"3a_Voronoi.png"</span>)
+plt.savefig(<span style="color: #8b2252;">"3a_Voronoi.ps"</span>)
+plt.show()
+</pre>
+</div>
+</li>
+
+<li>Using the city-block distance measure, show a Voronoi map corresponding to the nearest neighbor classification of the following three points.
+
+<p>
+(Recall that the city-block measure/Manhattan distance/\(L_{1}\) distance/taxicab metric between two points \({\mathbf x}\), \({\mathbf y}\) in the \(n\)-dimensional space \(\mathbb{R}^{n}\) is defined as \(\sum_{i=1}^{n}\left| x_{i}-y_{i}\right|\).)
+</p>
+
+<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+
+
+<colgroup>
+<col  class="left" />
+
+<col  class="right" />
+
+<col  class="right" />
+</colgroup>
+<thead>
+<tr>
+<th scope="col" class="left">Label</th>
+<th scope="col" class="right">x</th>
+<th scope="col" class="right">y</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="left">A</td>
+<td class="right">1</td>
+<td class="right">1</td>
+</tr>
+
+<tr>
+<td class="left">B</td>
+<td class="right">-1</td>
+<td class="right">-1</td>
+</tr>
+
+<tr>
+<td class="left">C</td>
+<td class="right">2</td>
+<td class="right">-2</td>
+</tr>
+</tbody>
+</table>
+</li>
+
+<li>Can you design a <i>tiny</i> training data set such that nearest-neighbor classification using Euclidean distance and Manhattan distance will give you different results? To answer this question, you can assume the data are in two-dimensional plane. Each data point is specified using its Cartesian coordinate, just like in previous part of this problem.  Show your training set and one test example so that the two distances will give your conflicting results on that test example.
+</li>
+</ol>
+</div>
+</div>
+<div id="outline-container-sec-3" class="outline-2">
+<h2 id="sec-3"><span class="section-number-2">3</span> Experiment</h2>
+<div class="outline-text-2" id="text-3">
+<p>
+In  this  question,  you  will  implement  decision  tree  learners  and  the  \(K\)-nearest  neighbors algorithms.   Also  you  will  learn  to  select  the  proper \(K\) value  in  your \(K\)-nearest  neighbor algorithm using a technique called <i>cross-validation</i>.
+</p>
+
+<p>
+This problem uses the Tic-Tac-Toe Endgame Data set from the UCI machine learning repository.   Each  data  point  has  9  features  indicating  the  9  locations  on  the  Tic-Tac-Toe game board.  The feature can have one of the three values:  x, o, and b (for blank).  The label is positive or negative, indicating whether player x wins or not. Your goal is to use various learning algorithms on the training data to train a predictor and see how well it does on the test data. You may use any programming language for your implementation.  However, the graders should be able to execute your code on the CADE machines.
+</p>
+
+<p>
+Your goal is to use various learning algorithms on the training data to train a predictor and see how well it does on the test data.
+</p>
+
+<p>
+You may use any programming language for your implementation. However, the graders should be able to execute your code on the CADE machines.
+</p>
+</div>
+
+<div id="outline-container-sec-3-1" class="outline-3">
+<h3 id="sec-3-1"><span class="section-number-3">3.1</span> Cross Validation</h3>
+<div class="outline-text-3" id="text-3-1">
+<p>
+The value \(K\) is a hyper-parameter to the \(K\) nearest neighbor algorithm.  You will see later in the semester that many machine learning algorithm (SVM, logistic-regression etc) have some hyper-parameters as their input.  One way to determine a proper value for the hyper-parameter is to use a technique called cross-validation.
+</p>
+
+<p>
+As usual we have a training set and a test set.  Some of the training data is put aside, and when training is finished,  the resulting classifier is tested on the held out data.  This allows you get get an idea of how well the particular choice of hyper-parameters does.  Since you did not train on your whole dataset you may have introduced a bias.  To correct for this, you will need to train many classifiers with different subsets of the training data removed.
+</p>
+
+<p>
+For problems with small data sets, a popular method is the leave-one-out approach.  For each example, a classifier is trained on the rest of the data and the chosen example is then evaluated.   The  performance of  the  classifier  is  the  average  accuracy  on  all  the  examples. The downside to this method is for a data set with \(n\) examples you must train \(n\) different classifiers.  Of course, this is not practical for the data set you will use in this problem, so you will hold out subsets of the data many times instead.
+</p>
+
+<p>
+Specifically, for this problem, you should implement \(k\)-fold cross validation to identify the hyperparameter \(K\) (Don't confuse \(k\) with \(K\), they are different). The general approach for \(k\)-fold cross validation is the following: Suppose you want to evaluate how good a particular hyper-parameter is. You split the training data into \(k\) parts. Now, you will train your model on \(k-1\) parts with the chosen hyper-parameter and evaluate the trained model on the remaining part. You should repeat this \(k\) times, choosing a different part for evaluation each time. This will give you \(k\) values of accuracy. Their <i>average cross-validation accuracy</i> gives you an idea of how good this choice of the hyper-parameter is. To find the best value of the hyper-parameter, you will need to repeat this procedure for different choices of the hyper-parameter. Once you find the best value of the hyper-parameter, use the value to retrain your classifier using the entire training set.
+</p>
+</div>
+</div>
+<div id="outline-container-sec-3-2" class="outline-3">
+<h3 id="sec-3-2"><span class="section-number-3">3.2</span> Data Files</h3>
+<div class="outline-text-3" id="text-3-2">
+<p>
+You can find the data on the assignments page of the class website in a file called <code>tic-tac-toe.zip</code>. It consists of six training files (used for 6-fold cross validation in KNN), and one test file, which you will use for training and testing respectively.
+</p>
+
+<ol class="org-ol">
+<li>Implement a decision tree data structure. (Remember that the decision tree need not be a binary tree!)
+</li>
+<li>Implement the ID3 learning algorithm for your decision tree implementation. For debugging your implementation, you can use the previous toy examples from the homework like the restaurant data from Table 1. Report the accuracy of your decision tree on the test data. <i>Important:</i> You need to combine all training examples in all six training files when you train your decision tree. Don't just train your tree using only one training file.
+</li>
+<li>Implement a \(K\) Nearest Neighbor classifier for a general \(K\). Note that your features are only categorical. So you have to make choices about how to measure distances between them. For example, you could consider using the Hamming distance between the feature representations.
+</li>
+<li>Implement cross-validation. Run 6-fold cross-validation \((k=6)\) to select the best \(K\) value from \(K\in \{1,2,3,4,5\}\). The training data are already separated into six folds for you, each fold is a separate file. Report the average cross-validation accuracy for each choice of \(K\). Use the best value of \(K\) to retrain your classifier on the entire train data set. Report its accuracy on the test data.
+</li>
+</ol>
+</div>
+</div>
+<div id="outline-container-sec-3-3" class="outline-3">
+<h3 id="sec-3-3"><span class="section-number-3">3.3</span> What to hand in for this problem</h3>
+<div class="outline-text-3" id="text-3-3">
+<ol class="org-ol">
+<li>The report should detail your experiments. For each step, explain in no more than a paragraph or so how your implementation works. You may provide the results for the final step as a table or graph.
+</li>
+<li><i>Your code should run on the CADE machines.</i> You should include a shell script, <code>run.sh</code>, that will execute your code in the CADE environment. Your code should produce similar output to what you include in your report. 
+You are responsible for ensuring that the grader can execute the code using only the included script. If you are using an esoteric programming language, you should make sure that its runtime is available on CADE.
+</li>
+<li>The points for this question will be as follows: 20 points for the decision tree part, 20 points for the \(K\)-NN part and 15 points for your report.
+</li>
+<li>Please do not hand in binary files! We will not grade binary submissions.
+</li>
+</ol>
+</div>
+</div>
+</div>
+</div>
+<div id="postamble" class="status">
+<p class="author">Author: Christopher Mertin</p>
+<p class="date">Created: 2015-09-10 Thu 10:52</p>
+<p class="creator">Emacs 24.5 (Org mode 8.2.10)</p>
+<p class="validation"><a href="http://validator.w3.org/check?uri=referer">Validate</a></p>
+</div>
+</body>
+</html>

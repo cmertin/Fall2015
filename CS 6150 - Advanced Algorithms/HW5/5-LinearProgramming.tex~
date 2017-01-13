@@ -1,0 +1,287 @@
+\documentclass[addpoints]{exam}
+\usepackage{amsmath,amsthm,amssymb,url}
+
+\usepackage{algorithm}
+\usepackage{algorithmic}
+\usepackage{mathtools}
+\usepackage{graphicx}
+\usepackage{float}
+\usepackage[pdftex]{hyperref}
+
+
+\newtheorem{lemma}{Lemma}[section]
+\newcommand{\var}{\text{Var}}
+\title{CS 6150: Homework 5}
+\date{Due Date: December 14, 2015}
+\author{Christopher Mertin}
+\begin{document}
+\maketitle
+\begin{center}
+\fbox{\fbox{\parbox{5.5in}{\centering
+This assignment has \numquestions\ questions, for a total of \numpoints\
+points.
+Unless otherwise specified, complete and reasoned arguments will be
+expected for all answers. 
+}}}
+\end{center}
+
+\qformat{Question \thequestion: \thequestiontitle\dotfill \textbf{[\totalpoints]}}
+\pointname{}
+\bonuspointname{}
+\pointformat{[\bfseries\thepoints]}
+
+\printanswers
+
+\begin{center}
+  \gradetable
+\end{center}
+\newpage
+
+
+
+\begin{questions}
+
+\titledquestion{Integer programs}
+Write down integer programs for the following problems.
+\begin{parts}
+  \part[10] Let $U$ be a set, and let $\mathcal{C} = \{S_1, \ldots, S_n\}$ be a
+  collection of subsets of $U$. Each set $S$ has a weight $w_S$. Find a subcollection $\mathcal{C}^{\prime} \subset
+\mathcal{C}$ of minimum total weight ($w(\mathcal{C}^{\prime}) = \sum_{S \in
+  \mathcal{C}^{\prime}} w_S$) such that the sets in $\mathcal{C}^{\prime}$
+\emph{cover} $U$: {\em i.e.}
+\[ \cup_{S \in \mathcal{C}^{\prime}} S = U \]
+
+\begin{solution}
+We introduce a variable $x_{i}$ for every set $S_{i}$, such that $x_{i}=1$ if $S_{i}$ is in the set cover, and $x_{i}=0$ if it is not. The resulting function that we want to minimize is:
+\begin{align}
+\min\qquad & \sum_{i=1}^{n}w_{i}x_{i}\\
+\text{such that:}\quad & \sum_{i:v\in S_{i}} x_{i}\geq 1\quad \forall\ v\in U\\
+  & x_{i}\in\{0,1\}\quad \forall\ i\in\{1,2,\ldots,n\}\\
+  & w_{i}\in \mathbb{Z}
+\end{align}
+where the last relation comes about because this question is asking for an {\em integer program} so in order to be able to treat it as an integer program, the weight $w_{i}$ needs to be an integer since $x_{i}$ is already confined to being an integer.
+\end{solution}
+
+
+\part[10] Let $U$ be a universe, and let $\mathcal{C} = \{S_1, \ldots, S_n\}$ be a
+  collection of subsets of $U$. Each element $u \in U$ has a weight $w_u$. Find
+  a subset $H \subset U$ of minimum total weight ($w(H) = \sum_{u \in H} w_u$) such that each set
+  in $\mathcal{C}$ is \emph{hit} by $H$: {\em i.e.}
+\[ \forall S \in \mathcal{C}, H \cap S \ne \emptyset \]
+
+\begin{solution}
+To be {\em hit} by $H$, it is asking for at least one of the elements in $H$ to appear in every subset in $\mathcal{C}$. We can define a new variable $x_{i}$ for each element of $S_{i}$, where $x_{i}=1$ if $S_{i}\cap H\neq \emptyset$ and $x_{i}=0$ otherwise. We can define each edge in $U$ as being $u_{i}$ which represents the $i^{th}$ edge in $U$. Following this, we want to minimize the following program as we would want to get the minimum weights
+\begin{align}
+\min\qquad & \sum_{i=1}^{n}x_{i}w_{u_{i}}\\
+\text{such that:}\quad & \sum_{u_{i}\in \mathcal{C}}x_{i}\geq 1\quad \forall\ S_{i}\in \mathcal{C}\\
+ & x_{i}\in\{0,1\}\quad \forall\ i\in\{1,2,\ldots,n\}\\
+ & w_{u_{i}}\in \mathbb{Z}
+\end{align}
+where again this last restriction comes about because the question is asking for an integer program.
+\end{solution}
+
+\end{parts}
+
+\titledquestion{LP duals}
+\begin{parts}
+  \part[10] Consider the linear program 
+  \begin{align*}
+    \max\qquad & 5x + 3y - 2z \\
+    \text{such that}\quad     & 3x - 2y \le 6 \\
+         & 4y + 2z \le 7 \\
+         & -3x + 2z \le 3
+  \end{align*}
+Write down the dual of this LP. 
+
+\begin{solution}
+This linear program can be simply written down from this equation by following the trends that were found in problem 4, which were
+\begin{itemize}
+\item The directions of the inequalities were swapped
+\item Constrainged were moved to the dual variables and the coefficients became the constraints
+\item Each line of constraints are one line for each primal variable, though each dual variable is represented in each line. For example, $\lambda_{1}$, $\lambda_{2}$, and $\lambda_{3}$ are all in the first constraint, but the coefficients of these dual variables are all of those varables that were multiplied by $x$ in the original problem.
+\end{itemize}
+By following these, the dual of the above stated problem is
+\begin{align}
+\min_{\lambda_{i}}\qquad & 6\lambda_{1} + 7\lambda_{2} - 3\lambda_{3}\\
+\text{such that:}\quad & 
+3\lambda_{1} - 3\lambda_{3} \geq 5\\
+& -2\lambda_{1} + 4\lambda_{2} \geq 3\\
+& -2\lambda_{2} + 2\lambda_{3} \geq 2
+\end{align}
+\end{solution}
+
+
+\part[10] Write down the dual of the linear program obtained by relaxing the
+integer program from Question 1(b) above. 
+
+\begin{solution}
+For the dual of this program, we basically want to find an upper bound on the total weight on the resulting subsets such that
+\begin{align}
+\max\qquad & \sum_{i=1}^{n}\lambda_{i}\\
+\text{such that:}\quad &\nonumber \\
+& \sum_{i:u_{i}\in H}\lambda_{i}\leq w_{u_{i}}\ \forall\ S_{i}\in \mathcal{C}\\
+& y_{i}\geq 0
+\end{align}
+\end{solution}
+
+\end{parts}
+
+\titledquestion{Max cardinality matching}
+\begin{parts}
+  \part[10] Write down a linear program for computing a maximum cardinality
+  matching in a bipartite graph. Your linear program will have one variable for
+  each edge. 
+
+\begin{solution}
+This can be solved in the following way. First we need to define how the nodes are built based on the bipartite graph $G(V,E)$.
+\begin{itemize}
+\item We create nodes labeled $\{A,B,C,\ldots,\Gamma\}$, where $\Gamma$ is the number of nodes in the left side of the bipartite graph. These nodes are defined as the set $\{A\}$.
+\item We create nodes labeled $\{1,2,3,\ldots,N\}$ where $N$ is the number of nodes in the right side of the bipartite graph. These nodes are defined as the set $\{B\}$. 
+\end{itemize}
+The maximum cardinality matching of the graph can be defined by the following linear program. We want to minimize this function because we want the least number of edges possible to match each edge in the graph.
+\begin{align}
+\min\qquad & \sum_{i,j}^{\Gamma,N}x_{i,j}\\
+\text{such that:}\quad & \nonumber\\
+& x_{i,j} = \left\{ \begin{array}{l l} 
+1 & \text{if the edge }(i,j)\text{ exists for } i\in \{A\}\\
+1 & \text{if the edge }(i,j)\text{ exists for } j\in \{B\}\\
+0 & \text{else}\\
+ \end{array}\right.\\
+  & x_{i,j} \geq 0\quad i\in\{A\},\ j\in\{B\}
+\end{align}
+\end{solution}
+
+
+\part[10] Write down the dual of this LP. What well known problem does it capture? 
+
+\begin{solution}
+We can introduce two variables $u_{i}\ \forall\ i\in \{A\}$, and $v_{i}\ \forall\ j\in \{B\}$, which are our {\em dual variables}. To create the dual of the above equation, we want to minimize the following
+\begin{align}
+\text{IDK how to do this one...}
+\end{align}
+\end{solution}
+
+\end{parts}
+
+
+\titledquestion{Generalized Duals}[20]
+
+We've seen that any linear program can be written in the canonical form 
+\begin{align*}
+  \max \qquad & c^\top x \\
+  \text{such that} \quad & Ax \le b \\
+  & x \ge 0
+\end{align*}
+
+which gives rise to the corresponding dual
+\begin{align*}
+  \min \qquad & y^\top b \\
+  \text{such that} \quad & y^\top A \ge c \\
+  & y \ge 0
+\end{align*}
+It turns out that first transforming a general linear program with equality and
+$\ge$ constraints into canonical form, and then writing the dual, can be a
+little inconvenient, and that it's easier to write the dual directly. 
+
+But what would this dual look like? Let's take a general linear program that
+looks like this: 
+
+\begin{align*}
+\max \qquad & ax + by + cz \\
+\text{such that} \quad & Ax + By + Cz \le d \\
+& Dx + Ey + Fz = e \\
+& Gx + Hy + Iz \ge f \\
+& x \ge 0, z \le 0
+\end{align*}
+
+Note that $x, y, z$ are \emph{vectors} and $y$ is unconstrained (i.e the
+coordinates of $y$ could be more or less than zero). 
+
+Write down the dual of this linear program. You will do this by first
+transforming this into the canonical setting, writing the canonical dual, and
+then rewriting the dual in simplified form. It will help to remember that if $a$
+and $b$ are two variables that are both greater than zero, then $a-b$ represents
+a variable that could be either more or less than zero. 
+
+Do you notice any pattern in the relation between primal constraint and dual
+variables (and vice versa)? 
+
+\begin{solution}
+First, we can rewrite this linear program such that it contains the constraints that are given in the problem. We define the following as notation as well $\sigma\sim 0$ means that $\sigma$ is unbounded and not contstrained to being postive or negative. The (rewritten) linear program from the question is
+
+\begin{align}
+\max\qquad & ax + by + cz\label{eq:4_first}\\
+\text{such that:}\quad & Ax + By + Cz\leq d\\
+  & Dx + Ey+Fz = e\\
+  & Gx + Hy + Iz \geq f\\
+  & x\geq 0, z\leq 0\\
+  & a>0, b>0, a-b\sim0
+\intertext{where we can first start to change this to its {\em dual} by switching Equation~(\ref{eq:4_first}) to its corresponding negative which is}
+\min_{x\geq 0,z\leq 0}\qquad & -ax - by -cz\\
+\intertext{We can then take the inequalities and rearrange them in the form}
+ & Ax + By + Cz - d \leq 0\\
+ & Dx + Ey + Fz - e = 0\\
+ & Gx + Hy + Iz + f \leq 0\\
+ & a>0, b>0, a-b\sim0\\
+\intertext{We can then define some dual variables: $\lambda_{1}$, $\lambda_{2}$, and $\lambda_{3}$ to be used such that $\lambda_{1}\geq 0$, $\lambda_{3}\geq 0$ and $\lambda_{2}\sim0$. We will want to maximize the minimization of our function, so we can reqwrite our equations using these dual variables as:}
+\max_{\lambda_{i}}\min_{x_{i}}\qquad & -ax -by -cz\\
+  & + \lambda_{1}(Ax + By + Cz - d)\\
+  & + \lambda_{2}(Dx + Ey + Fz - e)\\
+  & + \lambda_{3}(Gx + Hy + Iz + f)\\
+\intertext{Now we can use the results from above to rebuild our linear program in teh form of the dual. We can swap $\lambda_{1}$ for $x$, $\lambda_{2}$ for $y$, and $\lambda_{3}$ for $z$. We also change the constants in the function as well, where we swap the terms in the inequalities with those constants in the original equation. This results in the following}
+\max_{\lambda_{i}}\min_{x_{i}}\qquad & -\lambda_{1}d - \lambda_{2}e - \lambda_{3}f\\ 
+& + x(A\lambda_{1}+D\lambda_{2}+G\lambda_{3}-a)\\
+& + y(B\lambda_{1}+E\lambda_{2}+H\lambda_{3}-b)\\
+& + z(C\lambda_{1}+F\lambda_{2}+I\lambda_{3}-c)
+\intertext{We can finally rewrite these equations by reintroducing the inequalities back into the equations. The terms in parenthesis to the right of the equations define what bound from the original problem was used to build these inequalities}
+\max_{\lambda_{i}}\min_{x_{i}}\qquad & -\lambda_{1}d - \lambda_{2}e - \lambda_{3}f\\
+& A\lambda_{1}+D\lambda_{2}+G\lambda_{3}-a\geq 0\quad (x\geq 0)\\
+& B\lambda_{1}+E\lambda_{2}+H\lambda_{3}-b=0\quad (y\sim 0)\\
+& C\lambda_{1}+F\lambda_{2}+I\lambda_{3}-c\leq 0\quad (z\leq 0)\\
+\intertext{Finally, we can rebuild the inequalities like they were in the original equation, where we can get rid of the $\max_{x_{i}}$ part since we just want to minimize of the function, so we take a negative of that function first}
+\min_{\lambda_{i}}\qquad & \lambda_{1}d + \lambda_{2}e + \lambda_{3}f\\
+\text{such that:}\quad& 
+   A\lambda_{1} + D\lambda_{2} + G\lambda_{3} \geq a\\
+ & B\lambda_{1} + E\lambda_{2} + H\lambda_{3} = b\\
+ & C\lambda_{1} + F\lambda_{2}+I\lambda_{3}\leq c\\
+ & \lambda_{1}\geq 0, \lambda_{3}\geq 0, \lambda_{2}\sim0
+\end{align}
+where the following trends were noticed between the original problem and its dual
+\begin{itemize}
+\item The directions of the inequalities were swapped
+\item Constrainged were moved to the dual variables and the coefficients became the constraints
+\item Each line of constraints are one line for each primal variable, though each dual variable is represented in each line. For example, $\lambda_{1}$, $\lambda_{2}$, and $\lambda_{3}$ are all in the first constraint, but the coefficients of these dual variables are all of those varables that were multiplied by $x$ in the original problem.
+\end{itemize}
+\end{solution}
+
+
+\titledquestion{Best fit line}[20]
+\emph{this is question 7(b) from the Erickson notes on LPs}
+
+You are given $n$ points $(x_i, y_i)$ in the plane, and you wish to find a line
+of \emph{best fit}. But instead of the standard squared error norm, you will be
+using the $\ell_1$ error: namely, for any given line $y = ax + b$, the error is
+given by 
+\[ \epsilon_1(a, b) = \sum_{i=1}^n |y_i - (ax_i + b)|. \]
+Write down a linear program to find a line that minimizes $\epsilon_1$. 
+
+\begin{solution}
+In order to minimize the function, we want to minize the following
+\begin{align}
+\min_{x}\qquad & \sum_{i=1}^{n}\left| a_{i}^{T}x_{i}-b_{i}\right|\\
+\intertext{To get into linear programming form, we need a bound on the variables. Since the data can be on {\em either side} of the line in question, we need to take that into account when building the bounds. The resulting linear program is}
+\min_{x,v}\qquad & \sum_{i=1}^{n}v_{i}\\
+\text{such that:}\quad & -v_{i}\leq a_{i}^{T}x_{i}-b_{i}\leq v_{i}\qquad i=\{1,2,\ldots,n\}
+\end{align}
+\end{solution}
+
+
+
+\end{questions}
+
+\end{document}
+
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: t
+%%% End:

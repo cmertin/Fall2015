@@ -1,0 +1,168 @@
+#!/usr/bin/python
+''' 
+k-NN.py
+Author: Christopher Mertin
+Date: September 17, 2015
+This program uses K Nearest Neighbors and k-fold cross validation to find the
+best value of K to use to classify the test data with.
+'''
+
+
+from __future__ import print_function, division
+
+# Returns the most frequent label in the given list
+def MostFrequent(dataList):
+    highestFrequency = 0
+    mostFrequentLabel = None
+    
+    for label in dataList:
+        if dataList.count(label) > highestFrequency:
+            mostFrequentLabel = label
+            highestFrequency = dataList.count(label)
+            
+    return mostFrequentLabel
+
+# Classifies the data by looking at the k data points that are closest in the
+# list, where the distance is based off the HammingDistance
+def Classify(testData, trainData, k):
+    k_nearest = []
+    gameState = []
+    total = 0
+    correct = 0
+    flag = 0
+
+    for i in xrange(0, len(testData)):
+        dist = 1000
+        tempDist = 1000
+        k_nearest = []
+        # Calculates the minimum distance 
+        for j in xrange(0, len(trainData)):
+            tempDist = HammingDistance(testData[i], trainData[j]) 
+            if tempDist < dist:
+                dist = tempDist
+        for j in xrange(0, len(trainData)):
+            tempDist = HammingDistance(testData[i], trainData[j])
+            # Only appends the label as a "possible" label if it's within the
+            # lowest of the distances and is a "K" nearest neighbor
+            if tempDist == dist and len(k_nearest) != k:
+                k_nearest.append(trainData[j][9])
+
+        freq = MostFrequent(k_nearest)
+        total += 1
+        if freq == testData[i][9]:
+            correct += 1
+
+    return correct, total
+
+
+# Calculates the Hamming Distance based off of the list of each game that
+# is read in. For example:
+# ['o', 'x', 'x', 'x', 'x', 'o', 'o', 'o', 'x', 'negative']
+# ['x', 'x', 'x', 'o', 'o', 'b', 'b', 'b', 'b', 'negative']
+# It looks over each index (except for the last one) and sees how many
+# are different. In the above case, the hamming distance would be 7
+def HammingDistance(game1, game2):
+    dist = 0
+    for i in xrange(0, len(game1)-1):
+        if game1[i] != game2[i]:
+            dist += 1
+    return dist
+
+# Reads in the data and cleans it up by removing the delimiters and stores
+# each game as a list in data, which is returned after all the data in the
+# file are read in
+def ReadData(dataFile):
+    data = []
+    flag = 0
+    infile = open(dataFile, "r")
+    lines = [line.strip() for line in infile.readlines()]
+
+    del lines[0]
+
+    for line in lines:
+        values = []
+        string = []
+        for column in line.split(","):
+            values.append(column.strip())
+        data.append(values)
+
+    return data
+
+
+    
+trainBaseName = "Data/train/tic-tac-toe-train-"
+testBaseName = "Data/test/tic-tac-toe-test"
+nearestK = 3
+
+trainingData = []
+testData = []
+classifiedData = []
+'''
+for i in xrange(1, 7):
+    file = trainBaseName + str(i) + ".txt"
+    trainingData.extend(ReadData(file))
+
+file = testBaseName + ".txt"
+testData = ReadData(file)
+
+correct, total = Classify(testData, trainingData, nearestK)
+
+print("For k = " + str(nearestK) + " nearest neighbors, " +  str(correct) + 
+      "/" + str(total) + " are correct using the whole training set")
+'''
+############################ k-fold cross validation #########################
+
+correctList = []
+averageList = []
+
+for k in xrange(1, 6):
+    nearestK = k
+    correctList = []
+    for i in xrange(1, 7):
+        testData = []
+        trainingData = []
+        for j in xrange(1, 7):
+            if j == i:
+                continue
+            else:
+                file = trainBaseName + str(j) + ".txt"
+                trainingData.extend(ReadData(file))
+        file = trainBaseName + str(i) + ".txt"
+        testData = ReadData(file)
+        correct, total = Classify(testData, trainingData, nearestK)
+        correctList.append(correct/total)
+    average = 0
+    correctAvg = 0
+    for i in xrange(0, len(correctList)):
+        average += correct/total
+        correctAvg += correct
+    average = average/len(correctList)
+    correctAvg = int(correctAvg/len(correctList))
+    averageList.append(average)
+    print("---------------------------------------------")
+    print("For K = " + str(nearestK) + " the average accuracy is %0.3F" % average + ": " + str(correctAvg) + "/" + str(total))
+
+print("---------------------------------------------")
+maxAverage = max(averageList)
+nearestK = averageList.index(maxAverage) + 1
+print("The max K from k-fold cross validation is K = " + str(nearestK) + ".\nSetting it and retesting over the entire dataset")
+
+########################## Testing over the entire data ########################
+
+print("---------------------------------------------")
+
+trainingData = []
+testData = []
+classifiedData = []
+
+for i in xrange(1, 7):
+    file = trainBaseName + str(i) + ".txt"
+    trainingData.extend(ReadData(file))
+
+file = testBaseName + ".txt"
+testData = ReadData(file)
+
+correct, total = Classify(testData, trainingData, nearestK)
+
+print("For k = " + str(nearestK) + " nearest neighbors, " +  str(correct) + 
+      "/" + str(total) + " are correct using the whole training set\n")

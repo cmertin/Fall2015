@@ -1,0 +1,41 @@
+proteins = ["101M", "102L", "102M", "103L"]
+
+n=proteins.length
+
+var prot="4EAR/dom"
+
+Load="$prot"
+
+for (var i=1; i<=n; i++)
+{
+	#var prot_data=proteins[i] + "/dom"
+	#Load @prot_data
+	#cartoon on
+	#color structure
+	#backbone off
+	#wireframe off
+	#spacefill off
+	#ribbon on
+	#moveto 0 1 0 0 -90; # Top view
+}
+#Load=4EAR/dom
+#cartoon on
+#color structure
+#backbone off
+#wireframe off
+#spacefill off
+#ribbon on
+#moveto 0 1 0 0 -90; #topview
+#write Image 516 639 JPG64 "/Users/multivax/Documents/PhD/Machine_Learning/Project/Data/jmol/topView.jpg"
+#moveto 0 0 1 0 90; #rightview
+#write Image 516 639 JPG64 "/Users/multivax/Documents/PhD/Machine_Learning/Project/Data/jmol/rightView.jpg"
+#moveto 0 0 1 0 -90; #leftview
+#write Image 516 639 JPG64 "/Users/multivax/Documents/PhD/Machine_Learning/Project/Data/jmol/leftView.jpg"
+#moveto 2 1 0 0 90; #bottomview
+#write Image 516 639 JPG64 "/Users/multivax/Documents/PhD/Machine_Learning/Project/Data/jmol/bottomView.jpg"
+#moveto 2 0 0 0 0; #standardView with zoom
+#dom = script("show DOMAINS")
+#write var dom domains.txt
+#aiminoAcid = script("show SEQUENCE")
+#select within(domains,"InterPro where domain.identifier='calycin'").
+#write INLINE "data" "fileName"

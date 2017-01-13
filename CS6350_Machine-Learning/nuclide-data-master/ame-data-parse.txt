@@ -1,0 +1,8 @@
+mass_exp.mas95: https://www-nds.iaea.org/public/masses/mass_exp.mas95
+mass_rmd.mas95: https://www-nds.iaea.org/public/masses/mass_rmd.mas95
+mass.mas03: http://www.nndc.bnl.gov/masses/mass.mas03
+mass.mas03round: http://physics.nist.gov/PhysRefData/Compositions/mass.mas03round.txt
+mass.mas12: http://amdc.in2p3.fr/masstables/Ame2012/mass.mas12
+ame_parse.cpp
+https://github.com/awsteiner/o2scl/blob/master/src/internal/ame_parse.cpp
+https://github.com/awsteiner/o2scl.git

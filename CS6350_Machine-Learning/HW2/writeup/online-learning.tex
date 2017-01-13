@@ -1,0 +1,74 @@
+\section{Mistake-bound learning}
+\label{sec:mistake-bound-learning}
+
+\begin{enumerate}
+\item Let us define a concept class $C$ of Boolean functions from
+  $\{0,1\}^n$ to $\{0, 1\}$. Every function in this class is an
+  indicator function for a particular element in the input space. That
+  is, for every $\bz \in \{0, 1\}^n$, there is a function $f_\bz$ in $C$
+  defined as follows:
+
+  \begin{equation}
+    f_\bz(\bx) = \begin{cases}
+      1 & \mbox{if } \bz = \bx \\
+      0 & \mbox{otherwise }
+    \end{cases}
+  \end{equation}
+
+  \begin{enumerate}
+  \item ~[2 points] How many functions does $C$ contain?
+    \begin{itemize}
+      \item $2^{n}$
+    \end{itemize}
+  \item ~[10 points] Suppose we use the Halving algorithm to learn this
+    concept class. How many mistakes will the algorithm make? Write a
+    short proof for your answer. (Hint: The bound we proved in class
+    doesn't directly apply.)
+    \begin{align}
+      \intertext{$2^{n}$ possible combinations}
+      1z &\leq \frac{1}{2}|C_{n-1}|\\
+         &\leq \frac{1}{2}\cdot\frac{1}{2}|C_{n-2}|\\
+         &\vdots\\
+         &\leq \frac{1}{2^{n}}\cdot\frac{1}{2^{n}} = \frac{1}{2^{n}}^{n} \geq 1\\
+         &\Rightarrow \mathcal{O}(n\log(n))
+    \end{align}
+  \item ~[1 point] Is Halving a mistake-bound algorithm for this
+    concept class?
+    \begin{itemize}
+      \item No
+    \end{itemize}
+  \end{enumerate}
+
+\item ~[12 points] Recall from class that the Halving algorithm
+  assumes that there is the true (hidden) function is in the concept
+  class $C$ with $N$ elements and tries to find it. In this setting,
+  we know the number of mistakes made by the algorithm is $O(\log N)$.
+
+  Another way to think about this setting is that we are trying to
+  predict with expert advice. That is, we have a pool of $N$ so called
+  experts, only one of whom is perfect. As the halving algorithm
+  proceeds, it cuts down this pool by at least half each time a
+  mistake is made.
+
+  Suppose, instead of one perfect expert, we have $M$ perfect experts
+  in our pool. Show that the mistake bound of the same Halving
+  algorithm in this case is $O(\log \frac{N}{M})$.
+  
+  ({\em Hint}: To show this, consider the stopping condition of the
+  algorithm. At what point, will the algorithm stop making mistakes?)
+  \begin{align}
+    \intertext{Would only make $\frac{N}{M}$ mistakes}
+    1 &= |C_{n}| < \frac{1}{2}|C_{n-1}|\\
+      &< \frac{1}{2}\cdot \frac{1}{2} |C_{n-2}|\\
+      &< \vdots\\
+      &< \frac{1}{2^{n}}|C_{n}| = \frac{1}{2^{n}}\frac{N}{M}\\
+      \intertext{Which comes about because the base case $C_{0}$ would be reacing the expert in $\frac{N}{M}$ tests}
+      2^{n} &\leq \frac{N}{M}\\
+      &\log\left(\frac{N}{M}\right)
+  \end{align}
+\end{enumerate}
+
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: "hw2"
+%%% End:

@@ -1,0 +1,119 @@
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+Note: Files such as "./astro/original/train.transform" don't actually exist.
+      They are calculated at execution as I didn't want to write a function
+      that saved them in the correct format to be parsed.
+Also: I reduced to 5-fold cross validation and only 10 epochs as it was
+      taking too long to run on CADE, though my final results reflect
+      10-fold cross validation and 30 epochs.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+===============================================================
+Performing 10-fold Cross Validation for: ./astro/original/train
+===============================================================
+	Accuracy and Parameters:
+	------------------------
+Accuracy	  C 		 rho
+--------	-----		-----
+0.88802		0.010		0.001
+0.73689		0.001		0.100
+0.73495		1.000		0.010
+0.73204		0.100		0.001
+0.73139		1.000		1.000
+
+
+		----------------
+		Testing the data
+		----------------
+		       C: 0.010
+		     rho: 0.001
+		Accuracy: 0.8638
+
+
+=========================================================================
+Performing 10-fold Cross Validation for: ./astro/original/train.transform
+=========================================================================
+	Accuracy and Parameters:
+	------------------------
+Accuracy	  C 		 rho
+--------	-----		-----
+0.67961		0.010		0.001
+0.67087		0.001		0.001
+0.65243		0.100		0.010
+0.65049		1.000		0.100
+0.64984		0.100		0.100
+
+
+		----------------
+		Testing the data
+		----------------
+		       C: 0.010
+		     rho: 0.001
+		Accuracy: 0.6475
+
+
+=============================================================
+Performing 10-fold Cross Validation for: ./astro/scaled/train
+=============================================================
+	Accuracy and Parameters:
+	------------------------
+Accuracy	  C 		 rho
+--------	-----		-----
+0.59731		10.000		0.100
+0.59374		10.000		0.010
+0.58921		10.000		1.000
+0.58403		10.000		0.001
+0.35243		0.001		0.001
+
+
+		----------------
+		Testing the data
+		----------------
+		       C: 10.000
+		     rho: 0.100
+		Accuracy: 0.5480
+
+
+=======================================================================
+Performing 10-fold Cross Validation for: ./astro/scaled/train.transform
+=======================================================================
+	Accuracy and Parameters:
+	------------------------
+Accuracy	  C 		 rho
+--------	-----		-----
+0.41379		10.000		0.001
+0.41217		10.000		1.000
+0.41055		10.000		0.100
+0.40861		10.000		0.010
+0.40015		0.001		0.001
+
+
+		----------------
+		Testing the data
+		----------------
+		       C: 10.000
+		     rho: 0.001
+		Accuracy: 0.4173
+
+
+==========================================================
+Performing 10-fold Cross Validation for: ./data0/train0.10
+==========================================================
+	Accuracy and Parameters:
+	------------------------
+Accuracy	  C 		 rho
+--------	-----		-----
+0.17600		10.000		0.010
+0.13400		10.000		0.001
+0.11100		10.000		0.100
+0.10600		10.000		1.000
+0.00100		1.000		0.001
+
+
+		----------------
+		Testing the data
+		----------------
+		       C: 10.000
+		     rho: 0.010
+		Accuracy: 0.0460

@@ -1,0 +1,253 @@
+\section{Experiment: Training an SVM classifier}
+\label{sec:experiments}
+
+Recall from class that an SVM learns a classifier by minimizing the
+following loss function:
+%
+$$ E(\bw) = \frac{1}{2}\bw^T\bw + C \sum_i \max (0, 1-y_i \bw^T\bx_i)$$
+%
+where $C$ is a hyper-parameter that controls the relative importance
+of the regularization term $\frac{1}{2}\bw^T\bw$ with respect to the error
+term. As always, the inputs $x_i$ are real valued vectors and
+$y_i \in \{-1, +1\}$. This formalism is commonly referred to as L2 regularization and L1 loss.
+
+\subsection*{Stochastic Gradient Descent}
+The concept behind SGD is to do gradient decent, but only calculate
+the gradient using a single example. In practice, it can be helpful to
+shuffle the order of the data for each epoch.
+%
+\begin{enumerate}
+\item Initialize $\bw = \vec{0}$, $t = 0$
+\item for epoch $1 \ldots T$:
+  \begin{enumerate}
+    \item for example $(\bx_i, y_i)$ for every $i$ (random order)
+        \begin{enumerate}
+        \item $r_t$ = Learning rate at $t$
+        \item $\bw = \bw - r_t \nabla E(\bw, \bx_i, y_i)$
+        \item $t = t + 1$
+        \end{enumerate}
+    \end{enumerate}
+\end{enumerate}
+
+Here, the gradient is defined as follows:
+$$ \nabla E(\bw, \bx, y) =
+\begin{cases}
+	\bw - C y x  & \text{if } y \bw^T \bx \leq 1 \\
+	\bw & \text{otherwise}
+\end{cases}
+$$
+(Refer to the lecture slides for the full description of the
+algorithm.)
+
+The learning rate is often stated as just $r$, but in practice it is
+better to scale it down as the algorithm converges. In your
+implementation $r$ will be a function of the initial learning rate,
+$\rho_0$, and the example number, $t$. In the case of the SVM loss
+function, one successful strategy is  to choose $r$ is
+$$ r(t, \rho_0) = \frac{\rho_0}{1 + \rho_0t/C}.$$
+
+Here, $t$ should be initialized to zero at the start and incremented
+for each example. Note that $t$ should not be reset at the start of
+the epoch.
+
+\subsection*{Data}
+
+For this home work you will be working on two data sets.
+\begin{enumerate}
+\item The data files named {\tt train0.10} and {\tt test0.10} from
+  data0 folder present in hw2.
+\item The data set named astro included as part of this assignment.
+  There are two variants of this dataset -- {\tt original} and {\tt
+    scaled}, each with train and test files. The scaled data set is a
+  feature-normalized version of the original dataset.
+\end{enumerate}
+
+This feature extracted data is in the libSVM data format which we used
+in homework-2. Recall from the description from homework 2 that in
+this format, each line is a single training example. The format of the
+each line in the data is
+
+{\tt <label> <index1>:<value1> <index2>:<value2> ...}
+
+Here {\tt <label>} denotes the label for that example. The rest of the
+elements of the row is a sparse vector denoting the feature vector.
+For example, if the original feature vector is $[0, 0, 1, 2, 0, 3]$,
+this would be represented as {\tt 3:1 4:2 6:3}. That is, only the
+non-zero entries of the feature vector are stored.
+
+\subsection*{Experiment and Reporting}
+
+\begin{enumerate}
+\item ~[7 points] Implement the SVM learner using stochastic
+  sub-gradient descent as a training algorithm. In your report,
+  briefly describe any design choices you make in implementing the
+  classifier.
+
+\begin{itemize}
+\item A major design choice that was made, was that the transformed files such as \verb~astro/original/train.transform~ don't actually exist. They are calculated correctly, but they are not written to a file and instead everything is stored in memory. This was to keep the computation time down as file I/O is a major bottleneck. 
+
+The SVM that was implemented uses Python and the NumPy library so that mathematical operations on vectors would already be implemented. This reduced the size of the code and the possibility for bugs in the mathematics. 
+
+%Finally, the values of $C$ that were chosen were restricted to what was given in the assignment, {\em ie} to the range $[0.001, 0.01, 0.1, 1.0, 10.0]$. This program does classify the \verb~data0/test0.10~ file with a value of $C = 10,000$, but this was removed for the final program since it would increase the cross validation function for each file, which wasn't necessary for the other data sets.
+\end{itemize}
+
+\item ~[3 points] Construct a feature transformation that maps all
+  points from the original space to the space of all products of
+  features. That is, for every pair of original features $x_i$ and
+  $x_j$, you will have feature $x_ix_j$ in the transformed set. (This
+  will include the square terms such as $x_i^2$ as well.) Apply the
+  transformation to the {\tt original} and the {\tt scaled} datasets.
+  So you will have four cases: {\tt original}, {\tt scaled}, {\tt
+    original.transformed}, and {\tt scaled.transformed}.
+
+  Report the distance of the farthest data point from the origin for
+  each of these four datasets.
+
+\begin{itemize}
+\item The points that were found to be furthest from the origin are as follows:
+\begin{itemize}
+  \item \verb~astro/original/train~: 
+
+    \verb~[  1.34611000e+02   5.81073100e+02  -1.44179400e-01   1.66310800e+02]~
+    
+    \verb~Distance from origin: 619.214~
+  \item \verb~astro/original/train.transform~:
+
+    \verb~[  1.81201213e+04   7.82188311e+04  -1.94081332e+01   2.23872631e+04~
+    
+    \verb~   7.82188311e+04   3.37645948e+05  -8.37787709e+01   9.66387321e+04~
+
+    \verb~  -1.94081332e+01  -8.37787709e+01   2.07876994e-02  -2.39785914e+01~
+
+    \verb~   2.23872631e+04   9.66387321e+04  -2.39785914e+01   2.76592822e+04]~
+    
+    \verb~Distance from origin: 383425.372~
+
+    \item \verb~astro/scaled/train~:
+
+    \verb~[-0.980394 -0.91751   0.932665  0.992551]~
+
+    \verb~Distance from origin: 1.913~
+
+    \item \verb~astro/scaled/train.transform~:
+      
+    \verb~[ 0.9611724   0.8995213  -0.91437917 -0.97309105~
+    
+    \verb~  0.8995213   0.8418246  -0.85572946 -0.91067547~
+
+    \verb~ -0.91437917 -0.85572946  0.869864    0.92571758~
+
+    \verb~ -0.97309105 -0.91067547  0.92571758  0.98515749]~
+
+    \verb~Distance from origin: 3.658~
+\end{itemize}
+\end{itemize}
+
+\item ~[20 points] Run the following experiment for the above 4
+  datasets and also {\tt data0.10}.
+
+  Using the provided features, run 10-fold cross validation to find
+  the best values for the hyper-parameters $\rho_0$ and $C$. Try out
+  all combinations of $\rho_0 \in \{0.001, 0.01, 0.1, 1\}$ and
+  $C \in \{0.001, 0.01, 0.1, 1, 10\}$. Feel free to expand the set of
+  hyperparameters.
+  
+  Show a table including the 5 best parameters with three columns:
+  $\rho_0$, $C$ and the average cross validation accuracy for that
+  choice of hyper-parameters.
+
+  (Since all you care about here is the relative accuracy to other
+  training runs it is not necessary for the weight vector to converge.
+  To make cross validation faster, only run 10 epochs of SGD during
+  cross-validation.)
+
+\begin{itemize}
+\item The table below summarizes the results of the best hyper-parameters from cross validation
+
+\begin{table}[!h]
+\centering
+\caption{Results for each file with hyper-parameters}
+\begin{tabular}{l | c | c | c | c | c}
+\hline\hline
+& {\tiny \verb~original/train~} & {\tiny \verb~original/train.transform~} & {\tiny \verb~scaled/train~} & {\tiny \verb~scaled/train.transform~} & {\tiny \verb~data0/train0.10~}\\
+\hline
+$Acc.^{(1)}$ & 0.833 & \phantom{1}0.688 & \phantom{10}0.692 & \phantom{10}0.592 & \phantom{10}0.812 \\
+$C^{(1)}$ & 0.010 &  10.000& 100.000& 100.000& \phantom{1}10.000\\
+$\rho_{0}^{(1)}$ & 0.001 & \phantom{1}1.000 & \phantom{10}0.100 & \phantom{10}1.000 & \phantom{10}1.000\\
+\hline
+$Acc.^{(2)}$ & 0.832 & \phantom{1}0.688 & \phantom{10}0.663 & \phantom{10}0.590 & \phantom{10}0.791\\
+$C^{(2)}$ & 0.001 & 10.000 & 100.000& 100.000& 100.000\\
+$\rho_{0}^{(2)}$ & 0.100 & \phantom{1}1.000 & \phantom{10}0.001 & \phantom{10}0.100 & \phantom{10}0.001\\
+\hline
+$Acc.^{(3)}$ & 0.816 & \phantom{1}0.675 & \phantom{10}0.656 & \phantom{10}0.585 & \phantom{10}0.772\\
+$C^{(3)}$ & 0.010 & \phantom{1}0.001 & 100.000& 100.000& \phantom{1}10.000\\
+$\rho_{0}^{(3)}$ & 1.000 & \phantom{1}0.001 & \phantom{10}0.010 & \phantom{10}0.001 & \phantom{10}0.010\\
+\hline
+$Acc.^{(4)}$ & 0.799 & \phantom{1}0.663 & \phantom{10}0.632 & \phantom{10}0.576 & \phantom{10}0.686\\
+$C^{(4)}$ & 0.010 & 0.100 & 100.000& 100.000& \phantom{1}10.000\\
+$\rho_{0}^{(4)}$ & 0.010 & \phantom{1}0.100 & \phantom{10}1.000 & \phantom{10}0.010 & \phantom{10}0.100\\
+\hline
+$Acc.^{(5)}$ & 0.776 & \phantom{1}0.659 & \phantom{10}0.597 & \phantom{10}0.415 & \phantom{10}0.679\\
+$C^{(5)}$ & 0.001 & 10.000 & \phantom{10}10.000& \phantom{10}10.000& \phantom{10}10.000\\
+$\rho_{0}^{(5)}$ & 0.100 & \phantom{1}0.010 & \phantom{10}1.000 & \phantom{10}0.001 & \phantom{10}0.100\\
+\hline
+
+\hline\hline
+\end{tabular}
+\end{table}
+
+%\begin{table}[!h]
+%\tiny
+%\centering
+%\begin{tabular}{l | c c c | c c c | c c c | c c c | c c c}
+%\hline\hline
+%{\bf File} & $Acc.$ & $C$ & $\rho_{0}$ & $Acc.$ & $C$ & $\rho_{0}$& $Acc.$ & $C$ & $\rho_{0}$& $Acc.$ & $C$ & $\rho_{0}$& $Acc.$ & $C$ & $\rho_{0}$\\
+%\hline
+%\verb~original/train~ & 0.843 & 0.010 & 0.001 & 0.786 & 0.010 & 0.100 & 0.767 & 0.100 & 0.001 & 0.744 & 0.010 & 1.000 & 0.733 & 1.000 & 0.100\\
+%\verb~original/train.transform~ & 0.666 & 0.100 & 0.100 & 0.664 & 10.000 & 0.001 & 0.655 & 1.000 & 0.001 & 0.653 & 1.000 & 0.100 & 0.652 & 0.100 & 0.001\\
+%\verb~scaled/train~ & 0.595 & 10.000 & 0.001 & 0.594 & 10.000 & 1.000 & 0.590 & 10.000 & 0.100 & 0.572 & 10.000 & 0.010 & 0.352 & 0.001 & 0.001\\
+%\verb~scaled/train.transform~ & 0.421 & 10.000 & 0.100 & 0.415 & 10.000 & 0.010 & 0.410 & 10.000 & 0.001 & 0.405 & 10.000 & 1.000 & 0.352 & 0.001 & 0.001\\
+%\verb~data0/train0.10~ & 0.221 & 10.000 & 0.001 & 0.211 & 10.000 & 0.010 & 0.20%1 & 10.000 & 1.000 & 0.184 & 10.000 & 0.100 & 0.001 & 1.000 & 0.100\\
+%\hline\hline
+%\end{tabular}
+%\end{table}
+\end{itemize}
+
+  
+\item ~[15 points] For each dataset, use the best value of $\rho_0$
+  and $C$ to train a classifier on the entire training set. Run at
+  least 30 epochs of SGD. Report the performance of this classifier on
+  the test set along with the margin of the trained weight vector.
+
+\begin{itemize}
+\item The table below summarizes the results
+
+\begin{table}[!h]
+\centering
+\caption{Final results}
+\begin{tabular}{l | c c c c}
+\hline\hline
+{\bf File} & $Acc.$ & $C$ & $\rho_{0}$ & $Margin$\\
+\hline
+\verb~original/train~ & 0.854 & \phantom{10}0.010 & 0.001 & \phantom{1}12.425\\
+\verb~original/train.transform~ & 0.648 & \phantom{1}10.000 & 0.100 & 151.747\\
+\verb~scaled/train~ & 0.505 & 100.000& 0.100 & \phantom{11}0.040\\
+\verb~scaled/train.transform~ & 0.558 & 100.000& 1.000 & \phantom{11}0.149\\
+\verb~data0/train0.10~ & 0.875 & \phantom{1}10.000 & 1.000 & \phantom{11}0.534\\
+\hline\hline
+\end{tabular}
+\end{table}
+\end{itemize}
+
+\end{enumerate}
+
+{\bf As mentioned in previous homeworks, you may use any programming
+  language for your implementation. Upload your code along with a
+  script so the TAs can run your solution in the CADE environment}.
+
+
+
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: "hw4"
+%%% End:

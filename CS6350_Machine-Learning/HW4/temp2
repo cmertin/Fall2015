@@ -1,0 +1,145 @@
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+Note: Files such as "./astro/original/train.transform" don't actually exist.
+      They are calculated at execution as I didn't want to write a function
+      that saved them in the correct format to be parsed.
+Also: I reduced to 5-fold cross validation and only 10 epochs as it was
+      taking too long to run on CADE, though my final results reflect
+      10-fold cross validation and 30 epochs.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+===============================================================
+Performing 10-fold Cross Validation for: ./astro/original/train
+===============================================================
+
+Original furthest from origin:
+[ 16.4082      39.20219     -0.09912787  32.48707   ]
+Distance from origin: 53.493
+
+Furthest from the origin after tranformation:
+[  2.69229027e+02   6.43237374e+02  -1.62650992e+00   5.33054342e+02
+   6.43237374e+02   1.53681170e+03  -3.88602959e+00   1.27356429e+03
+  -1.62650992e+00  -3.88602959e+00   9.82633461e-03  -3.22037405e+00
+   5.33054342e+02   1.27356429e+03  -3.22037405e+00   1.05540972e+03]
+Distance from origin: 2861.460
+	Accuracy and Parameters:
+	------------------------
+Accuracy	  C 		 rho
+--------	-----		-----
+0.85307		0.010		0.001
+0.75437		0.100		0.001
+0.73786		0.010		0.010
+0.71942		1.000		1.000
+0.70615		1.000		0.010
+
+
+		----------------
+		Testing the data
+		----------------
+		       C: 0.010
+		     rho: 0.001
+		Accuracy: 0.8317
+		  Margin: 12.378
+
+
+=========================================================================
+Performing 10-fold Cross Validation for: ./astro/original/train.transform
+=========================================================================
+	Accuracy and Parameters:
+	------------------------
+Accuracy	  C 		 rho
+--------	-----		-----
+0.65955		0.100		0.100
+0.65922		10.000		0.001
+0.65243		0.010		0.001
+0.65113		1.000		0.100
+0.65049		1.000		0.010
+
+
+		----------------
+		Testing the data
+		----------------
+		       C: 0.100
+		     rho: 0.100
+		Accuracy: 0.6475
+		  Margin: 135.851
+
+
+=============================================================
+Performing 10-fold Cross Validation for: ./astro/scaled/train
+=============================================================
+
+Original furthest from origin:
+[-0.889526 -0.850563 -0.110839 -0.716838]
+Distance from origin: 1.429
+
+Furthest from the origin after tranformation:
+[ 0.7912565   0.7565979   0.09859417  0.63764604  0.7565979   0.72345742
+  0.09427555  0.60971588  0.09859417  0.09427555  0.01228528  0.07945361
+  0.63764604  0.60971588  0.07945361  0.51385672]
+Distance from origin: 2.041
+	Accuracy and Parameters:
+	------------------------
+Accuracy	  C 		 rho
+--------	-----		-----
+0.59633		10.000		0.010
+0.59050		10.000		0.001
+0.58986		10.000		1.000
+0.58465		10.000		0.100
+0.35243		0.001		0.001
+
+
+		----------------
+		Testing the data
+		----------------
+		       C: 10.000
+		     rho: 0.010
+		Accuracy: 0.5545
+		  Margin: 0.030
+
+
+=======================================================================
+Performing 10-fold Cross Validation for: ./astro/scaled/train.transform
+=======================================================================
+	Accuracy and Parameters:
+	------------------------
+Accuracy	  C 		 rho
+--------	-----		-----
+0.41865		10.000		0.100
+0.41510		10.000		1.000
+0.40958		10.000		0.010
+0.40634		10.000		0.001
+0.37331		0.001		0.001
+
+
+		----------------
+		Testing the data
+		----------------
+		       C: 10.000
+		     rho: 0.100
+		Accuracy: 0.4121
+		  Margin: 0.106
+
+
+==========================================================
+Performing 10-fold Cross Validation for: ./data0/train0.10
+==========================================================
+	Accuracy and Parameters:
+	------------------------
+Accuracy	  C 		 rho
+--------	-----		-----
+0.26000		10.000		1.000
+0.20100		10.000		0.100
+0.19800		10.000		0.010
+0.14200		10.000		0.001
+0.09900		0.001		0.001
+
+
+		----------------
+		Testing the data
+		----------------
+		       C: 10.000
+		     rho: 1.000
+		Accuracy: 0.2420
+		  Margin: 0.537

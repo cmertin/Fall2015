@@ -1,0 +1,12 @@
+\documentclass{article}[10pt]
+\usepackage{amsmath, hyperref, amsfonts}
+\providecommand{\abs}[1]{\left|#1\right|} 
+\begin{document}
+\begin{align}
+\begin{split}
+\mathbb{P}\left[\abs{X - \mu} \geq h\sigma\right] &\leq \dfrac{\left[f(\abs{X - \mu})\right]}{f(h\sigma)}
+\intertext{Letting $f(\cdot) = (\cdot)^2$,}
+\mathbb{P}\left[\abs{X - \mu} \geq h\sigma\right] &\geq 1 - \dfrac{\sigma^2}{h^2\sigma^2}
+\end{split}
+\end{align}
+\end{document}

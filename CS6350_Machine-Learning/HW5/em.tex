@@ -1,0 +1,96 @@
+\section{EM Algorithm}
+\label{sec:em}
+There are two grocery stores in the neighborhood of the U: Smith's and Trader Joe's. Each store has $n$ checkout lanes. The number of customers for each lane per unit time, say one day, is distributed according to Poisson distribution with parameter $\lambda$. That is, for the $i$'th checkout lane, 
+\[
+P(\# \text{ of customers for lane } i = x_i | \lambda) = \frac{\lambda^{x_i} e^{-\lambda}}{x_i!}
+\]
+with parameters $\lambda_S$ and $\lambda_T$ for Smith's and Trader Joe's, respectively.
+
+\begin{enumerate}
+\item ~[10 points] Given a record of customer counts $(x_1, \cdots, x_n)$, where $x_i$ denotes the number of customers went through lane $i$, what is the most likely value of $\lambda$?
+
+\begin{itemize}
+\item The joint probability density function of $p(x_{i}|\lambda)$ is the product of each probabilty for $i = \{1,2,\ldots,n\}$
+\begin{align}
+p(x|\lambda) &= \prod_{i=1}^{n}p(x_{i}|\lambda) = \prod_{i=1}^{n}\frac{\lambda^{x_{i}}e^{-\lambda}}{x_{i}!}\\
+&= \frac{\lambda^{\sum_{i=1}^{n}x_{i}}e^{-n\lambda}}{\prod_{i=1}^{n}x_{i}!}
+\intertext{which we can take the log of now to get the log-likelihood function}
+\ell(\theta) &= \log\left[ \frac{\lambda^{\sum_{i=1}^{n}x_{i}}e^{-n\lambda}}{\prod_{i=1}^{n}x_{i}!}\right]\\
+&= \log\left[ \left(\sum_{i=1}^{n}x_{i}\right)\log(\lambda) + (-n\lambda)\log(e) - \prod_{i=1}^{n}\log(x_{i}!) \right]\\
+\intertext{where we want to maximize $\lambda$, so we take $\frac{\partial \ell(\theta)}{\partial \lambda}$ and set it equal to zero}
+0 &= \frac{\partial \ell(\theta)}{\partial \lambda} = \frac{\sum_{i=1}^{n}x_{i}}{\lambda} - n\\
+n\lambda &= \sum_{i=1}^{n}x_{i}\\
+\lambda &= \frac{1}{n}\sum_{i=1}^{n}x_{i}
+\end{align}
+\end{itemize}
+
+\item  ~[10 points] Assume now that you are given a collection of $m$ records $\{(x_{j1}, \cdots x_{jn})\}$, where $j=1,\cdots, m$. You do not know which record is from Smith's and which is from Trader Joe's. Assume that the probability of a record is from the Smith's is $\eta$. In other words, it means that the probability that a record is from Trader Joe's is $1-\eta$.Explain the generative model that governs the generation of this data collection. In doing so, name the parameters that are required in order to fully specify the model.
+
+\begin{itemize}
+\item The data that is given to us is such that $i=\{1,2,\ldots,n\}$ and $j=\{1,2,\ldots,m\}$, where $m$ is the number of records and $n$ is the number of lanes. The generative model that can be used for this is
+
+\begin{align}
+h(\mathbf{x}) &= \text{arg}\max_{y\in \{S,T\}}p(y)\prod_{j=1}^{m}\sum_{i=1}^{n}p(y|x_{i})\\
+&= \text{arg}\max_{y\in \{S,T\}}p(y)\prod_{j=1}^{m}\sum_{i=1}^{n}\frac{p(x_{i}|y)}{p(x_{i})}\label{eq:whocares}
+\intertext{We don't know the distribution of the $m$ records, but we do know that there is a probability $\eta$ that a record represents data from Smith's and $(1-\eta)$ that it represents data from Trader Joe's. We can calculate the maximum likelyhood by Equation~(\ref{eq:whocares}) by splitting the $\max$ for $y\in\{S,T\}$. The base equation used to represent the probability of {\em each record} is}
+h(\mathbf{x}) &= \text{arg}\max_{y\in\{S,T\}}\sum_{i=1}^{n}p(y)p(x_{i}|y)
+\intertext{which would be for a single data set. Therefore, to account for each record, the resulting equation would be}
+h(\mathbf{x}) &= \text{arg}\max_{y\in\{S,T\}}\left\{\begin{array}{l l}\eta\prod_{j=i}^{m}\frac{\lambda_{S}^{\sum_{i=1}^{n}x_{j,i}}e^{-n\lambda_{S}}}{\prod_{i=1}^{n}x_{j,i}!}\\
+(1-\eta)\prod_{j=i}^{m}\frac{\lambda_{T}^{\sum_{i=1}^{n}x_{j,i}}e^{-n\lambda_{T}}}{\prod_{i=1}^{n}x_{j,i}!} \end{array} \right.
+%\intertext{where each result would be calculated for each record and the largest would be chosen. On the one that is the largest, $\lambda_{S}$ and $\lambda_{T}$ would be updated in the following way}
+%\lambda_{\xi\in\{S,T\}} &= \frac{1}{k\cdot n}\sum_{j=1}^{k}\sum_{i=i}^{n}x_{j,i}\\
+%\intertext{where $k$ is the total number of current records for which $\lambda_{\xi}$ was the maximum and belonging to either $S$ or $T$ (whichever was maximum and needs to be updated). Following this, the parameters that are needed are $\eta$ and an initial value for $\lambda_{\xi}$ to start the process which will update $\lambda_{S}$ and $\lambda_{T}$.}\nonumber
+\intertext{To use $h(\mathbf{x})$ to classify the data, the parameters we would need would be $\eta$ to tell the probability of which belongs to $S$ or $T$, and we would need an initial value of $\lambda$ which would be the value that we use in the first iteration for {\em both} $\lambda_{S}$ and $\lambda_{T}$. One way to do this would be to either pick a random number or to take the average of the first record. The way that the EM algorithm can be used to cluster the records is described in the next part.}\nonumber
+\end{align}
+\end{itemize}
+
+\item  ~[10 points] Assume that you are given the parameters of the model described above. How would you use it to cluster records to two groups, the Smith's and the Trader Joe's?
+
+\begin{itemize}
+\item In order to cluster the data into two sets, we would take the first record and plug it into the two different cases of $h(\mathbf{x})$ and the largest result would correspond to that label. 
+
+For example, if the $k^{th}$ record when plugged into $h(\mathbf{x})$ is largest for $y=S$, then that data set would be treated as belonging to Smith's. Following this, we would then need to update $\lambda_{S}$ in the following way
+
+\begin{align}
+\lambda_{S} &= \frac{1}{k\cdot n}\sum_{j=1}^{k}\sum_{i=1}^{n}x_{j,i}
+\end{align}
+
+where $k$ represents the number of records that corresponded to $S$. We would iterate through all $m$ records to get this result and continually update $\lambda_{S}$ and $\lambda_{T}$ until we got the best fit of the distributions.
+%We can take our hypothesis in the last problem and change it such that it's liearly separable. In other words, if the record classifies as $y=S$, then the hypothesis will classify it as $y=1$, and if $y=T$ then as $y=0$. This will make the set linearly separable and is defined by the following equation
+%\begin{align}
+%\mathcal{H}(\mathbf{x}) &= \eta\prod_{j=1}^{m}\lambda_{S}^{\sum_{i=1}^{n}x_{j,i}}e^{-\lambda_{S}}\cdot y-(y-1)(1-\eta)\prod_{j=1}^{m}\lambda_{T}^{\sum_{i=1}^{n}x_{j,i}}e^{-\lambda_{T}}
+%\end{align}
+\end{itemize}
+
+
+\item  ~[10 points] Given the collection of $m $ records without labels of which store they came from, derive the update rule of the EM algorithm. Show all of your work.
+
+\begin{itemize}
+\item We can find the decision boundary in the following way. The boundary line is defined as:
+\begin{align}
+p(\xi ) &= \frac{p(y=S|x_{j,i})}{p(y=T|x_{j,i})} = \frac{p(x_{j,i}|y=S)p(T)}{p(x_{j,i}|y=T)P(S)} > 1\\
+\intertext{where $p(\xi)$ is being used to shorten the notation. We can plug in what we know for $p\left(x_{j,i}|y=\{S,T\}\right)$, $p(S)$, and $p(T)$, resulting in}
+p(\xi) &= \frac{(1-\eta)}{\eta}\frac{\frac{    \lambda_{S}^{\sum_{i=1}^{n}x_{j,i}}e^{-n\lambda_{S}}}{\prod_{i=1}^{n}x_{j,i}!}    }{ \frac{\lambda_{T}^{\sum_{i=1}^{n}x_{j,i}}e^{-n\lambda_{T}}}{\prod_{i=1}^{n}x_{j,i}!}}\\
+\intertext{Which can be simplified in the following way. Since the exponential terms are independent of $j$, they can be pulled outside of the project. And since the denominators are the same in each of the probabilities, we can cancel them. The following is the much more simplified result using {\em Einstein Summation Notation} and {\em Mertin Product Notation}}
+p(\xi) &= \underbrace{\frac{(1-\eta)}{\eta}}_{\alpha}\underbrace{\frac{e^{-nm\lambda_{S}}}{e^{-nm\lambda_{T}}}}_{\beta}\underbrace{\utilde{\frac{\lambda_{S}^{x_{j,i}}}{\lambda_{T}^{x_{j,i}}}}}_{\gamma_{j,i}}>1\\
+\intertext{which the substitutions in the underbraces can be made to make the simplification process easier, resulting in}
+p(\xi) &= \alpha\beta\utilde{\gamma_{j,i}}>1\\
+\intertext{Following this, the $\log$ of both sides can be taken, resulting in}
+p(\xi) &= \log(\alpha) + \log(\beta) + \log\left(\utilde{\gamma_{j,i}}\right) > \log(1)\\
+p(\xi) &= \log(\alpha) + \log(\beta) + \log\left(\utilde{\gamma_{j,i}}\right) > 0\\
+\intertext{Where we can plug in back the values of $\alpha$, $\beta$, and $\gamma_{j,i}$}
+p(\xi) &= \log\left(\utilde{\lambda_{S}^{x_{j,i}}}\right) - \log\left(\utilde{\lambda_{T}^{x_{j,i}}}\right) + \log\left(\frac{(1-\eta)}{\eta}\right) + \log\left(\frac{e^{-nm\lambda_{S}}}{e^{-nm\lambda_{T}}}\right)>0\\
+p(\xi) &= \utilde{x_{j,i}\log\left(\frac{\lambda_{S}}{\lambda_{T}}\right)} + \log\left(\frac{(1-\eta)}{\eta}\right) + nm\left(\lambda_{T}-\lambda_{S}\right)>0\\
+\intertext{where going back to the normal notation gives us the definition of the update}
+p(\xi) &= \underbrace{\prod_{j=1}^{m}\sum_{i=1}^{n}x_{j,i}\log\left(\frac{\lambda_{S}}{\lambda_{T}}\right)}_{\mathbf{w}^{T}\mathbf{x}} + \underbrace{\log\left(\frac{(1-\eta)}{\eta}\right) + nm\left(\lambda_{T}-\lambda_{S}\right)}_{b}>0
+\end{align}
+\end{itemize}
+
+
+\end{enumerate}
+
+
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: "hw5"
+%%% End:

@@ -1,0 +1,25 @@
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+Note: Files such as "./astro/original/train.transform" don't actually exist.
+      They are calculated at execution as I didn't want to write a function
+      that saved them in the correct format to be parsed.
+Also: I reduced to 5-fold cross validation and only 10 epochs as it was
+      taking too long to run on CADE, though my final results reflect
+      10-fold cross validation and 30 epochs.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+===============================================================
+Performing 10-fold Cross Validation for: ./astro/original/train
+===============================================================
+
+Original furthest from origin:
+[  1.34611000e+02   5.81073100e+02  -1.44179400e-01   1.66310800e+02]
+Distance from origin: 619.214
+
+Furthest from the origin after tranformation:
+[  1.81201213e+04   7.82188311e+04  -1.94081332e+01   2.23872631e+04
+   7.82188311e+04   3.37645948e+05  -8.37787709e+01   9.66387321e+04
+  -1.94081332e+01  -8.37787709e+01   2.07876994e-02  -2.39785914e+01
+   2.23872631e+04   9.66387321e+04  -2.39785914e+01   2.76592822e+04]
+Distance from origin: 383425.372

@@ -1,0 +1,200 @@
+#+Title: CS 6350 - Homework 1
+#+AUTHOR: Christopher Mertin
+#+EMAIL: cmertin@cs.utah.edu
+#+CREATOR: Emacs 24.5 (Org mode 8.2.10)
+#+STARTUP: showall
+#+SETUPFILE: ./org-theme.setup
+
+* Decision Trees
+1. Write  the  following  Boolean  functions  as  decision  trees.   (You  can  write your decision trees as a series of if-then-else statements, or use your favorite drawing program to draw a tree.  You can use 1 to represent True and 0 to represent False.)
+   - $x_{1} \wedge (x_{2}\vee x_{3})$
+   - $x_{1} \text{ xor } x_{2}$
+   - The 2-of-3 function, whose value is true if at least two out of three Boolean features $x_{1}$, $x_{2}$, $x_{3}$ are true. After you represent this function using a decision tree, say whether you think using a decision tree to represent m-of-n functions is a good idea.
+2. In this problem we will manually build a decision tree to decide whether to wait for a table at a restaurant.  Training data is given in Table 1.  There are four features: Friday (Yes or No), Hungry (Yes or No), Patrons (None, Some, Full), and Type (French, Italian, Thai, Chinese).
+     #+CAPTION: Training Data for the Restaurant Problem
+     |--------+--------+---------+---------+-------|
+     | Friday | Hungry | Patrons | Type    | Wait? |
+     |--------+--------+---------+---------+-------|
+     | No     | Yes    | Some    | French  | Yes   |
+     | No     | Yes    | Full    | Thai    | No    |
+     | No     | No     | Some    | Chinese | Yes   |
+     | Yes    | Yes    | Full    | Thai    | Yes   |
+     | Yes    | No     | Full    | French  | No    |
+     | No     | Yes    | Some    | Italian | Yes   |
+     | No     | No     | None    | Chinese | No    |
+     | No     | Yes    | Some    | Thai    | Yes   |
+     | Yes    | No     | Full    | Chinese | No    |
+     |--------+--------+---------+---------+-------|
+   - How many possible functions are there to map these four features to a boolean decision? How many functions are consistent with the given training dataset?
+   - What  is  the  entropy  of  the  labels  in  this  data? When calculating entropy, the base of the logarithm should be base 2.
+   - What is the information gain of each of the features?
+   - Which attribute will you use to construct the root of the tree using the ID3 algorithm?
+   - Using the root that you selected in the previous question, construct a decision tree that represents the data. You do not have to use the ID3 algorithms here, you can show any tree with the chosen root.
+   - Suppose you are given three more examples, listed in table 2. Use your decision tree to predict the label for each example. Also report the accuracy of the classifier that you have learned.
+     #+CAPTION: Test Data for the Restaurant Problem
+     |--------+--------+---------+---------+-------|
+     | Friday | Hungry | Patrons | Type    | Wait? |
+     |--------+--------+---------+---------+-------|
+     | Yes    | Yes    | Full    | Italian | No    |
+     | No     | No     | None    | Thai    | No    |
+     | Yes    | Yes    | Full    | Chinese | Yes   |
+     |--------+--------+---------+---------+-------|
+3. Recall that the ID3 algorithm identies the best attribute to create the decision tree using the information gain heuristic. This heuristic uses the difference between the entropy of the data and the expected entropy of the splits to identify the root attribute. Here, we use entropy as a way quantify /impurity/ of labels in the data.  However, we could use other measures of impurity instead of entropy within the same definition. In this question, we will explore the use of other impurity measures. 
+   - One natural way to define impurity is to measure the misclassification rate.  This measures the error that we would have made if we had chosen the most frequent label. It is defined as
+        \begin{equation}
+            Misclassification(S) = 1 - \max_{i}p_{i}
+          \end{equation}
+     Here, $p_{i}$ is the fraction of examples that have a label $i$ and the maximization is over all labels.
+     - Write down the definition of the information gain heuristic that uses the misclassification rate as its measure of impurity instead of entropy.
+     - Use your new heuristic to identifiy fthe root attribute for the data in Table 1.
+   - Another heuristic that is used to define impurity is the Gini coefficient, which is defined as
+        \begin{equation}
+            Gini(S) = \sum_{i}p_{i}(1-p_{i})
+          \end{equation}
+     Use the Gini coefficient to identify the root attribute for the training data in Table 1.
+
+* Nearest Neighbors
+
+The nearest neighbors algorithm partitions the space of examples into regions corresponding to  different  labels.   In  two  dimensions,  the  decision  boundaries  can  be  represented  as  a Voronoi diagram, which shows regions of the plane associated with each label.
+1. Using the Euclidean distance measure between points, show a Voronoi map corresponding to the nearest neighbor classifiation of the following four points.  (That is, draw a diagram that shows how the nearest neighbor classification of the following four points partitions the two dimensional plane.)
+
+     |-------+----+----|
+     | Label |  x |  y |
+     |-------+----+----|
+     | A     |  1 |  1 |
+     | A     |  1 | -1 |
+     | B     | -1 | -1 |
+     | C     |  2 | -2 |
+     |-------+----+----|
+
+2. Using the city-block distance measure, show a Voronoi map corresponding to the nearest neighbor classification of the following three points.
+
+   (Recall that the city-block measure/Manhattan distance/$L_{1}$ distance/taxicab metric between two points ${\mathbf x}$, ${\mathbf y}$ in the $n$-dimensional space $\mathbb{R}^{n}$ is defined as $\sum_{i=1}^{n}\left| x_{i}-y_{i}\right|$.)
+
+     |-------+----+----|
+     | Label |  x |  y |
+     |-------+----+----|
+     | A     |  1 |  1 |
+     | B     | -1 | -1 |
+     | C     |  2 | -2 |
+     |-------+----+----|
+
+3. Can you design a /tiny/ training data set such that nearest-neighbor classification using Euclidean distance and Manhattan distance will give you different results? To answer this question, you can assume the data are in two-dimensional plane. Each data point is specified using its Cartesian coordinate, just like in previous part of this problem.  Show your training set and one test example so that the two distances will give your conflicting results on that test example.
+
+* Experiment
+
+In  this  question,  you  will  implement  decision  tree  learners  and  the  $K$-nearest  neighbors algorithms.   Also  you  will  learn  to  select  the  proper $K$ value  in  your $K$-nearest  neighbor algorithm using a technique called /cross-validation/.
+
+This problem uses the Tic-Tac-Toe Endgame Data set from the UCI machine learning repository.   Each  data  point  has  9  features  indicating  the  9  locations  on  the  Tic-Tac-Toe game board.  The feature can have one of the three values:  x, o, and b (for blank).  The label is positive or negative, indicating whether player x wins or not. Your goal is to use various learning algorithms on the training data to train a predictor and see how well it does on the test data. You may use any programming language for your implementation.  However, the graders should be able to execute your code on the CADE machines.
+
+Your goal is to use various learning algorithms on the training data to train a predictor and see how well it does on the test data.
+
+You may use any programming language for your implementation. However, the graders should be able to execute your code on the CADE machines.
+
+** Cross Validation
+
+The value $K$ is a hyper-parameter to the $K$ nearest neighbor algorithm.  You will see later in the semester that many machine learning algorithm (SVM, logistic-regression etc) have some hyper-parameters as their input.  One way to determine a proper value for the hyper-parameter is to use a technique called cross-validation.
+
+As usual we have a training set and a test set.  Some of the training data is put aside, and when training is finished,  the resulting classifier is tested on the held out data.  This allows you get get an idea of how well the particular choice of hyper-parameters does.  Since you did not train on your whole dataset you may have introduced a bias.  To correct for this, you will need to train many classifiers with different subsets of the training data removed.
+
+For problems with small data sets, a popular method is the leave-one-out approach.  For each example, a classifier is trained on the rest of the data and the chosen example is then evaluated.   The  performance of  the  classifier  is  the  average  accuracy  on  all  the  examples. The downside to this method is for a data set with $n$ examples you must train $n$ different classifiers.  Of course, this is not practical for the data set you will use in this problem, so you will hold out subsets of the data many times instead.
+
+Specifically, for this problem, you should implement $k$-fold cross validation to identify the hyperparameter $K$ (Don't confuse $k$ with $K$, they are different). The general approach for $k$-fold cross validation is the following: Suppose you want to evaluate how good a particular hyper-parameter is. You split the training data into $k$ parts. Now, you will train your model on $k-1$ parts with the chosen hyper-parameter and evaluate the trained model on the remaining part. You should repeat this $k$ times, choosing a different part for evaluation each time. This will give you $k$ values of accuracy. Their /average cross-validation accuracy/ gives you an idea of how good this choice of the hyper-parameter is. To find the best value of the hyper-parameter, you will need to repeat this procedure for different choices of the hyper-parameter. Once you find the best value of the hyper-parameter, use the value to retrain your classifier using the entire training set.
+
+** Data Files
+
+You can find the data on the assignments page of the class website in a file called =tic-tac-toe.zip=. It consists of six training files (used for 6-fold cross validation in KNN), and one test file, which you will use for training and testing respectively.
+
+1. Implement a decision tree data structure. (Remember that the decision tree need not be a binary tree!)
+2. Implement the ID3 learning algorithm for your decision tree implementation. For debugging your implementation, you can use the previous toy examples from the homework like the restaurant data from Table 1. Report the accuracy of your decision tree on the test data. /Important:/ You need to combine all training examples in all six training files when you train your decision tree. Don't just train your tree using only one training file.
+3. Implement a $K$ Nearest Neighbor classifier for a general $K$. Note that your features are only categorical. So you have to make choices about how to measure distances between them. For example, you could consider using the Hamming distance between the feature representations.
+4. Implement cross-validation. Run 6-fold cross-validation $(k=6)$ to select the best $K$ value from $K\in \{1,2,3,4,5\}$. The training data are already separated into six folds for you, each fold is a separate file. Report the average cross-validation accuracy for each choice of $K$. Use the best value of $K$ to retrain your classifier on the entire train data set. Report its accuracy on the test data.
+
+** What to hand in for this problem
+1. The report should detail your experiments. For each step, explain in no more than a paragraph or so how your implementation works. You may provide the results for the final step as a table or graph.
+2. /Your code should run on the CADE machines./ You should include a shell script, =run.sh=, that will execute your code in the CADE environment. Your code should produce similar output to what you include in your report. 
+   You are responsible for ensuring that the grader can execute the code using only the included script. If you are using an esoteric programming language, you should make sure that its runtime is available on CADE.
+3. The points for this question will be as follows: 20 points for the decision tree part, 20 points for the decision tree part, 20 points for the $K$-NN part and 15 points for your report.
+4. Please do not hand in binary files! We will not grade binary submissions.
+This is some python code
+#+begin_src python -n
+# This program adds up integers in the command line
+import sys
+
+try:
+    total = sum(int(arg) for arg in sys.argv[1:])
+    print "sum =", total
+except ValueError:
+    print "Please supply integer arguments"
+#+end_src
+Now C++
+#+begin_src c++ -n
+
+for(int i = 0; i < 30; i++) 
+{
+  cout << "Hello" << endl;
+}
+
+#+end_src
+And More C++ using the line-number-continue-flag
+#+begin_src c++ +n 
+
+template <typename T>
+int TemplateFunction(T argument)
+{
+  int i = 7 + 2; (ref:t1)
+  return argument; (ref:t2)
+}
+
+#+end_src
+In line [[(t1)]] we have (ref:t1) which highlights the whole line if you
+hover over this little thingy.
+
+Now more Python 
+#+begin_src python
+name = raw_input("What is your name?\n")
+print "Hi, %s." % name
+#+end_src
+
+Now for a quote
+#+begin_quote
+You're so dense that the only thing keeping you from collapsing into a
+black whole is your huge air-head forcing you into hydrostatic
+equilibrium. 
+
+~ Christopher Mertin
+#+end_quote
+
+\begin{align}
+   a &= b + x\\
+   d &= a - b
+\end{align}
+* Title 2
+This is text for title 2 $e^{x}$
+
+And finally this is what a table looks like
+#+CAPTION: This is Caption 1
+#+NAME: TBL:Names_Work1
+| Name  | Phone | Age |
+|-------+-------+-----|
+| Peter |  1234 |  17 |
+| Anna  |  4321 |  25 |
+
+#+CAPTION: This is Caption 2
+#+NAME: TBL:Names_Work2
+| Date       | Category         | Amount |
+|------------+------------------+--------|
+| 2014/01/14 | Supplies         |  43.97 |
+| 2014/02/15 | Supplies         |  56.48 |
+| 2014/02/11 | Book             |  17.99 |
+| 2014/06/10 | Kinesis Keyboard | 289.16 |
+| 2014/08/22 | Books            |  18.99 |
+| 2014/08/23 | Printer          |  99.96 |
+| 2014/08/25 | Books            |   7.50 |
+| 2014/08/30 | Supplies         |  58.26 |
+| 2014/09/15 | Books            |  21.49 |
+|------------+------------------+--------|
+|            | Total:           | 613.80 |
+
+#+CAPTION: FIGURE OF SOMETHING
+[[http://cmertin.com/images/Research-Cover.jpg]]

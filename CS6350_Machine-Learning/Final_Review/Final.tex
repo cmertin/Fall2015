@@ -1,0 +1,1152 @@
+\documentclass{article}
+\usepackage[margin=.75in]{geometry}
+\usepackage{tikz}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{mathtools}
+\usepackage{graphicx}
+\usepackage{algorithm}
+\usepackage{algorithmic}
+\usepackage{enumitem}
+\usepackage{bbold}
+\usepackage{xcolor}
+\usepackage{float}
+\usepackage{cancel}
+\usepackage{units}
+\usepackage{url}
+\newcommand{\Norm}[1]{\left|\left| #1\right|\right|}
+\newcommand{\abs}[1]{\left| #1\right|}
+\newcommand{\BigO}[1]{\mathcal{O}\left( #1\right)}
+\renewcommand{\dim}{\mathcal{D}}
+\newcommand{\Ex}[1]{\left< #1\right>}
+\newcommand{\Grad}[1]{\vec{\nabla} #1 }
+\newcommand{\sgn}[1]{\text{sgn}\left( #1\right)}
+\newcommand{\pcount}[1]{\text{Count}\left( #1\right)}
+\newcommand{\spcount}[1]{\text{SoftCount}\left( #1\right)}
+\newcommand{\mw}{\mathbf{w}}
+\newcommand{\mx}{\mathbf{x}}
+\newcommand{\mwx}{\mathbf{w}^{T}\mathbf{x}}
+\newcommand{\bt}{\boldsymbol{\theta}}
+\newcommand{\bx}{\mathbf{x}}
+\newcommand{\bw}{\mathbf{w}}
+\newcommand{\bwx}{\mathbf{w}^{T}\mathbf{x}}
+
+\begin{document}
+\begin{center}
+{\huge \bf CS 6350 Final Exam Review}
+\end{center}
+
+\begin{enumerate}
+\item What is the difference between the generalization error and the training error of classifiers? What is the fixed distribution assumption needed for PAC learning? How are online and batch learning different?
+\begin{itemize}
+\item {\em Generalization Error}: Given a distribution $\mathcal{D}$ over examples, the {\em error} of a hypothesis $h$ with respect to a target concept $f$ is $err_{\mathcal{D}}(h) = Pr_{x\sim\mathcal{D}}\left[h(x)\neq f(x)\right]$.
+\item {\em Training Error}: The error that is achieved when applying the model to the same data from which we trained on
+\item {\em Empirical Error}: Contrast true error against emperical error. For a target concept $f$, the emperical error of a hypothesis $h$ is defined for a training set $S$ as the fraction of examples $x\in S$ for which functions $f\neq h$, denoted by $err_{s}(h)$.
+\item The {\em Fixed Distribution Assumption} that is needed for PAC Learning is that we assume that the data in $\dim$ is of a consistent distribution throughout the data and isn't built by multiple distributions
+\item The difference between Online Learning and Batch Learning: 
+\begin{center}
+\noindent\parbox[t]{.4\textwidth}{\raggedright%
+\textbf{\textit{Online Learning}}
+\begin{itemize}[topsep=0pt,itemsep=-2pt,leftmargin=13pt]
+\item No assumptions about the distribution of examples
+\item Learning is a sequence of trials
+\begin{itemize}[topsep=0pt,itemsep=-2pt,leftmargin=13pt]
+\item Learner sees a single example, makes prediction. If there is a mistake, then update the hypothesis
+\end{itemize}
+\item {\em Goal:} To bound the total number of mistakes 
+\end{itemize}
+}%
+\parbox[t]{.4\textwidth}{\raggedright%
+\textbf{\textit{Batch Learning}}
+\begin{itemize}[topsep=0pt,itemsep=-2pt,leftmargin=13pt]
+\item Examples are drawn from a fixed (perhaps unknown) probability distribution $\mathcal{D}$ over the instance space
+\item Learning uses a training set $S$, drawn from the distribution $\mathcal{D}$
+\item {\em Goal:} Find hypothesis that has a low chance of making a mistake on a new example in $\mathcal{D}$
+\end{itemize}
+}
+\end{center}
+\end{itemize}
+\item What are the formal definitions of PAC learnability and efficient PAC learnability?
+
+\begin{itemize}
+\item Consider a concept class $C$ defined over an instance space $X$ (containing instances of length $n$), and a learner $L$ using a hypothesis space $H$
+\begin{itemize}
+\item The concept class $C$ is {\em PAC Learnable} by $L$ using $H$ if:
+\begin{itemize}
+\item for all $f\in C$
+\item for all distribution $\dim$ over $X$, and fixed $0<\epsilon$, $\delta<1$,
+\item Given $m$ examples sampled independently according to $\dim$, the algorithm $L$ produces, with probability at least $(1-\delta)$, a hypothesis $h\in H$ that has an error of at most $\epsilon$
+\item where $m$ is {\em polynomial} in $\frac{1}{\epsilon}$, $\frac{1}{\delta}$, $n$, and $\abs{H}$. Recall that
+\[
+err_{\dim}(h) = Pr_{\dim}[f(x)\neq h(x)]
+\]
+\end{itemize}
+\item The concept class $C$ is {\em Efficiently PAC Learnable} if $L$ can produce the hypothesis in time that is polynomial in $\frac{1}{\epsilon}$, $\frac{1}{\delta}$, $n$, and $\abs{H}$
+\item {\em Realistic Expectation of a Good Learner}: With a high probability, the learner will learn to close approximation to the target concept
+\end{itemize}
+\end{itemize}
+
+
+
+\item What is the hypothesis space for various function classes -- decision trees, monotone conjunctions and disjunctions, $k$-CNF's? Are they PAC learnable? Are they efficiently PAC learnable? (Use Occam's razor to show your answers)
+
+\begin{itemize}
+\item Decision Trees:
+\begin{itemize}
+\item For a decision tree, we assume that it contains binary features to not only simplify the math, but also provide a lower bound. 
+\begin{align}
+\intertext{Since we're using binary features, we can say that the size of our hypothesis space is}
+\abs{H} &= 2^{2^{n}}\\
+\intertext{We can use Occam's Razor by taking the logarithm of $\abs{H}$ to see if our resulting PAC error would be polynomial bound, resulting in}
+\ln\abs{H} &= 2^{n}\ln(2)
+\end{align}
+which is not polynomial in $n$, rather it is exponential. Therefore, Decision Trees are {\em not} PAC learnable.
+\end{itemize}
+\item Monotone Conjunctions and Disjunctions: These are a conjunction of literals and their negations, made up of $n$ variables
+In order to test if it is PAC Learnable, we need to know the {\em Sample Complexity} using {\em Occam's Razor}. Occam's Razor favors smaller hypothesis spaces as we're able to learn the function with less samples
+\begin{itemize}
+\item $\abs{H}=3^{n}$
+\item $\log\abs{H} = n\log(3) = \BigO{n}$ which is polynomial in $n$
+\begin{align}
+m &> \frac{1}{\epsilon}\left(\ln\abs{H}-\ln(\delta)\right)\\
+n &> \frac{1}{\epsilon}\left(n\ln(3)-\ln(\delta)\right)
+\end{align}
+\end{itemize}
+\item $k$-CNF's: $\left(\ell_{1,1}\vee\ell_{1,2},\vee\cdots\vee\ell_{1,k}\right)\wedge\left(\ell_{2,1}\vee\ell_{2,2},\vee\cdots\vee\ell_{2,k}\right)\wedge\cdots$
+
+In order to solve this we need the {\em Sample Complexity}, that is if we had a consistent learner, how many examples will it need to \underline{guarentee} PAC Learnability? To do so, we need to know the hypothesis space, {\em i.e.} how many $k$-CNF's are there?
+\begin{itemize}
+\item Number of conjuncts = $\BigO{\left(2n\right)^{k}}$
+\item A $k$-CNF is a conjunction with these many variables
+\item $\abs{H}=$Number of $k$-CNF's$=\BigO{2^{\left(2n\right)^{k}}}$
+\item $\log\abs{H} = \BigO{n^{k}}$ which is polynomial in $n$
+\end{itemize}
+\end{itemize}
+
+
+\item Show that general Boolean functions are not PAC learnable.
+
+\begin{itemize}
+\item Number of Boolean Functions that exist with $n$ variables: $\abs{H} = 2^{2^{n}}$
+\item $\log\abs{H}=2^{n}\log(2) = \BigO{2^{n}}$ which is exponential in $n$, so general Boolean Functions are {\em not} PAC Learnable
+\end{itemize}
+
+
+\item What is agnostic learning? Is the training error for agnostic learning guarenteed to be zero?
+
+\begin{itemize}
+\item For a given data set, you're trying to learn a given concept $f$ by using $h\in H$, but $f\notin H$
+\item With agnostic learning, you're not guarenteed that the training error will be zero
+\item {\em Goal}: Find a classifier $h\in H$ with a low training error
+\begin{align}
+err_{s}(h)&=\frac{\abs{\{f(x)\notin h(x),x\in S\}}}{m}
+\intertext{which defines the fraction of training examples that were misclassified. We {\em want} a guarentee that a hypothesis with a small training error will have a good accuracy on unseen examples}
+err_{\dim}(h)&=Pr_{x\sim\dim}(f(x)\neq h(x))
+\end{align}
+\end{itemize}
+
+\ \newpage
+
+\item Derive the lower bounds for the number of examples needed for finite concept classes when the hypothesis class is consistent.
+
+\begin{itemize}
+\item {\bf Claim:} The probability $h\in H$ that:
+\begin{itemize}
+\item Is consistent (yet bad) with $m$ examples
+\item Has error $err_{\mathcal{D}}(h)>\epsilon$
+\end{itemize}
+is less than $\abs{H}(1-\epsilon)^{m}$
+
+{\em Proof:} Let $h$ be such a bad hypothesis with error $>\epsilon$. The probability that $h$ is consistant with one exapmle is $Pr(f(x)=h(x))<1-\epsilon$. 
+\begin{align}
+\intertext{The given training set consists of $m$ examples drawn independently so, the probability that $h$ is consistent with $m$ examples $<(1-\epsilon)^{m}$. From this, the probability that a bad hypothesis $\in H$ is consistent with no examples is $\abs{H}(1-\epsilon)^{m}$. We want to bound this and make it small, so we say}
+\abs{H}(1-\epsilon)^{m} &< \delta\\
+\ln\abs{H} + m\ln(1-\epsilon) &< \ln(\delta)
+\intertext{We know that the Taylor Series Approximation of $e^{-x}=1-x+\frac{x^{2}}{2!}-\cdots$, so we can use this to approximate $(1-\epsilon)$ with a first order Taylor Series Approximation which can be seen as}
+\ln\abs{H} + m\ln\left(e^{-\epsilon}\right) &< \ln(\delta)
+\intertext{we can simplfiy the second term and move $\ln\abs{H}$ to the right hand side of the equation}
+-\epsilon m\cdot\cancel{\ln(e)} &< \ln(\delta)-\ln\abs{H}
+\intertext{In solving for the number of examples, $m$, we get}
+m & > \frac{1}{\epsilon}\left(\ln\abs{H}-\ln(\delta)\right)
+\end{align}
+where the probability of a hypothesis $h\in H$ is consistent with a training set of size $m$ is $(1-\delta)$ and will have an error $< \epsilon$ on future examples. This is called {\em Occam's Razor} because it expresses a preference towards smaller hypothesis spaces.
+\end{itemize}
+
+
+\item Derive the Hoeffding's bound to derive lower bound on sample complexity in the agnostic setting for a finite hypothesis class.
+
+\begin{itemize}
+\item {\bf Markov's Inequality}: Bounds the probability that a non-negative random variable exceedes a fixed value
+
+\begin{align}
+P(x\geq a) &\leq \frac{\Ex{x}}{a}
+\end{align}
+
+\item {\bf Chebyshev's Inequality}: Bounds the probability that a random variable differs from its expected value by more than a fixed number of standard deviations
+
+\begin{align}
+P(\abs{x-\mu}\geq k\sigma) &\leq \frac{1}{k^{2}}
+\end{align}
+
+\item {\bf Hoeffding's Inequality}: Gives the upper bounds on how much the sum of a set of random variables differs from its expected value
+
+\begin{align}
+P(\mu>\bar{\mu}+\epsilon) &\leq e^{-2m\epsilon^{2}}
+\intertext{where $\mu$ is the expected mean, and $\bar{\mu}$ is the expirical mean (the mean over $m$ trials). The empirical mean will not be too far from the expected mean if there are many samples. Hoeffding's Inequality also quantifies the convergence rate of this since it exponentially decays}
+\intertext{Suppose we consider the true error (generalization error) $err_{\dim}(h)$ to be a random variable. The training error over $m$ examples is $err_{s}(h)$ which is the empirical estimate of this true error. To these, we can apply it to Hoeffding's Inequality}
+P(err_{\dim}(h) &> err_{s}(h)+\epsilon)\leq e^{-2m\epsilon^{2}}\label{eq:agnostic_bound}\\
+err_{\dim}(h) &= Pr_{x\sim\dim}(f(x)\neq h(x))\\
+err_{s}(h) &= \frac{\abs{\{f(x)\neq h(x),x\in S\}}}{m}
+\intertext{The probability that a single hypothesis $h$ has a training error that is more than $\epsilon$ away from the true error is bounded in Equation~(\ref{eq:agnostic_bound}). The learning algorithm looks for the best $h_{i}(x)\in \abs{H}$ possible as its hypothesis. The probability that there is a hypothesis in $\abs{H}$ whose training error is $\epsilon$ away from the true error is bounded by}
+P(\exists h;err_{\dim}(h)>err_{s}(h)+\epsilon) &\leq \abs{H}e^{-2m\epsilon^{2}}
+\intertext{Where we want to bound our probability by some term $\delta$}
+\abs{H}e^{-2m\epsilon^{2}} &\leq \delta
+\intertext{which we can take the logarithm of to simplify}
+\ln\abs{H}-2m\epsilon^{2}\cdot\cancel{\ln(e)} &\leq \ln(\delta)
+\intertext{in solving for $m$ by subtracting $\ln\abs{H}$ and dividing by $-2\epsilon^{2}$ gives}
+m &\geq \frac{1}{2\epsilon^{2}}\left(\ln\abs{H}-\ln(\delta)\right)
+\end{align}
+\end{itemize}
+
+
+\item Deriving VC dimensions of various infinite hypothesis classes -- bounded intervals, intervals, lines in 2 dimensions, axis parallel rectangles.
+
+\begin{itemize}
+\item {\bf Shattering}: A set of $S$ examples is {\em shattered} by a set of functions $H$ if for every position of the examples in $S$ into positive and negative examples, there is a function in $H$ that gives exactly these labels to these examples. {\em Intuition}: A rich set of functions shatters a large set of points
+\item {\bf VC Dimension}: The VC Dimension of a hypothesis space $H$ over instance space $X$ is the size of the largest {\em finite} subset of $X$ that is shattered by $H$.
+\begin{table}[H]
+\centering
+\begin{tabular}{l c c}
+\hline\hline
+{\bf Concept Class} & $\boldsymbol{VC(H)}$ & {\bf Why?}\\
+\hline
+Half Intervals & 1 & There is a dataset of size 1 that can be shattered. No dataset of size 2 can\\
+Intervals & 2 & There is a dataset of size 2 that can be shattered. No dataset of size 3 can\\
+Half-Spaces & 3 & There is a dataset of size 3 that can be shattered. No dataset of size 4 can\\
+Linear Threshold Unit & $d+1$\\
+Neural Networks & \# Parameters\\
+1-Nearest Neighbors & Infinite\\
+\hline
+\end{tabular}
+\end{table}
+\begin{itemize}
+\item {\em Bounded Intervals}:
+\item {\em Intervals}:
+\item {\em Lines in 2 dimensions}:
+\item {\em Axis Parallel Rectangles}:
+\end{itemize}
+\item \textcolor{red}{\bf FINISH THIS ONE}
+\end{itemize}
+
+\ \newpage
+
+\item The theory of PAC learning upper bounds the true error of a classifier by two terms: true error $< A+B$. What are they?
+
+\begin{itemize}
+\item An agnostic learner makes no commitment to whether $f\in H$ and returns the hypothesis with the least training error over at least $m$ examples. It can guarentee with probability $(1-\delta)$ that the training error is not off by more than $\epsilon$ from the true error if
+
+\begin{align}
+m &\geq \frac{1}{2\epsilon^{2}}\left(\ln\abs{H}-\ln(\delta)\right)
+\end{align}
+
+\item {\em Generalization Bound}: How much the true error will deviate from the training error.
+
+\begin{align}
+\underbrace{err_{\dim}(h)}_{Expected\ Error}-\underbrace{err_{s}(h)}_{Training\ Error} &\leq \sqrt{\frac{\ln\abs{H}-\ln(\delta)}{2m}}\label{eq:ag_prob}
+\intertext{which we can use to get an {\em upper bound} on the true error by manipulating Equation~(\ref{eq:ag_prob}), resulting in}
+err_{\dim}(h) &\leq \sqrt{\frac{\ln\abs{H}-\ln(\delta)}{2m}} + err_{s}(h)
+\end{align}
+\end{itemize}
+
+
+\item What is a weak PAC algorithm?
+
+\begin{itemize}
+\item {\bf Boosting}: A general learning approach for constructing a {\em strong learner}, given a collection of (possibly infinite) weak learners (``rules of thumb'')
+\item {\bf Ensemble Method}:
+\begin{itemize}
+\item A class of learning algorithms that composes classifiers using other classifiers as building blocks
+\item Boosing has stronger theoretical guarentees than other ensemble methods
+\end{itemize}
+\item {\bf Strong PAC Algorithm}:
+\begin{itemize}
+\item For any distribution over examples
+\item For every $\epsilon>0$, $\delta>0$
+\item Given a polynomial size of random examples
+\item Finds a hypothesis with error $\leq \epsilon$ with probability $\geq (1-\delta)$
+\end{itemize}
+\item {\bf Weak PAC Algorithm}:
+\begin{itemize}
+\item Same as a {\em Strong PAC Algorithm} except that $\epsilon > \frac{1}{2}-\gamma$
+\end{itemize}
+
+\end{itemize}
+
+
+\item You are given the training examples in the table below. Suppose you use the following hypothesis space $H = \{ sgn(x_{1}), sgn(x_{2}),-sgn(x_{1}),-sgn(x_{2})\}$. That is learning requires picking a classifier that minimizes the error. Treating this your weak classifiers, step through three steps of the AdaBoost algorithm and write down the final hypothesis. Does it correctly classify the training set?
+
+The AdaBoost Algorithm can be seen in Algorithm~\ref{alg:AdaBoost}. The norm $Z_{t}$ is a normalization constant which ensures that the weights $D_{t+1}$ add up to 1
+\begin{center}
+\begin{tabular}{|c | c|}
+\hline
+$(x_{1},x_{2})$ & $y$\\
+\hline
+$(1,1)$ & $-1$\\
+$(1,-1)$ & $+1$\\
+$(-1,-1)$ & $-1$\\
+$(-1,-1)$ & $-1$\\
+\hline
+\end{tabular}
+\end{center}
+\begin{algorithm}
+\begin{algorithmic}
+\STATE{Initialize $D_{1}(i)=\frac{1}{m}\ \forall\ i=\{1,2,\ldots,m\}$}
+\FOR{$t=1,2,\cdots$\TO $T$}
+  \STATE{Find classifier $h_{t}$ whose {\em weighted classificaiton error} $\epsilon_{t}(h)$ is better than chance:}
+  \STATE{\[\epsilon_{t}(h) = \frac{1}{2}-\frac{1}{2}\left(\sum_{i=1}^{m}D_{t}(i)y_{i}h(\mathbf{x}_{i})\right)\]}
+  \STATE{Compute the norm of the {\em best} hypothesis $Z_{t}$ as:}
+  \STATE{\[Z_{t}=2\sqrt{\epsilon_{t}(1-\epsilon_{t})}\]}
+  \STATE{Compute it's vote $\alpha_{t} = \frac{1}{2}\ln\left(\frac{1-\epsilon_{t}}{\epsilon_{t}}\right)$}
+  \STATE{Update values of weights for training examples:}
+  \STATE{\[D_{t+1}(i) = \frac{D_{t}(i)}{Z_{t}}\cdot\exp(-\alpha_{t}y_{i}h_{t}(\mathbf{x}_{i}))\]}
+\ENDFOR
+\RETURN{$H_{final}(x)=\text{sgn}\left(\sum_{t}\alpha_{t}h_{t}(\mathbf{x})\right)$}
+\end{algorithmic}
+\caption{AdaBoost$\left(\left\{(\mathbf{x}_{i},y_{i})\right\}_{m}\right)$}
+\label{alg:AdaBoost}
+\end{algorithm}
+\begin{itemize}
+\item The AdaBoost algorithm was implemented for 3 iterations below
+\begin{align}
+\intertext{To initialize, make $D_{1}(i)=\frac{1}{4}$ since the set size is 4, then we can go on to calculating the {\em weighted classification error}}
+\epsilon_{1}(h_{1}) &= \frac{1}{2} - \frac{1}{2}\left[\frac{1}{4}(-1)(1)+\frac{1}{4}(1)(1)+\frac{1}{4}(-1)(-1)+\frac{1}{4}(-1)(-1) \right]\\
+&= \frac{1}{2}-\frac{1}{2}\left[2\right]=\frac{1}{2}-\frac{1}{4}=\frac{1}{4}\\
+\epsilon_{1}(h_{2}) &= \frac{1}{2} - \frac{1}{2}\left[\frac{1}{4}(-1)(1)+\frac{1}{4}(1)(-1)+\frac{1}{4}(-1)(-1)+\frac{1}{4}(-1)(-1)\right]\\
+&=\frac{1}{2}-\frac{1}{2}\frac{1}{4}\left[2\right] = \frac{1}{4}\\
+\epsilon_{1}(h_{3}) &= \frac{1}{2}-\frac{1}{2}\left[\frac{1}{4}(-1)(-1)+\frac{1}{4}(1)(-1)+\frac{1}{4}(-1)(1)+\frac{1}{4}(-1)(1)\right]\\
+&=\frac{1}{2}-\frac{1}{2}\frac{1}{4}\left[-2\right] = \frac{3}{4}\\
+\epsilon_{1}(h_{4}) &= \frac{1}{2}-\frac{1}{2}\left[\frac{1}{4}(-1)(-1)+\frac{1}{4}(1)(1)+\frac{1}{4}(-1)(1)+\frac{1}{4}(-1)(1)\right]\\
+&=\frac{1}{2}-\frac{1}{2}\frac{1}{4}\left[1+1-1-1\right]=\frac{1}{2}
+\intertext{where the ``winner'' is $h_{3}(\mathbf{x})$ since it has the largest value of $\epsilon_{t}$. We can use this to calculate $Z_{t}$, $\alpha_{t}$}
+Z_{1} &= 2\sqrt{\epsilon_{t}(1-\epsilon_{t})} = 2\sqrt{\frac{3}{4}\left(1-\frac{3}{4}\right)} = 2\sqrt{\frac{3}{4}\cdot\frac{1}{4}} = \frac{\sqrt{3}}{2}\\
+\alpha_{1} &= \frac{1}{2}\ln\left(\frac{1-\epsilon_{t}}{\epsilon_{t}}\right) = \frac{1}{2}\ln\left(\frac{1-\unitfrac{3}{4}}{\unitfrac{3}{4}}\right)=\frac{1}{2}\ln\left(\frac{\unitfrac{1}{4}}{\unitfrac{3}{4}}\right) = -\frac{1}{2}\ln(3)
+\intertext{and we can update each value of $D_{2}(i)$ for the next iteration}
+D_{2}(1) &= \frac{\unitfrac{1}{2}}{\sqrt{3}}\exp\left(-\left(-\frac{1}{2}\right)\ln(3)(-1)(-1)\right) = \frac{\unitfrac{1}{2}}{\sqrt{3}}\cdot 3^{\unitfrac{1}{2}}=\frac{1}{2}\\
+D_{2}(2) &= \frac{\unitfrac{1}{2}}{\sqrt{3}}\exp\left(-\left(-\frac{1}{2}\right)\ln(3)(1)(-1)\right) = \frac{\unitfrac{1}{2}}{\sqrt{3}}\cdot 3^{-\unitfrac{1}{2}}=\frac{1}{6}\\
+D_{2}(3) &= \frac{\unitfrac{1}{2}}{\sqrt{3}}\exp\left(-\left(-\frac{1}{2}\right)\ln(3)(-1)(1)\right) = \frac{\unitfrac{1}{2}}{\sqrt{3}}\cdot 3^{-\unitfrac{1}{2}}=\frac{1}{6}\\
+D_{2}(4) &= \frac{\unitfrac{1}{2}}{\sqrt{3}}\exp\left(-\left(-\frac{1}{2}\right)\ln(3)(-1)(1)\right) = \frac{\unitfrac{1}{2}}{\sqrt{3}}\cdot 3^{-\unitfrac{1}{2}}=\frac{1}{6}\\
+\Aboxed{&h_{3}(\mathbf{x}),\qquad \alpha_{1}=-\frac{1}{2}\ln(3)}\label{eq:Ada_1}
+\intertext{Now we can move on to the next iteration, where we will first calculate the weighted error}
+\epsilon_{2}(h_{1}) &= \frac{1}{2} - \frac{1}{2}\left[\frac{1}{2}(-1)(1)+\frac{1}{6}(1)(1)+\frac{1}{6}(-1)(-1)+\frac{1}{6}(-1)(-1) \right]\\
+&= \frac{1}{2}-\frac{1}{2}\left[\frac{3}{6}-\frac{1}{2}\right]=\frac{1}{2}\\
+\epsilon_{2}(h_{2}) &= \frac{1}{2} - \frac{1}{2}\left[\frac{1}{2}(-1)(1)+\frac{1}{6}(1)(-1)+\frac{1}{6}(-1)(-1)+\frac{1}{6}(-1)(-1)\right]\\
+&=\frac{1}{2}-\frac{1}{2}\frac{1}{4}\left[\frac{1}{6}-\frac{1}{2}\right] = \frac{4}{6}\\
+\epsilon_{2}(h_{3}) &= \frac{1}{2}-\frac{1}{2}\left[\frac{1}{2}(-1)(-1)+\frac{1}{6}(1)(-1)+\frac{1}{6}(-1)(1)+\frac{1}{6}(-1)(1)\right]\\
+&=\frac{1}{2}-\frac{1}{2}\frac{1}{4}\left[\frac{1}{2}-\frac{1}{2}\right] = \frac{1}{2}\\
+\epsilon_{2}(h_{4}) &= \frac{1}{2}-\frac{1}{2}\left[\frac{1}{2}(-1)(-1)+\frac{1}{6}(1)(1)+\frac{1}{6}(-1)(1)+\frac{1}{6}(-1)(1)\right]\\
+&=\frac{1}{2}-\frac{1}{2}\frac{1}{4}\left[\frac{1}{2}-\frac{1}{6}\right]=\frac{1}{3}
+\intertext{Where this time the maximum is from $h_{2}(\mathbf{x})$, so that is the hypothesis we're choosing}
+Z_{2} &= 2\sqrt{\epsilon_{t}(1-\epsilon_{t})} = 2\sqrt{\frac{4}{6}\left(1-\frac{4}{6}\right)} = 2\sqrt{\frac{4}{6}\cdot\frac{2}{6}}=\frac{2\sqrt{2}}{3}\\
+\alpha_{2} &= \frac{1}{2}\ln\left(\frac{1-\epsilon_{t}}{\epsilon_{t}}\right) = \frac{1}{2}\ln\left(\frac{\unitfrac{2}{6}}{\unitfrac{4}{6}}\right) = -\frac{1}{2}\ln(2)\\
+D_{3}(1) &= \frac{3}{4\sqrt{2}}\exp\left(-\left(-\frac{1}{2}\right)\ln(2)(-1)(1)\right) = \frac{3}{4\sqrt{2}}\cdot 2^{-\unitfrac{1}{2}}=\frac{3}{8}\\
+D_{3}(2) &= \frac{3}{12\sqrt{2}}\exp\left(-\left(-\frac{1}{2}\right)\ln(2)(1)(-1)\right) = \frac{3}{12\sqrt{2}}\cdot 2^{-\unitfrac{1}{2}}=\frac{1}{8}\\
+D_{3}(3) &= \frac{3}{12\sqrt{2}}\exp\left(-\left(-\frac{1}{2}\right)\ln(2)(-1)(-1)\right) = \frac{3}{12\sqrt{2}}\cdot 2^{\unitfrac{1}{2}}=\frac{1}{4}\\
+D_{3}(4) &= \frac{3}{12\sqrt{2}}\exp\left(-\left(-\frac{1}{2}\right)\ln(2)(-1)(-1)\right) = \frac{3}{12\sqrt{2}}\cdot 2^{\unitfrac{1}{2}}=\frac{1}{4}\\
+\Aboxed{&h_{2}(\mathbf{x}),\qquad \alpha_{2}=-\frac{1}{2}\ln(2)}\label{eq:Ada_2}
+\intertext{For the last iteration}
+\epsilon_{3}(h_{1}) &= \frac{1}{2} - \frac{1}{2}\left[\frac{3}{8}(-1)(1)+\frac{1}{8}(1)(1)+\frac{1}{4}(-1)(-1)+\frac{1}{4}(-1)(-1) \right]\\
+&= \frac{1}{2}-\frac{1}{2}\left[\frac{1}{2}-\frac{1}{4}\right]=\frac{3}{8}\\
+\epsilon_{3}(h_{2}) &= \frac{1}{2} - \frac{1}{2}\left[\frac{3}{8}(-1)(1)+\frac{1}{8}(1)(-1)+\frac{1}{4}(-1)(-1)+\frac{1}{4}(-1)(-1)\right]\\
+&=\frac{1}{2}-\frac{1}{2}\frac{1}{4}\left[\frac{1}{2}-\frac{1}{2}\right] = \frac{1}{2}\\
+\epsilon_{3}(h_{3}) &= \frac{1}{2}-\frac{1}{2}\left[\frac{3}{8}(-1)(-1)+\frac{1}{8}(1)(-1)+\frac{1}{4}(-1)(1)+\frac{1}{4}(-1)(1)\right]\\
+&=\frac{1}{2}-\frac{1}{2}\frac{1}{4}\left[\frac{1}{4}-\frac{1}{2}\right] = \frac{5}{8}\\
+\epsilon_{3}(h_{4}) &= \frac{1}{2}-\frac{1}{2}\left[\frac{3}{8}(-1)(-1)+\frac{1}{8}(1)(1)+\frac{1}{4}(-1)(1)+\frac{1}{4}(-1)(1)\right]\\
+&=\frac{1}{2}-\frac{1}{2}\frac{1}{4}\left[\frac{4}{8}-\frac{1}{2}\right]=\frac{1}{2}
+\intertext{where we can see that $h_{3}(\mathbf{x})$ ``won'' again. Since we don't need to perform any more iterations, all we need to calculate is $\alpha_{3}$ to get the final hypothesis}
+\alpha_{3} &= \frac{1}{2}\ln\left(\frac{\unitfrac{3}{8}}{\unitfrac{5}{8}}\right) = \frac{1}{2}\ln\left(\frac{3}{5}\right)\\
+\Aboxed{&h_{3}(\mathbf{x}),\qquad \alpha_{3}=\frac{1}{2}\ln\left(\frac{3}{5}\right)}\label{eq:Ada_3}
+\intertext{To get the final Hypothesis, we need to sum the information in Equations~(\ref{eq:Ada_1}, \ref{eq:Ada_2}, \ref{eq:Ada_3})}
+H_{final}(\mathbf{x}) &= \sgn{-\frac{1}{2}\ln(3)h_{3}(\mathbf{x}) - \frac{1}{2}\ln(2)h_{2}(\mathbf{x})-\frac{1}{2}\ln\left(\frac{3}{5}\right)}\\
+& = \sgn{-\frac{1}{2}\left[\ln(5)h_{3}(\mathbf{x})-\ln(2)h_{2}(\mathbf{x})\right]}\label{eq:Ada_hypothesis}
+\end{align}
+Now that we have our final hypothesis in Equation~(\ref{eq:Ada_hypothesis}), we can test it against the given data to see it's performance. In doing so, the only mistake it makes is with the first point $\mathbf{x}_{1}$, which it classified as $+1$ instead of $-1$. Since it got all the other terms right, it had an empirical error of $\frac{3}{4}$.
+\end{itemize}
+
+
+\item What is the margin of a data set with respect to a hyperplane? Why does maximizing the margin improve this generalization?
+
+\begin{itemize}
+\item The {\em margin} of a hyperplane for a dataset is the distance between the hyperplane and the data point nearest to it. 
+\item Larger margins are better as it generalizes the data more and gives room for future examples that may be closer to the hyperplane. To maximize the margin, we use
+\begin{align}
+\max_{\mathbf{w}}\min_{(\mathbf{x}_{i},y_{i})}&\frac{y_{i}(\mathbf{w}^{T}\mathbf{x}_{i}+b)}{\Norm{\mathbf{w}}}
+\end{align}
+where the term that is being minimized is representative of $\gamma$, the margin
+\end{itemize}
+
+
+\item What is the objective function for support vector machines? What is the objective function for regularized logistic regression?
+
+\begin{itemize}
+\item SVM Objective Objective Function:
+\begin{align}
+\min_{\mathbf{w}}\underbrace{\frac{1}{2}\mathbf{w}^{T}\mathbf{w}}_{Regularization\ Term}&+C\sum_{i}\max\underbrace{\left[0,1-y_{i}\mathbf{w}^{T}\mathbf{x}_{i}\right]}_{Loss\ Function}
+\end{align}
+\item Logistic Regression Objective Function:
+\begin{align}
+\min_{\mathbf{w}}\underbrace{\frac{1}{2}\mathbf{w}^{T}\mathbf{w}}_{Regularization\ Term}&+C\sum_{i}\max\underbrace{\log\left[1+\exp(-y\bwx\right]}_{Loss\ Function}
+\end{align}
+\item {\em Regularization Term}:
+\begin{itemize}
+\item Maximize the margin
+\item Imposes a preference over the hypothesis space and pushes for better generalization
+\item Can be replaced with other regularization terms which impose other preferences
+\end{itemize}
+\item {\em Empirical Loss}:
+\begin{itemize}
+\item Hinge Loss Function
+\item Penalizes weight vectors that make mistakes
+\item Can be replaced with other loss functions which impose other preferences
+\end{itemize}
+\item {\em Hyper Paramter}: $C$ is a hyper parameter that controls the tradeoff between a large margin and a small hinge-loss
+\end{itemize}
+
+
+\item Derive the stochastic gradient descent algorithm for SVM and logistic regression.
+
+\begin{itemize}
+\item Stochastic Gradient Descent treats each individual data point in the data as the entire data set and takes the gradient of that one function. In order to do it for SVM and Logistic Regression, we need to utilize the correspoinding {\em loss functions} for each, from Equations~(\ref{eq:SVM_loss}, \ref{eq:logis_loss}). What we want to do is solve the following optimization problem
+\[
+\min_{\mathbf{w}}\left\{\frac{\mathbf{w}^{T}\mathbf{w}}{2\sigma^{2}} + \sum_{i}L(h(\mathbf{x}_{i}),f(\mathbf{x}_{i})\right\}
+\]
+where $L(h(\mathbf{x}_{i}),f(\mathbf{x}_{i})$ is the loss function for the problem we are trying to solve. The stochastic gradient descent method updates the weight vector by going in the opposite direction of the gradient, so it will update as
+\[
+\mathbf{w}_{(t+1)} = \mathbf{w}_{(t)} - r\Grad{J(\mathbf{w})}
+\]
+where $r$ is the ``learning rate'' of the function, {\em i.e.} how large of a stepsize it uses
+\item {\bf SVM}:
+The function that we want to minimize is:
+\begin{align}
+J(\mathbf{w}) &= \min_{\mathbf{w}}\left\{\frac{\mathbf{w}^{T}\mathbf{w}}{2\sigma^{2}} + \sum_{i}\max\left[0,1-y_{i}\mathbf{w}^{T}\mathbf{x}_{i}\right]\right\}
+\intertext{which we can't take a direct derivative of because the loss function is not differentiable. The solution to this is to take a derivative of both cases of the max function and let the algorithm decide which to use at runtime. The first case is for when $\max$ chooses $0$}
+\frac{\partial J(\mathbf{w})}{\partial \mathbf{w}} &= \frac{\partial}{\partial \mathbf{w}}\frac{\mathbf{w}^{T}\mathbf{w}}{2\sigma^{2}} = \frac{\partial}{\partial \mathbf{w}}\frac{\Norm{\mathbf{w}}^{2}}{2\sigma^{2}}\\
+\frac{\partial J(\mathbf{w})}{\partial \mathbf{w}}&= \frac{\Norm{\mathbf{w}}}{\sigma^{2}}
+\intertext{For $\max$ choosing $1-y_{i}\mathbf{w}^{T}\mathbf{x}_{i}$ the result is, where we can also drop the summation since we want to take the gradient for a {\em single point}}
+\frac{\partial J(\mathbf{w})}{\partial \mathbf{w}} &= \frac{\partial}{\partial \mathbf{w}}\frac{\mathbf{w}^{T}\mathbf{w}}{2\sigma^{2}} + 1 - y_{i}\mathbf{w}^{T}\mathbf{x}\\
+\frac{\partial J(\mathbf{w})}{\partial \mathbf{w}}&= \frac{\Norm{\mathbf{w}}}{\sigma^{2}}-y\mathbf{x}
+\end{align}
+\item {\bf Logisitic Regression}: The function we want to minimize is:
+\begin{align}
+J(\mathbf{w}) &= \min_{\mathbf{w}}\left\{\frac{\mathbf{w}^{T}\mathbf{w}}{2\sigma^{2}} + \sum_{i}\log\left(1+\exp(-y_{i}\mathbf{w}^{T}\mathbf{x}_{i})\right)\right\}
+\intertext{which unlike the SVM case {\em is} differentiable. We can remove the summation from this equation since we want to take the gradient of a single data point}
+\frac{\partial J(\mathbf{w})}{\partial \mathbf{w}} &= \frac{\partial}{\partial \mathbf{w}} \left(\frac{\mathbf{w}^{T}\mathbf{w}}{2\sigma^{2}} + \log\left(1+\exp(-y\mathbf{w}^{T}\mathbf{x})\right)\right)\\
+\frac{\partial J(\mathbf{w})}{\partial \mathbf{w}} &= \frac{\Norm{\mathbf{w}}}{\sigma^{2}}+\frac{-y\mathbf{x}}{1+\exp(y\mathbf{w}^{T}\mathbf{x})}
+\end{align}
+\end{itemize}
+
+
+\item Why does minimizing $\Norm{\mathbf{w}}$ improve generalization for a linearly separable dataset?
+
+\begin{itemize}
+\item Minimizing the norm prevents overfitting. This can be seen in Vapnik's Theorem on the generalization of margins. If we let $H$ be the set of linear classifiers that separate the training set by a margin of at least $\gamma$, then we get
+\begin{align}
+VC(H) &\leq \min\left[\frac{R^{2}}{\gamma^{2}},d\right]+1
+\end{align}
+with $R$ representing the radius of the smallest sphere required to contain the data. This equation also implies that the larger the margin, the lower the $VC$ dimension as well, where we've seen that the lower the $VC$ dimension, the better the generalization. Thus, minimizing $\Norm{\bw}$ maximizes the margin since
+\begin{align}
+\gamma = \min_{(\bx_{i},y_{i})}\frac{y_{i}(\bwx+b)}{\Norm{\bw}}
+\end{align}
+This shows that $\gamma\propto\frac{1}{\Norm{\bw}}$, which since $\gamma$ is in the denominator in Vapnik's theorem, lowers the $VC$ dimension, and thus improving generalization.
+\end{itemize}
+
+
+\item What is the logistic loss function?
+
+\begin{itemize}
+\item {\em Loss Function}: Should penalize mistakes and are minimizing the average loss over the training data
+\item The following is a list of common loss functions where {\em Perceptron Loss} is utilized in the Perceptron algorithm, {\em Hinge Loss} is utilized in SVM's, {\em Exponential Loss} is used in AdaBoost, and {\em Logistic Loss} is used in Logistic Regression
+\begin{align}
+L_{Perceptron}(y,\mathbf{x},\mathbf{w}) &= \max\left[0,-y\mathbf{w}^{T}\mathbf{x}\right]\\
+L_{Hinge}(y,\mathbf{x},\mathbf{w}) &= \max\left[0,1-y\mathbf{w}^{T}\mathbf{x}\right]\label{eq:SVM_loss}\\
+L_{Exponential}(y,\mathbf{x},\mathbf{w}) &= e^{-y\mathbf{w}^{T}\mathbf{x}}\\
+L_{Logistic}(y,\mathbf{x},\mathbf{w}) &= \log\left(1+e^{-y\mathbf{w}^{T}\mathbf{x}}\right)\label{eq:logis_loss}
+\intertext{where we can algo generalize our objective function as being}
+\min_{h\in H}\text{regularizer}(h)&+C\frac{1}{m}\sum_{i}L\left(h(\mathbf{x}_{i}),f(\mathbf{x}_{i})\right)
+\end{align}
+\end{itemize}
+
+
+\item What is the difference between gradient descent and stochastic gradient descent?
+
+\begin{itemize}
+\item The differences between the two can be seen as follows:
+
+\begin{center}
+\noindent\parbox[t]{.4\textwidth}{\raggedright%
+\textbf{\textit{Gradient Descent}}
+\begin{itemize}[topsep=0pt,itemsep=-2pt,leftmargin=13pt]
+\item Update a set of parameters in an iterative manner to minimize a loss function
+\item Run through {\em all} of the samples in your training set to do a single update
+\item Error function is better minimized
+\end{itemize}
+}%
+\parbox[t]{.4\textwidth}{\raggedright%
+\textbf{\textit{Stoichastic Gradient Descent}}
+\begin{itemize}[topsep=0pt,itemsep=-2pt,leftmargin=13pt]
+\item Update a set of parameters in an iterative manner to minimize a loss function
+\item Use {\em only one} training sample from your training set to do the update for a parameter at a particular iteration
+\item Usually converges much faster
+\end{itemize}
+}
+\end{center}
+\end{itemize}
+
+
+\item Write down an expression for the optimum weight vector for an SVM in terms of training examples.
+
+\begin{itemize}
+\item Let $\mathbf{w}$ be the minimizer of the SVM problem from some dataset with $m$ examples $\{(\mathbf{x}_{i},y_{i})\}_{m}$. Then for $i=\{1,2,\ldots,m\}$, there must exist some parameter $\alpha_{i}$ such that the {\em optimum} $\mathbf{w}$ can be built. This can be expressed mathematically as
+\[
+\mathbf{w} = \sum_{i=1}^{m}\alpha_{i}y_{i}\mathbf{x}_{i}
+\]
+\end{itemize}
+
+
+\item Derive the kernel perceptron algorithm.
+
+\begin{itemize}
+\item This can be derived in the following way:
+
+\begin{align}
+\intertext{The perceptron algorithm only updates everytime it makes a mistake. To update the weight vector, it updates as $\bw_{i+1}=\bw_{i}+y_{i}\bx_{i}$. If we have a function $\phi(\bx)$ that maps $\bx$ to a new feature space, we have $\bw_{i+1}=\bw_{i}+y_{i}\phi(\bx_{i})$. If the perceptron algorithm makes $M$ errors on the training data, the final weight vector can be represented as}
+\bw &= \sum_{i:(\bx_{i},y_{i})\in M}y_{i}\phi(\bx_{i})\\
+\intertext{On top of this, we also know that the classification of the perceptron algorithm comes from}
+y &= \sgn{\bwx} = \sgn{\bw^{T}\phi(\bx)}\\
+\intertext{which can be generalized by plugging in the definition of $\bw$ given above}
+y &= \sgn{\sum_{i:(\bx_{i},y_{i})\in M}y_{i}\phi(\bx_{i})^{T}\phi(\bx)}\\
+\intertext{we also know that the kernel function is defined as}
+\kappa(\bx,\mathbf{z}) &\equiv \phi(\bx)^{T}\phi(\mathbf{z})\\
+\intertext{which we can use in our new definition of the classification, giving us}
+y &= \sgn{\sum_{i:(\bx_{i},y_{i})\in M}y_{i}\kappa(\bx_{i},\bx)}
+\end{align}
+\begin{algorithm}[H]
+\begin{algorithmic}
+\STATE $\mathbf{w}\leftarrow 0$
+\FOR{$i=1$ \TO $M$}
+    \IF{$y\neq \sgn{\sum_{\bx_{i},y_{i}\in M} y_{i}\kappa(\mathbf{x},\mathbf{x}_{i})}$}
+       \STATE{$\mathbf{w}\leftarrow \mathbf{w}\cup(\mathbf{x}_{i},y)$}
+    \ENDIF
+\ENDFOR
+\RETURN $\sgn{\sum_{\bx_{i},y_{i}\in M} y_{i}\kappa(\mathbf{x},\mathbf{x}_{i})}$
+\end{algorithmic}
+\caption{KernelPerceptron$(\{(\mathbf{x}_{i},y_{i})\}_{n})$}
+\label{alg:Kernel_Perceptron}
+\end{algorithm}
+\end{itemize}
+
+\ \newpage
+
+\item For two vectors $\mathbf{x}$ and $\mathbf{z}$, are the following functions valid kernels?
+
+\begin{itemize}
+\item A kernel is valid if and only if, it is symmetric $\kappa(\mathbf{x},\mathbf{z})=\kappa(\mathbf{z},\mathbf{x})$, and if it is positive-semi definite\\ $\left(\sum_{j=1}^{n}\sum_{i=1}^{n}c_{i}c_{j}\kappa(\mathbf{x}_{i},\mathbf{x}_{j})\right)\geq 0$. From these definitions, it also follows that $\kappa(\mathbf{x},\mathbf{z})$ is valid if and only if there exists a function $\kappa(\mathbf{x},\mathbf{z})=\phi(\mathbf{x})^{T}\cdot\phi(\mathbf{z})$
+\item $\mathbf{x}^{T}\mathbf{z}$
+\begin{itemize}
+\item This is trivially shown as true. If $\kappa(\mathbf{x},\mathbf{z}):\phi(\mathbf{x})\to \mathbf{x}$, then we have a function mapping it onto itself. The resutling dot product that would form the question would be $\phi(\mathbf{x}^{T})\cdot\phi(\mathbf{z})$, so it is trivially true that it is a valid mapping, thus making $\mathbf{x}^{T}\mathbf{z}$ a valid kernel.
+\end{itemize}
+\item $\left(1+\mathbf{x}^{T}\mathbf{z}\right)^{2}$
+\begin{align}
+\intertext{If we expand this equation we get}
+\kappa(\mathbf{x},\mathbf{z}) &= 1^{2}+2\sum_{i=1}^{n}x_{i}z_{i} + \left(\sum_{i=1}^{n}x_{i}z_{i}\right)^{2}
+\intertext{with, without loss of generality, can be rewritten as}
+\kappa(\mathbf{x},\mathbf{z}) &= 1+2\mathbf{x}^{T}\mathbf{z}+\Norm{\mathbf{x}^{T}\mathbf{z}}^{2}
+\intertext{which can be brought into a {\em mapping} to $\phi(\mathbf{x})$ such as:}
+\phi(\mathbf{x}) &= \left(1,\sqrt{2}\cdot\mathbf{x},\mathbf{x}^{2}\right)\Rightarrow \phi(\mathbf{x})\cdot \phi(\mathbf{z})
+\end{align}
+which is a valid kernel $\kappa(\mathbf{x},\mathbf{z})$
+\item $\exp\left(\left|\left|\mathbf{x}\right|\right|\cdot\left|\left|\mathbf{z}\right|\right|\cdot(12+\mathbf{x}^{T}\mathbf{z})^{17}\right)+\left(\mathbf{x}^{T}\mathbf{z}\right)^{3}$
+\begin{align}
+\intertext{This can be shown by example that this is not a valid kernel in the following way. We can build a matrix $\mathbf{M}$ from our function, and we have to show that it is not positive semi-definite, by $\mathbf{b}^{T}\mathbf{M}\mathbf{b}$, where without loss of generality we can define $\mathbf{b}$ as being the identity vector such that $\mathbf{b}\in \mathbb{1}^{n\times 1}$. Following this, we can define our $\mathbf{x}=\mathbb{1}^{n\times 1}$ and $\mathbf{z}=(-2)\mathbb{1}^{n\times 1}$. Using this information, to show it's not positive semi-definite, we essentially need to calculate the above ``kernel'' and show that it is less than zero. In doing so}
+\exp\left(\cancel{\Norm{\mathbf{x}}}\cdot \sqrt{(-2)^{2}n}\cdot \left(\sum_{i=1}^{n}x_{i}z_{i}\right)^{17}\right) &+ \left(\sum_{i=1}^{n}x_{i}z_{i}\right)^{3}\\
+\exp\left(2\sqrt{n}\cdot (-2n)^{17}\right) &+ (-2n)^{3}\\
+\exp\left(-2^{18}n^{\unitfrac{17}{2}}\right) &- 8n^{3} < 0
+\end{align}
+The last statement holds true since the exponential function decays quickly and for any sufficient $n$ it will overcome the exponential and make the entire equation negative.
+\end{itemize}
+
+
+\item When the training error is low and the test error is high, is it a symptom of high bias or high variance?
+
+\begin{itemize}
+\item {\bf Bias}: The true error (loss) of the {\em best} predictor in teh hypothesis set.
+\begin{itemize}
+\item What will the bias be if the hypothesis set can not represent the target function? (high or low?)
+\begin{itemize}
+\item Bias will be non-zero, possiby high
+\end{itemize}
+\item {\em Underfiting}: When bias is high
+\end{itemize}
+\item {\bf Variance}: Describes how much the {\em best} classifier depends on the training set
+\begin{itemize}
+\item {\em Overfitting}: High variance
+\item Increases when classifiers become more complex
+\item Decreases with larger training sets
+\end{itemize}
+\item {\bf Error}: $bias + variance\ (+\ noise)$
+\item {\em High bias}: Both training and test set error can be high
+\begin{itemize}
+\item Arises when the classifier can not represent the data
+\end{itemize}
+\item {\em High variance}: Training error can be low, but the test error will beh high
+\begin{itemize}
+\item Arises when the learner overfits the training set
+\end{itemize}
+\end{itemize}
+
+
+\item What does the regularization term for regularized loss minimization do with respect to the bias variance tradeoff?
+
+\begin{itemize}
+\item The regularization term helps reduce the variance and makes the model more generalized. For example, if we have a feature set for a single example $\bx_{i}$ as being
+\begin{align}
+\bx_{i} &= \left(x_{1},x_{2},\ldots,x_{100}\right)^{T}
+\end{align}
+then it's clear that if $\bw$ is unbounded, it can fit any data point successfully. However, if the weight vector updated every time it saw a data point to ``match'' the new data point's weight vector, no data set would ever be able to be learned as the weightvector would vary widely. 
+\item {\bf Managing of bias and variance}:
+\begin{itemize}
+\item {\em Ensemble Methods} reduce variance
+\begin{itemize}
+\item Multiple classifiers are combined ({\em i.e.} boosting)
+\end{itemize}
+\item {\em $k$-Nearest Neighbors}
+\begin{itemize}
+\item Increasing $k$ generally increases bias, reduces variance
+\end{itemize}
+\item {\em Decision Trees of a given depth}
+\begin{itemize}
+\item Increasing depth decreases bias, increases variance
+\end{itemize}
+\item {\em SVM's}
+\begin{itemize}
+\item Higher degree polynomial kernels decreases bias, increases variance
+\item Stronger regularization increases bias, decreases variance
+\end{itemize}
+\end{itemize}
+\end{itemize}
+
+
+\item What is the difference between MAP learning and MAP prediction? Give an example of a binary classifier that is learned using the MAP principle and uses MAP prediction.
+
+\begin{itemize}
+\item {\bf Maximum a posteriori (MAP) Learning}:
+\begin{align}
+h_{MAP} &= \arg\max_{h\in H}P(\dim|h)P(h)
+\end{align}
+\begin{itemize}
+\item Count how often features occur with each label. Normalize to get likelihoods
+\item Priors from fraction of examples with each label
+\item Generalizes to multiclass
+\end{itemize}
+\item {\bf Maximum a posteriori (MAP) Prediction}:
+\begin{align}
+h &= \arg\max_{y}P(X=\mathbf{x}|Y=y)P(Y=y)
+\end{align}
+\begin{itemize}
+\item Use learned probabilities to find the highest scoring label
+\end{itemize}
+\item In essence, MAP learning is Maximum A Posteriori learning, which tries to find the hgihest posterior probability of a given hypothesis for some data. MAP prediction attempts to solve the problem of maximizing the posterior probability of the predictions given the data.
+\item The following is a biniary classification example that uses MAP Prediction. It utilizes information in Table~1 and Table~\ref{tbl:Likelihood}. The question is, based on that data, if todays $Temperature=Hot(H)$ and $Wind=Weak(W)$, should I play tennis today?
+
+\begin{table}[H]
+\centering
+\caption{Prior Values}
+\begin{tabular}{c c}
+\hline\hline
+{\bf Play Tennis} & $\boldsymbol{P(\text{\bf play tennis})}$\\
+\hline
+Yes & 0.30\\
+No & 0.70\\
+\hline
+\end{tabular}
+\label{tbl:Prior}
+\end{table}
+
+\begin{table}[H]
+\centering
+\caption{Likelihood Values}
+\begin{tabular}{c c c}
+\hline\hline
+{\bf Temperature} & {\bf Wind} & $\boldsymbol{P(T,W|Tennis=Yes)}$\\
+\hline
+Hot & Strong & 0.15\\
+Hot & Weak & 0.40\\
+Cold & Strong & 0.10\\
+Cold & Weak & 0.35\\
+\hline\hline
+{\bf Temperature} & {\bf Wind} & $\boldsymbol{P(T,W|Tennis=No)}$\\
+\hline
+Hot & Strong & 0.40\\
+Hot & Weak & 0.10\\
+Cold & Strong & 0.30\\
+Cold & Weak & 0.20\\
+\hline
+\end{tabular}
+\label{tbl:Likelihood}
+\end{table}
+\begin{align}
+h(H,W) &= \arg\max_{y}P(H,W|play?)P(play?)\\
+P(H,W|Yes)P(Yes) &= 0.40\times 0.30 = 0.12\\
+P(H,W|No)P(No) &= 0.10 \times 0.70 = 0.07
+\end{align}
+
+{\bf MAP Prediction}: $Yes$, you should play tennis today
+
+\end{itemize}
+
+
+\item Show that the least squares estimation is equivalent to maximum likelihood estimation for a specific probabilistic model.
+
+\begin{itemize}
+\item {\bf Maximum Likelihood Hypothesis}:
+\begin{align}
+h_{ML} &= \arg\max_{h\in H}P(\dim|h)\\
+\end{align}
+\begin{itemize}
+Suppose $H$ consists of real valued functions and its inputs are vectors $\mathbf{x}\in \mathbb{R}^{d\times 1}$ and output $y\in \mathbb{R}$. The training data was generated as follows: 
+\item Input $\mathbf{x}_{i}$ is drawn uniformly at random 
+\item True function $f(\mathbf{x})$ is applied to get $f(\mathbf{x}_{i})$
+\item The value is perturbed by some noise $e_{i}$: $y_{i} = f(\mathbf{x}_{i})+e_{i}$
+\item There are $m$ training examples $(\mathbf{x}_{i},y_{i})$ that are generated in this process
+\end{itemize}
+\item Recall that a normal distribution is parameterized by its mean $\mu$ and variance $\sigma$. If $h$ was a true function, then the mean of $y_{i}$ would be $h(\mathbf{x}_{i})$, so we have the probability density function of
+\begin{align}
+P(y_{i}|h,\mathbf{x}_{i}) &= \frac{1}{\sigma\sqrt{2\pi}}\exp\left(-\frac{(y_{i}-h(\mathbf{x}_{i})^{2}}{2\sigma^{2}}\right)
+\intertext{which represents the probability of observing one data point $(\mathbf{x}_{i},y_{i})$ if it were generated by the function $h(\mathbf{x}_{i})$. Each example in our data set $\dim = \{(\mathbf{x}_{i},y_{i})\}$ is generated independently in this process, so we can use the Bayes Assumption which states}
+P(\dim|h) &= \prod_{i=1}^{m}P(y_{i},\mathbf{x}_{i}|h)
+\intertext{our goal is to find the maximum likelihood hypothesis}
+h_{ML} &= \arg\max_{h\in H}P(\dim|h) = \arg\max_{h\in H}\prod_{i=1}^{m}P(y_{i}|h,\mathbf{x}_{i})\\
+&= \arg\max_{h\in H}\prod_{i=1}^{m}\frac{1}{\sigma\sqrt{2\pi}}\exp\left(-\frac{(y_{i}-h(\mathbf{x}_{i}))^{2}}{2\sigma^{2}}\right)
+\intertext{where we can take the logarithm to simplify since the logarithm is an increasing function and it won't effect our maximization}
+h_{ML} &= \arg\max_{h\in H}\log\left(\prod_{i=1}^{m}\frac{1}{\sigma\sqrt{2\pi}}\exp\left(-\frac{(y_{i}-h(\mathbf{x}_{i}))^{2}}{2\sigma^{2}}\right)\right)\\
+&= \arg\max_{h\in H}\sum_{i=1}^{m}\log\left(\frac{1}{\sigma\sqrt{2\pi}}\exp\left(-\frac{(y_{i}-h(\mathbf{x}_{i}))^{2}}{2\sigma^{2}}\right)\right)\\
+&= \arg\max_{h\in H} \sum_{i=1}^{m}\log\left(\frac{1}{\sigma\sqrt{2\pi}}\right)+\log\left[\exp\left(-\frac{(y_{i}-h(\mathbf{x}_{i}))^{2}}{2\sigma^{2}}\right)\right]\\
+&= \arg\max_{h\in H} \sum_{i=1}^{m}\left(-\log\left(\sigma\sqrt{2\pi}\right)\right)-\frac{(y_{i}-h(\mathbf{x}_{i}))^{2}}{2\sigma^{2}}
+\intertext{where we can remove the first term and the $2\sigma^{2}$ term since they are constants and are independent of the maximization, resulting in}
+h_{ML} &= \arg\max_{h\in H}\sum_{i=1}^{m}\left(-(y_{i}-h(\mathbf{x}_{i}))^{2}\right)
+\intertext{which gives the hypothesis of}
+h_{ML} &= \arg\min_{h\in H}\sum_{i=1}^{m}\left(y_{i}-h(\mathbf{x}_{i})\right)^{2}
+\intertext{where for linear functions we consider $h(\mathbf{x}_{i})= \mathbf{w}^{T}\mathbf{x}_{i}$}
+h_{ML} &= \arg\min_{h\in H}\sum_{i=1}^{m}\left(y_{i}-\mathbf{w}^{T}\mathbf{x}_{i}\right)
+\end{align}
+which is the probabilistic version of least squares regression
+\end{itemize}
+
+
+
+\item What is the difference between Bayes optimal classification and prediciton according to the MAP classifier? Suppose you have a learning task. Your hypothesis class $H$ contains a countably infinite number of functions $(h_{1},h_{2},h_{3},\ldots)$. It so happens that for a particular dataset $\dim$, the posterior probabilities of these functions are:
+\begin{align*}
+P(h_{1}|\dim) &= \frac{1}{2}-\epsilon\\
+P(h_{2}|\dim) &= \frac{1}{4}+\epsilon\\
+P(h_{i}|\dim) &= \frac{1}{2^{i}}\quad \forall\ i>2
+\end{align*}
+What is the MAP hypothesis for this dataset?
+
+\begin{itemize}
+\item The equation for $h_{MAP}$ prediction is as follows
+\begin{align}
+h_{MAP} &= \arg\max_{h\in H}P(\dim|h)P(h);\qquad P(\dim|h) = \frac{P(h|\dim)P(\dim)}{P(h)}\\
+ & = \arg\max_{h\in H}\frac{P(h|\dim)P(\dim)}{P(h)}P(h) = \arg\max_{h\in H}P(h|\dim)P(\dim)
+\intertext{which for a set of data with a uniform random sampling becomes}
+h_{MAP} &= \arg\max_{h\in H}P(h|\dim)
+\intertext{Using this, we can find the maximum hypothesis that will be given, which turns out to be a joint set that is dependent upon the value of $\epsilon$. These two results can easily be seen since $\max_{i>2}h_{i}=\frac{1}{8}$, which would not be anywhere near $h_{1}$ and $h_{2}$. The value of epsilon was found by equating $h_{1}=h_{2}$ and solving for it. An assumption that is made is that the algorithm will choose $h_{i}$ with the smallest $i$ in order to break a ``draw'' (more than one hypothesis have the same value).}
+h_{MAP} &= \left\{\begin{array}{c c c c}h_{1} & = & \frac{1}{2}-\epsilon & \left(\epsilon \leq\frac{1}{8}\right)\\\ \\ h_{2} & = & \frac{1}{4}+\epsilon & \left(\epsilon >\frac{1}{8}\right)\end{array} \right.
+\end{align}
+\end{itemize}
+
+Now, for a new example $\mathbf{x}$, the first function $h_{1}$ predicts the label $+1$ and all the others predict $-1$. That is, $P(y=-1|h_{i})=1$ for all $h_{i}$ except for the first one and $P(y=+1|h_{1})=1$.
+
+Do the predictions of the MAP hypothesis and the Bayes optimal classifier agree?
+
+\begin{itemize}
+\item {\bf MAP Hypothesis}:
+\begin{itemize}
+\item This is relatively straight forward. In the question, it states that $h_{1}$ predicts $+1$ and $-1$ for the rest, so depending on the value of $\epsilon$, if $\epsilon\leq \frac{1}{8}$, then it will predict $+1$, and if $\epsilon>\frac{1}{8}$, it will predict $-1$.
+\end{itemize}
+\item {\bf Bayes Optimal Classifier}:
+\begin{itemize}
+\item Bayes Optimal Classifier is defined as the following
+\begin{align}
+h(y) &= \arg\max_{y}\sum_{h_{i}\in H}P(y|h_{i})P(h_{i}|\dim)
+\intertext{The problem also states the probabilities for $P(y|h_{i})$ which can be used to get the solution. To do so, we need to test {\em two} cases, for $y=1$ and $y=-1$. First, for $y=1$}
+h(y) &= \sum_{h_{i}\in H}P(y=1|h_{i})P(h_{i}|\dim)\\
+     &= \underbrace{P(y=1|h_{1})}_{1}P(h_{1}|\dim) + \sum_{i>1}\underbrace{P(y=1|h_{i})}_{0}P(h_{i}|\dim)\\
+     &= \frac{1}{2}-\epsilon
+\intertext{For $y=-1$}
+h(y) &= \sum_{h_{i}\in H}P(y=-1|h_{i})P(h_{i}|\dim)\\
+     &= \underbrace{P(y=-1|h_{1})}_{0}P(h_{1}|\dim) + \underbrace{P(y=-1|h_{2})}_{1}P(h_{2}|\dim) + \sum_{i=3}^{\infty}\underbrace{P(y=-1|h_{i})}_{1}P(h_{i}|\dim)\\
+  &= P(h_{2}|\dim) + \sum_{i=3}^{\infty}P(h_{i}|\dim)\\
+  &= \frac{1}{4}+\epsilon + \underbrace{\sum_{i=3}^{\infty}\frac{1}{2^{i}}}_{\text{converges to }2}\\
+  &= \frac{1}{4}+\epsilon + 2\\
+\intertext{where we again need to check for what values of $\epsilon$ one is chosen over the other. In doing so, the classification of $\mathbf{x}$ is given as}
+h(y) &= \left\{ \begin{array}{c c c}y=\phantom{-}1 & \left(\frac{1}{2}-\epsilon\right) & \left(\epsilon \leq -\frac{7}{4}\right)\\\ \\ y=-1 & \left(\frac{1}{4}+\epsilon+2\right) & \left(\epsilon>-\frac{7}{4}\right)\end{array}\right.
+\end{align}
+\item The Bayes Optimal Classifier would predict $+1$ for $\epsilon \leq -\frac{7}{4}$ and $-1$ for $\epsilon>-\frac{7}{4}$.
+\end{itemize}
+\item We can't say for sure whether they agree or not since we don't know the value of $\epsilon$. 
+\end{itemize}
+
+
+\item What is the Na\"{i}ve Bayes assumption?
+
+\begin{itemize}
+\item What if all of the features are conditionally indpendent, then what does the hypothesis function look like? That is
+\begin{align}
+P(x_{1},x_{2},\ldots,x_{d}|y) &= P(x_{1}|y)P(x_{2}|y)\cdots P(x_{d}|y)\\
+\intertext{Requires only $d$ number for each label. $kd$ features overall! So if the features are conditionally independent given the label $y$, to predict we need to sets of probabilities: $(1)$ Prior $P(y)$ and $(2)$ For each $\mathbf{x}_{i}$, we have the likelihood $P(\mathbf{x}_{i}|y)$. If we have these, we can make the decision rule as:}
+h_{NB}(\mathbf{x}) &= \arg\max_{y}P(y)P(x_{1},x_{2},\ldots,x_{d}|y)\\
+ &= \arg\max_{y}P(y)\prod_{i=1}^{d}P(x_{i}|y)
+\end{align}
+\end{itemize}
+
+
+\item Derive the maximum likelihood Na\"{i}ve Bayes classifier when the conditional probabilities of each feature given the label is a Bernoulli trial and the prior is also a Bernoulli trial.
+
+\begin{itemize}
+\item {\bf Maximum Likelihood Estimation}: Given a dataset $\{(\mathbf{x}_{i},y_{i})\}_{m}$ which is composed of data that is independent and uniformly distributed.
+\begin{align}
+h_{ML} &= \arg\max_{h\in H}P(\dim|h)
+\intertext{where $h$ is all probabilities used to construct the Na\"{i}ve Bayes decision. Since the data is independent and uniformly distributed, we can rewrite by using the Bayes assumption}
+h_{ML} &= \arg\max_{h\in H}\prod_{i=1}^{m}P\left((\mathbf{x}_{i},y_{i})|h\right)\\
+ &= \arg\max_{h\in H}\prod_{i=1}^{m}P(\mathbf{x}_{i}|y_{i},h)P(y_{i}|h)\\
+ &= \arg\max_{h\in H}\prod_{i=1}^{m}P(y_{i}|h)\prod_{j}P(\mathbf{x}_{i,j}|y_{i},h)
+\intertext{where $j$ represents the $j^{th}$ feature of $\mathbf{x}_{i}$. We can take the logarithm of this to simplify}
+h_{ML} &= \arg\max_{h\in H}\log\left[\prod_{i=1}^{m}P(y_{i}|h)\prod_{j}P(\mathbf{x}_{i,j}|y_{i},h)\right]\\
+&= \arg\max_{h\in H}\log\left[\prod_{i=1}^{m}P(y_{i}|h)\right]+\log\left[\prod_{i=1}^{m}\prod_{j}P(\mathbf{x}_{i,j}|y_{i},h)\right]\\
+&= \arg\max_{h\in H}\sum_{i=1}^{m}\log\left[P(y_{i}|h)\right]+\sum_{i=1}^{m}\sum_{j}\log\left[P(\mathbf{x}_{i,j}|y_{i},h)\right]\label{eq:ml_bernoulli}
+\intertext{to simplify this problem, we can assume that there are only two labels $[1,0]$ and the features are binary. We can therefore represent each example as a Bernoulli trial, where below builds our {\em prior} and {\em likelihood} parameters, where the likelihood is for each feature of a given label $\mathbf{x}_{i}$}
+&\text{\bf Prior:}\nonumber\\
+P(y=1) &= p\\
+P(y=0) &= 1-p
+\intertext{where, since $h$ consists of all hypotheses, we can say}
+P(y_{i}|h) &= p^{[y_{i}=1]}(1-p)^{[y_{i}=0]}
+\intertext{where $[z]$ is the indicator function which has a value of 1 if true, 0 else}
+&\text{\bf Likelihood:}\nonumber\\
+P(x_{j}=1|y=1) &= a_{j}; \quad P(x_{j}=0|y=1) = (1-a_{j})\\
+P(x_{j}=1|y=0) &= b_{j}; \quad P(x_{j}=0|y=0) = (1-b_{j})
+\intertext{we can define}
+P(x_{i,j}|y_{i},h) &= P(y_{i}|h)P(x_{i,j}|y_{i})\\ 
+&= a_{j}^{[y_{i}=1,x_{i,j}=1]}(1-a_{j})^{[y_{i}=1,x_{i,j}=0]}\times b_{j}^{[y_{i}=0,x_{i,j}=1]}(1-b_{j})^{[y_{i}=0,x_{i,j}=0]}
+\intertext{we can substitute these values into Equation~(\ref{eq:ml_bernoulli}), giving us}
+h_{ML} &= \arg\max_{h\in H}\sum_{i=1}^{m}\log\left[P(y_{i}|h)\right]+\sum_{i=1}^{m}\sum_{j}\log\left[P(x_{i,j}|y_{i},h)\right]\\
+h_{ML} &= \arg\max_{h\in H}\sum_{i=1}^{m}\log\left[p^{[y_{i}=1]}(1-p)^{[y_{i}=0]}\right]\\
+      & +\sum_{i=1}^{m}\sum_{j}\log\left[a_{j}^{[y_{i}=1,x_{i,j}=1]}(1-a_{j})^{[y_{i}=1,x_{i,j}=0]}\times b_{j}^{[y_{i}=0,x_{i,j}=1]}(1-b_{j})^{[y_{i}=0,x_{i,j}=0]}\right]
+\intertext{we can maximize this by taking the derivative with respect to $p,\ a_{j},\ b_{j}$ and setting equal to zero so we can maximize it. Solving that gives us the updates for $p,\ a_{j},\ b_{j}$, which are}
+p &= \frac{\pcount{y=1}}{\pcount{y=1}+\pcount{y=0}}\\
+a_{j} &= \frac{\pcount{y=1,x_{i,j}=1}}{\pcount{y=1}}\\
+b_{j} &= \frac{\pcount{y=0,x_{i,j}=1}}{\pcount{y=0}}
+\end{align}
+\end{itemize}
+
+
+\item Derive the maximum likelihood estimate for Na\"{i}ve Bayes when the features are assumed to be drawn from a normal distribution.
+
+\begin{itemize}
+\item This model assumes the probability of the $i^{th}$ feature taking value $x_{i}$, and when label 1 is defined by a normal distribution with the mean of $\mu_{1,i}$
+\begin{align}
+\intertext{$\boldsymbol{y=1}$}
+P(x_{i}|y=1) &= \frac{1}{\sigma\sqrt{2\pi}}\exp\left(-\frac{(x_{i}-\mu_{1,i})}{2\sigma^{2}}\right)
+\intertext{$\boldsymbol{y=0}$}
+P(x_{i}|y=0) &= \frac{1}{\sigma\sqrt{2\pi}}\exp\left(-\frac{(x_{i}-\mu_{0,i})}{2\sigma^{2}}\right)
+\intertext{where we get}
+P(x_{i}|y) &= \frac{1}{\sigma\sqrt{2\pi}}\exp\left(-[y=1]\frac{(x_{i}-\mu_{1,i})}{2\sigma^{2}}\right)\exp\left(-[y=0]\frac{(x_{i}-\mu_{0,i})}{2\sigma^{2}}\right)
+\intertext{with $[y=1]$ and $[y=0]$ are our indicator functions. Simplifying this expression}
+P(x_{i}|y) &= \frac{1}{\sigma\sqrt{2\pi}}\exp\left(-[y=1]\frac{(x_{i}-\mu_{1,i})}{2\sigma^{2}}-[y=0]\frac{(x_{i}-\mu_{0,i})}{2\sigma^{2}}\right)
+\intertext{If $P(y=1)=p$, we can now use the Na\"{i}ve Bayes assumption to write the probability of a labeled example $(\mathbf{x},y)$, where $\mathbf{x}\in\mathbb{R}^{n\times 1}$, and the dataset $S=\{(\mathbf{x}_{i},y_{i})\}$}
+P(\mathbf{x}_{i},y) &= p^{[y_{i}=1]}(1-p)^{[y_{i}=0]}\prod{i=1}^{m}\frac{1}{\sigma\sqrt{2\pi}}\exp\left(-[y=1]\frac{(x_{i}-\mu_{1,i})}{2\sigma^{2}}-[y=0]\frac{(x_{i}-\mu_{0,i})}{2\sigma^{2}}\right)
+\intertext{where if we take the logarithm to simplify, we get}
+\log(P(\mathbf{x}_{i},y)) &= [y=1]\log(p)+[y=0]\log(1-p)-\log(\sigma\sqrt{2\pi})\\
+ &-\sum_{i=1}^{m}[y=1]\frac{(x_{i}-\mu_{1,i})}{2\sigma^{2}}+[y=0]\frac{(x_{i}-\mu_{0,i})}{2\sigma^{2}}
+\intertext{where we can take the derivative with respect to $p,\ \mu_{1,i},\ \mu_{0,i}$ to get the updates, which are}
+p &= \frac{\text{number of examples with label 1}}{\text{total number of examples}}\\
+\mu_{1,i} &= \frac{\text{mean of all the $i^{th}$ features for label 1}}{\text{total number of examples with label 1}}\\
+\mu_{0,i} &= \frac{\text{mean of all the $i^{th}$ features for label 0}}{\text{total number of examples with label 0}}
+\end{align}
+\end{itemize}
+
+
+\item What is the difference between a discriminative and generative classifier?
+
+\begin{center}
+\noindent\parbox[t]{.4\textwidth}{\raggedright%
+\textbf{\textit{Discriminative Classifiers}}
+\begin{itemize}[topsep=0pt,itemsep=-2pt,leftmargin=13pt]
+\item {\em Goal}: To learn how to make predictions
+\item Look at many postivie and negative examples
+\item Discover regularities in the data
+\item Use these to construct a prediction policy
+\item Assumtions come in the form of the hypothesis class
+\item {\em General}: Approximating $h:X\rightarrow Y$ is estimating $P(Y|X)$
+\end{itemize}
+}%
+\parbox[t]{.4\textwidth}{\raggedright%
+\textbf{\textit{Generative Classifiers}}
+\begin{itemize}[topsep=0pt,itemsep=-2pt,leftmargin=13pt]
+\item Explicitely model how instances in each category are generated, that is learn $P(X|Y)$ and $P(Y)$
+\item We did this for Na\"{i}ve Bayes (Na\"{i}ve Bayes generation model)
+\item Predict $P(Y|X)$ using Bayes Rule
+\end{itemize}
+}
+\end{center}
+{\em General}: Generative classifiers learn a model of the joint probability $P(\bx,y)$ of the inputs $\bx$ and $y$, and make their predictions by using Bayes rules to calculate $P(y|\bx)$. Discriminative classifiers model the posterior $P(y|x)$ directly.
+
+{\em Bayes Rule}:
+\[
+P(Y=y|X=\mathbf{x}) = \frac{P(X=\mathbf{x})P(Y=y)}{P(X=\mathbf{x})}
+\]
+
+
+\item For logistic regression, show that a particular choice of the prior for MAP learning is equivalent to using a squared norm regularizer on the weight vector.
+
+\begin{itemize}
+\item Hypothesis of logistic regression: All functions are of the form
+\begin{align}
+h_{\mathbf{w}}(\mathbf{x}) &= \sigma(\mathbf{w}^{T}\mathbf{x}) = \frac{1}{1+\exp(-\mathbf{w}^{T}\mathbf{x})}
+\intertext{where $\sigma(z)$ is the sigmoid function defined as}
+\sigma(z) &= \frac{1}{1-\exp(-z)}
+\intertext{Using this, we can build our probabilities as}
+P(y=1|\mathbf{x}) &= \sigma(\mathbf{w}^{T}\mathbf{x}) = \frac{1}{1-\exp(-\mathbf{w}^{T}\mathbf{x})}\\
+P(y=0|\mathbf{x}) &= 1 - \sigma(\mathbf{w}^{T}\mathbf{x}) = 1 - \frac{1}{1-\exp(-\mathbf{w}^{T}\mathbf{x})}\\
+&=\frac{1}{1+\exp(\mathbf{w}^{T}\mathbf{x})}
+\intertext{we can generalize this to a single equation for {\em any} value of $y$, which would be}
+P(y_{i}|\mathbf{x}) &= \frac{1}{1+\exp(-y_{i}\mathbf{w}^{T}\mathbf{x})}\label{eq:log_prob}
+\intertext{The idea behind this is if $P(y_{i}|\mathbf{x})>.5$, label as $+1$, else label as $-1$. To predict: $\sgn{\mathbf{w}^{T}\mathbf{x}}$. For this problem, we have some training data $S=\{(\mathbf{x}_{i},y_{i})\}_{m}$ and we want to find $\mathbf{w}$ such that $P(S|\mathbf{w})$ is maximized. We know our examples are independent and uniformly distributed, so we can use Bayes Assumption}
+h &= \arg\max_{\mathbf{w}}P(S|\mathbf{w})=\arg\max_{\mathbf{w}}\prod_{i=1}^{m}P(y_{i}|\mathbf{x}_{i},\mathbf{w})
+\intertext{Take the logarthim to help simplify}
+ &= \arg\max_{\mathbf{w}} \log\left(\prod_{i=1}^{m}P(y_{i}|\mathbf{x}_{i},\mathbf{w})\right)\\ 
+& = \arg\max_{\mathbf{w}} \sum_{i=1}^{m}\log\left(P(y_{i}|\mathbf{x}_{i},\mathbf{w})\right)
+\intertext{Plugging in $P(y_{i}|\mathbf{x},\mathbf{w})$ from Equation (\ref{eq:log_prob})}
+h &= \max_{\mathbf{w}}\sum_{i=1}^{m}\log\left[\frac{1}{1+\exp(-y_{i}\mathbf{w}^{T}\mathbf{x})}\right]\\
+&= \min_{\mathbf{w}}\sum_{i=1}^{m}\log\left[1+\exp(-y_{i}\mathbf{w}^{T}\mathbf{x})\right]
+\intertext{Adding prior to the weights: Suppose each weight vector is drawn independently from a normal distribution with a mean of zero and a standard deviation of $\sigma^{2}$, we can build the prior for the weight vector as}
+P(\mathbf{w}) &= \prod_{i}P(w_{i}) = \prod{i}\frac{1}{\sigma\sqrt{2\pi}}\exp\left(-\frac{w_{i}}{\sigma^{2}}\right)
+\intertext{where we learn by solving}
+&\max_{\mathbf{w}}P(S|\mathbf{w})P(\mw)\\
+&\max_{\mw}\prod_{i=1}^{m}P(y_{i}|\mx_{i},\mw)\prod_{j}\frac{1}{\sigma\sqrt{2\pi}}\exp\left(-\frac{w_{i}}{\sigma^{2}}\right)
+\intertext{Taking the logarithm and removing constants since they're independent of the max}
+&\max_{\mw}\sum_{i=1}^{m}\log\left[P(y_{i}|\mx_{i},\mw)\right]-\sum_{j=1}^{d}\left(-\left(\frac{w_{i}}{\sigma}\right)^{2}\right)\\
+&\max_{\mw}\sum_{i=1}^{m}-\log\left[1+\exp(-y_{i}\mwx)\right]-\frac{1}{\sigma^{2}}\mw^{T}\mw\\
+&\min_{\mw}\sum_{i=1}^{m}\underbrace{\log\left[1+\exp(-y_{i}\mwx)\right]}_{loss\ function}+\underbrace{\frac{1}{\sigma^{2}}\mw^{T}\mw}_{regularizer}
+\end{align}
+\end{itemize}
+
+
+\item Derive the EM algorithm for a Na\"{i}ve Bayes classifier that is a mixture of Bernoulli distributions.
+
+\begin{itemize}
+\item {\bf Expectation Maximization}:
+\begin{itemize}
+\item A {\em meta-algorithm} to estimate a probability distribution when attributes are missing
+\item Needs assumptions about the underlying probability distribution
+\begin{itemize}
+\item Suited for generative models
+\item Performance sensitive to the validity of the assumption (and also the initial guess of the parameters)
+\end{itemize}
+\item Converges to a local maximum of the likelihood function
+\end{itemize}
+{\bf Maximum Likelihood Estimation}:
+\begin{itemize}
+\item Find parameters that maximize the likelihood (or log-likelihood) of the data
+\[
+LL(data|parameters) = \sum_{i}\log\left[P(example_{i}|parameters)\right]
+\]
+\item Want to {\em maximize} $LL(data|\bt)$, where $\bt$ is a vector of our parameters. Start with
+\begin{align}
+LL(data|\bt) &= \sum_{i}\log\left[\sum_{y}P(\bx_{i},y|\bt)\right]
+\intertext{We can introduce our probability distribution as $Q_{i}(y)$, resulting in}
+LL(data|\bt) &= \sum_{i}\log\left[\sum_{y}\left(Q_{i}(y)\cdot\frac{P(\bx_{i},y|\bt)}{Q_{i}(y)}\right)\right]
+\intertext{where}
+E_{z\sim Q}[f(z)] &= \sum_{z}Q(z)f(z)
+\intertext{using this reduces our $LL(data|\bt)$ to}
+LL(data|\bt) &= \sum_{i}\log\left[E_{y\sim Q}\left(\frac{P(\bx_{i},y|\bt)}{Q_{i}(y)}\right)\right]\label{eq:log_em}
+\intertext{where we can simplify with {\em Jensen's Inequality} which states that for convex functions $f(E[x])\leq E[f(x)]$ and for concave functions, $f(E[x])\geq E[f(x)]$. Since our function is concave, we can say}
+\log\left[E_{y\sim Q_{i}}\left[\frac{P(\bx_{i},y|\bt)}{Q_{i}(y)}\right]\right] &\geq E_{y\sim Q_{i}}\left[\log\left[\frac{P(\bx_{i},y|\bt)}{Q_{i}(y)}\right]\right]
+\intertext{which turns Equation (\ref{eq:log_em}) into}
+LL(data|\bt) &\geq \sum_{i}E_{y\sim Q_{i}}\left[\log\left[\frac{P(\bx_{i},y|\bt)}{Q_{i}(y)}\right]\right]\\
+&\geq\sum_{i}E_{y\sim Q_{i}}\left[\log\left[P(\bx_{i},y|\bt)\right]\right]-\sum_{i}E_{y\sim Q_{i}}\left[\log\left[Q_{i}(y)\right]\right]
+\intertext{Resuling in the final log-likelihood function as being}
+\mathcal{L}(\bt;Q) &= \sum_{i}E_{y\sim Q_{i}}\left[\log\left[P(\bx_{i},y|\bt)\right]\right]-\sum_{i}E_{y\sim Q_{i}}\left[\log\left[Q_{i}(y)\right]\right]
+\end{align}
+where when we're maximing this function, we can ignore the second term since it's independent of $\bt$
+\end{itemize}
+\begin{algorithm}[H]
+\begin{algorithmic}
+\STATE{Initialize the parameters $\bt_{(0)}$}
+\REPEAT
+   \STATE{{\em E-Step}: For every example $\bx_{i}$, estimate for every $y$}
+   \STATE{\[Q_{i}^{(t)} = P(y|\bx_{i},\bt_{(t)}) \]}
+   \STATE{{\em M-Step}: Find $\bt_{(t+1)}$ by maximizing with respect to $\bt$}
+   \STATE{\[\bt_{(t+1)}=\max_{\bt}\sum_{i}E_{y\sim Q_{i}}\left[\log\left[P(\bx_{i},y|\bt)\right]\right] \]}
+\UNTIL{convergence $(t=1,2,\ldots)$}
+\RETURN{final $\bt$}
+\end{algorithmic}
+\caption{ExpectationMaximization}
+\label{alg:EM}
+\end{algorithm}
+\item {\bf About the EM Algorithm}:
+\begin{itemize}
+\item Will converge to a local maximum of the log-likelihood
+\begin{itemize}
+\item Different initializations can give us different final estimates of probabilities
+\end{itemize}
+\item How many iterations
+\begin{itemize}
+\item Till convergence. Keep track of the expected log-likelihood across iterations and if the change is smaller than some $\epsilon$, then stop
+\end{itemize}
+\item What we need to specify for the learning algorithm
+\begin{itemize}
+\item A task-specific definition of the probabilities
+\item A way to solve the maximization ({\em M} step)
+\end{itemize}
+\end{itemize}
+\item {\bf Expectation Maximization for Na\"{i}ve Bayes}:
+\begin{itemize}
+\item The setting:
+\begin{itemize}
+\item Input: Features $\bx\in\{0,1\}^{d}$
+\item Output: $y\in\{0,1\}$
+\item Dataset: $\{\bx_{1},\bx_{2},\bx_{3},\ldots,\bx_{m}\}$
+\end{itemize}
+\item Model:
+\begin{itemize}
+\item $P(\bx,y) = P(y)\prod_{j}P(x_{j}|y)$
+\end{itemize}
+\end{itemize}
+\begin{align}
+\intertext{Since it is a Bernoulli Distribution, we can define our {\em prior} and {\em likelihood} as}
+&\text{\bf Prior}:\\
+P(y=1) &= p\\
+P(y=0) &= (1-p)\\
+&\text{\bf Likelihood}:\\
+P(x_{j}=1|y=1) &= a_{j}\quad P(x_{j}=0|y=1)=1-a_{j}\\
+P(x_{j}=1|y=0) &= b_{j}\quad P(x_{j}=0|y=0)=1-b_{j}
+\intertext{since we know that our data is independent and uniformly distributed, we can use the Bayes Assumption, where}
+\bt &= \left(p,a_{1},a_{2},\ldots,a_{d},b_{1},b_{2},\ldots,b_{d}\right)^{T}\\
+P(\bx,y|\bt) &= P(y|\bt)\prod_{j}P(x_{j}|y,\bt)
+\intertext{{\bf E-step:}}
+\intertext{{\em Goal}: Suppose we have a current estimate of $\bt$, compute $Q_{i}(y)=P(y|\bx_{i},\bt)$ for each example}
+P(y=1|\bx_{i},\bt) &= \frac{P(y=1,\bx_{i}|\bt)}{P(y=1,\bx_{i}|\bt)+P(y=0,\bx_{i}|\bt)}
+\intertext{which we can compute with our model of}
+P(\bx,y|\bt) &= P(y|\bt)\prod_{j}P(x_{j}|y,\bt)\label{eq:EM_Model}\\
+\intertext{{\bf M-step:}}
+\intertext{{\em Goal}:}
+\bt_{(t+1)} &= \max_{\bt}\sum_{i}E_{y\sim Q_{i}^{(t)}}\left[\log\left[P(\bx_{i},y|\bt)\right]\right]
+\end{align}
+Steps:
+\begin{itemize}
+\item Expand $log\left[P(\bx_{i},y|\bt)\right]$ in terms of $p$, $a$'s, and $b$'s
+\begin{itemize}
+  \item Our original equation is defined by:
+  \begin{align}
+    \bt_{(t+1)} &= \max_{\bt}\sum_{i}E_{y\sim Q_{i}^{(t)}}\left[\log\left[P(\bx_{i},y|\bt)\right]\right]\label{eq:max_theta}\\
+    \intertext{By using the model in Equation (\ref{eq:EM_Model}), we can expand the logarithm term. First, we need to calculate our prior and likelihood}
+    P(y|\bt) &= p^{[y=1]}(1-p)^{[y=0]}\\
+    P(\bx_{i},y|\bt) &= a_{j}^{[x_{j}=1,y=1]}(1-a_{j})^{[x_{j}=0,y=1]}\times b_{j}^{[x_{j}=1,y=0]}(1-b_{j})^{[x_{j}=0,y=0]}
+    \intertext{Throughout the rest of this proof, we are going to not write down the indicator functions, as they will be implied. It is easy to tell that we can't multiply any of the terms in $P(\bx_{i},y|\bt)$ together, and neither can we in $P(y|\bt)$, but we can cross multiply terms between the two. It is also easy to tell that any term with $p$ corresponds to $y=1$, any term with $(1-a_{j})$ corresponds to $[x_{j}=0,y=1]$, etc. Using this shorter notation, we can expand the logarithm term into}
+    \log\left[P(\bx_{i},y|\bt)\right] &= \log(p)+\log(1-p)+\sum_{j}\log(a_{j})+\log(1-a_{j})+\log(b_{j})+\log(1-b_{j})\\
+    \intertext{until the logarithm term is needed in expanded form, throughout the rest of this proof we will use the notation}
+    \log[\alpha_{j}] &= \log(p)+\log(1-p)+\sum_{j}\log(a_{j})+\log(1-a_{j})+\log(b_{j})+\log(1-b_{j})
+  \end{align}
+  \end{itemize}
+\item Substitute in $Q_{i}$ to write down the full expectation
+  \begin{itemize}
+    \item The definition of $Q_{i}^{(t)}(y)$ is as follows:
+      \begin{align}
+        Q_{i}^{(t)}(y) &= P(y|\bx_{i},\bt_{(t)})\label{eq:Qi}\\
+        Q_{i}^{(t)}(y) &= p^{[y=1]}(1-p)^{[y=0]}
+        \intertext{we also know}
+        E_{z\sim Q}[f(z)] &= \sum_{z}f(z)Q(z)\label{eq:Exp}\\
+        \intertext{where for the first part of the simplification we can use Equation~(\ref{eq:Exp}) on Equation~(\ref{eq:max_theta}), where the logarithm term was expanded in the previous part. This result is}
+        \bt_{(t+1)} &= \max_{\bt}\sum_{i}\sum_{y}P(y|\bx_{i},\bt_{(t)})\log[\alpha_{j}]\\
+        \intertext{where we can now plug in the defintion of $P(y|\bx_{i},\bt_{(t)})$, giving us}
+        \bt_{(t+1)} &= \max_{\bt}\sum_{i}\sum_{y}p(1-p)\log[\alpha_{j}]\\
+        \intertext{where we neglected the indicator functions again as they're implied. Now we can expand $\log[\alpha_{j}]$ term}
+        \bt_{(t+1)} &= \max_{\bt}\sum_{i}\sum_{y}p(1-p)\left(\log(p)+\log(1-p)+\sum_{j}\log(a_{j})+\log(1-a_{j})+\cdots\right.\nonumber\\
+                   &\hspace{13em}\cdots+\log(b_{j})+\log(1-b_{j})\Bigg)\label{eq:bt1}
+        \intertext{where we can multiply through Equation~(\ref{eq:bt1}) efficiently. In other words, we ignore terms such that the indicator variables may differ, as either of the terms will be zero all the time. For example, $p$ has the indicator function $[y=1]$ and $\log(b_{j})$ has the indicator function $[x_{j}=1,y=0]$, where as you can see they differ for the $y$'s. In this instance, we would {\em only} multiply $\log(b_{j})$ by $(1-p)$ since they have compatable indicator functions. Doing this, we get the result}
+        \bt_{(t+1)} &= \max_{\bt}\sum_{i}\sum_{y}p\log(p)+(1-p)\log(1-p)+\cdots\nonumber\\
+                    &\cdots + \sum_{j}p\log(a_{j})+p\log(1-a_{j})+(1-p)\log(b_{j})+(1-p)\log(1-b_{j})\label{eq:bt_final}
+      \end{align}
+  \end{itemize}
+\item Take the derivative with respect to each $p$, $a_{j}$, and $b_{j}$
+\begin{itemize}
+\item The equation that we want to maximize is Equation~(\ref{eq:bt_final}), which we can do so by taking the gradient with respect to all the variabes, and setting them equal to zero. Therefore, we can remove the $\max_{\bt}$ term, since that's what we're doing in this process. 
+  \begin{align}
+    \frac{\partial \bt_{(t+1)}}{\partial p} &= (1+\log(p))+(1-\log(1-p))+\sum_{j}\log(a_{j})+\log(1-a_{j})-\log(b_{j})-\log(1-b_{j})\\
+    \intertext{where we can simplify this by only looking at the terms that correspond to $y=1$. We can do this to make the problem we're trying to solve either, and since $P(y=1|\bt)=p$, it makes intuitive sense to restrict our space to the case $y=1$, since $P(y=0|\bt)=(1-p)$. In doing so, we get}
+    \frac{\partial \bt_{(t+1)}}{\partial p} &= \left.\sum_{i}\sum_{y}1+\log(p)+\sum_{j}\log(a_{j})+\log(1-a_{j})\right|_{[y=1]}\label{eq:min_p}\\
+    \frac{\partial \bt_{(t+1)}}{\partial a_{j}} &= \sum_{i}\sum_{y}\sum_{j}\frac{p}{a_{j}}+\frac{p}{1-a_{j}}\label{eq:min_aj}\\
+    \intertext{similiarly, for $b_{j}$}
+    \frac{\partial \bt_{(t+1)}}{\partial b_{j}} &= -\sum_{i}\sum_{y}\sum_{j}\frac{p}{b_{j}}+\frac{p}{1-b_{j}}\label{eq:min_bj}
+  \end{align}
+\end{itemize}
+\item Set derivatives to zero to get a new estimate for $p$, $a_{j}$, and $b_{j}$
+\begin{itemize}
+  \item Finally, we can take Equations~(\ref{eq:min_p}, \ref{eq:min_aj}, \ref{eq:min_bj}) and set them equal to zero to get how to maximize them. In doing so
+    \begin{align}
+      \intertext{$\boldsymbol{p:}$}
+      0 &= \sum_{i}\sum_{y}1+\log(p)+\sum_{j}\log(a_{j})+\log(1-a_{j})\\
+      \intertext{we can raise this to the exponent, giving}
+      e^{0} &= \exp\left(\sum_{i}\sum_{y}1+\log(p)+\sum_{j}\log(a_{j})+\log(1-a_{j})\right)\\
+      1 &= \exp\left(\sum_{y}1+\log(p)\right)+\exp\left(\sum_{i}\sum_{y}\sum_{j}\underbrace{\log(a_{j})+\log(1-a_{j})}_{\alpha_{j}}\right)\\
+      \intertext{which simplifies to}
+      1 &= \exp\left(\sum_{y}1\right)\cdot \sum_{y}p + \sum_{i}\sum_{y}\sum_{j}\alpha_{j}\\
+      1 &= e^{m}\sum_{y}p + \sum_{i}\sum_{y}\sum_{j}\alpha_{j}\\
+      \intertext{where we can set $e^{m}$ to 1 since we're trying to maximize over a given set of parameters which are independent of that term. We can solve for $p$, giving us}
+      \sum_{y}p &= -\sum_{i}\sum_{y}\sum_{j}\alpha_{j}\\
+      p &= \frac{-\sum_{i}\sum_{y}\sum_{j}\alpha_{j}}{\sum_{y}}\\
+      \intertext{where we can rewrite it as positive, because since it's a probability, it is strictly $>0$}
+      p &= \frac{\sum_{i}\sum_{y}\sum_{j}\alpha_{j}}{\sum_{y}}
+      \end{align}
+      Where the numerator is all terms that correspond to $y=1$ and the denominator is the total number of $y$
+      \begin{align}
+      \intertext{$\boldsymbol{a_{j}:}$}
+      0 &= \sum_{i}\sum_{y}\sum_{j}\frac{p}{a_{j}}+\frac{p}{1-a_{j}}\\
+      \sum_{i}\sum_{y}\sum_{j}\frac{p}{a_{j}} &= -\sum_{i}\sum_{y}\sum_{j}\frac{p}{1-a_{j}}\\
+      \sum_{i}\sum_{y}\sum_{j}\frac{p(1-a_{j})}{a_{j}} &= -\sum_{i}\sum_{y}\sum_{j}p\\
+      \intertext{where $p$ is independent of all the sums, so we can multiply $p$ by the largest term of each sum, resulting in $p^{\prime}=m^{2}d\cdotp$. We can divide by $p$ on the left hand side, giving us}
+      \sum_{i}\sum_{y}\sum_{j}\frac{1-a_{j}}{a_{j}} &= -\frac{p^{\prime}}{\sum_{i}\sum_{y}\sum_{j}p}\\
+      \intertext{since this is a maximization problem, we can take the logarithm of both sides, giving us}
+      \log\left[\sum_{i}\sum_{y}\sum_{j}\frac{1-a_{j}}{a_{j}}\right] &= \log\left[-\frac{p^{\prime}}{\sum_{i}\sum_{y}\sum_{j}p}\right]\\
+      \log\left[\sum_{i}\sum_{y}\sum_{j}1-a_{j}\right]-\log\left[\sum_{i}\sum_{y}\sum_{j}a_{j}\right] &= \log\left[-p^{\prime}\right]-\log\left[\sum_{i}\sum_{y}\sum_{j}p\right]\\
+      \intertext{taking an exponential of both sides to get rid of the logarithms}
+      \sum_{i}\sum_{y}\sum_{j}1-a_{j}-\sum_{i}\sum_{y}\sum_{j}a_{j} &= -p^{\prime}-\sum_{i}\sum_{y}\sum_{j}p\\
+      \sum_{i}\sum_{y}\sum_{j}1-2a_{j} &= -2p^{\prime}\\
+      \sum_{i}\sum_{y}\sum_{j}2a_{j}-1 &= 2p^{\prime}\\
+      \sum_{i}\sum_{y}\sum_{j}2a_{j} &= 2p^{\prime}+\sum_{i}\sum_{y}\sum_{j}1\\
+      \sum_{i}\sum_{y}\sum_{j}2a_{j} &= 2p\cdot m^{2}d + m^{2}d\\
+      \intertext{where, since this is a maximization problem, we can get rid of all terms that are constants, as it will not contribute to maximizing the equation. This gives us}
+      \sum_{i}\sum_{y}\sum_{j}a_{j} &= p\\
+      \intertext{where $p$ was solved in the previous section as}
+      \sum_{i}\sum_{y}\sum_{j}a_{j} &= \frac{\sum_{i}\sum_{j}\alpha_{j}}{\sum_{y}}\\
+      \intertext{but the term on the right is only for the instance $[x_{i,j}=1,y=1]$, so the summation on the right hand side for $\alpha_{j}$ would only go over those as well. The denominator would only sum over terms for $[y=1]$ since that is what $a_{j}$ is restricted to. This results in the nuerator representing the total number of terms such that $[x_{i,j}=1,y=1]$ and the denominator representing the total number of terms such that $[y=1]$.}
+       \intertext{$\boldsymbol{b_{j}}:$}
+        \intertext{This is very similar to the previous section for $a_{j}$, as the differentials are almost exactly the same. Instead of redoing it, we can transform our maximiation problem for $b_{j}$ into the same as that of $a_{j}$, by when you first set the equation equal to zero, you multiply through by $-1$, which will give you the equation of the exact same form. Exploiting this, we don't need to redo this derivation for $b_{j}$ and can simply use the same logic at the end to write down the answer since the form compared to $a_{j}$ is the same. This gives us the following, where $\beta_{j}$ is analagous to the $\alpha_{j}$ term given in the previous problem}
+       \sum_{i}\sum_{y}\sum_{j}b_{j} &= p = \frac{\sum_{i}\sum_{y}\sum_{j}\beta_{j}}{\sum_{y}}
+    \end{align}
+\end{itemize}
+\end{itemize}
+\item The final equations for $p,\ a_{j},\ b_{j}$ are written as
+\begin{align}
+p &= \frac{\spcount{y=1}}{\spcount{y=1}+\spcount{y=0}}\\
+a_{j} &= \frac{\spcount{y=1,x_{j}=1}}{\spcount{y=1}}\\
+b_{j} &= \frac{\spcount{y=0,x_{j}=1}}{\spcount{y=0}}
+\intertext{where}
+\spcount{y=1} &= \sum_{i}P(y=1|\bx_{i},\bt_{(t)})\\
+\spcount{y=1,x_{j}=1} &= \sum_{i}P(y=1|\bx_{i},\bt_{(t)})[x_{i,j}=1]\\
+\spcount{y=0,x_{j}=1} &= \sum_{i}P(y=0|\bx_{i},\bt_{(t)})[x_{i,j}=1]
+\end{align}
+\end{itemize}
+\end{enumerate}
+
+\end{document}

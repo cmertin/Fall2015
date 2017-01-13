@@ -1,0 +1,12 @@
+#!/usr/bin/python
+
+from __future__ import print_function, division
+from os import system
+
+Jmol_command = "java -jar Jmol.jar "
+pdb_file = "Protein_Data/101m/101m.pdb"
+command_1 = " -J \"cartoon on; color structure; backbone off; wireframe off; spacefill off; ribbon on; moveto 0 1 0 0 -90;\""
+
+command = Jmol_command + pdb_file + command_1
+
+system(command)

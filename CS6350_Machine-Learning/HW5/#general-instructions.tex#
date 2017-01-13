@@ -1,0 +1,49 @@
+\section*{General Instructions}
+
+{\footnotesize
+  \begin{itemize}
+  \item You are welcome to talk to other members of the class about
+    the homework. I am more concerned that you understand the
+    underlying concepts. However, you should write down your own
+    solution. Please keep the class collaboration policy in mind.
+
+  \item Feel free ask the instructor or the TAs questions about the
+    homework.
+
+  \item Your written solutions should be brief and clear. You need to
+    show your work, not just the final answer, but you do \emph{not}
+    need to write it in glory detail. Your assignment should be {\bf no
+      more than 10 pages}. Every extra page will cost a point.
+
+  \item Handwritten solutions will not be accepted.
+
+  \item The homework is due by midnight of the due date. Please submit
+    the homework on Canvas.
+
+  \end{itemize}
+}
+
+{\large\bf Notation}
+
+It is important that I define two different notations that are used in this homework assignment. I used this notation to make the math work easier, though my final results I remove this notation
+
+{\bf Einstein Summation Notation}
+
+This simply removes the sum as the sum is \underline{understood} for the context of the problem. Example:
+
+\[
+\sum_{i=1}^{n} \zeta_{i} = \zeta_{i}
+\]
+
+{\bf Mertin Product Notation}
+
+This removes the product symbol infront of some terms as it is \underline{understood} from the context of the problem. I made a variation to make it different when compared to {\em Einstein Summation Notation} so you can tell the difference (note the tilde)
+
+\[
+\prod_{i=1}^{n}\zeta_{i} = \utilde{\zeta_{i}}
+\]
+
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: "hw5"
+%%% End:

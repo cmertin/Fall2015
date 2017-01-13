@@ -1,0 +1,335 @@
+\subsection*{Experiments}
+
+For all your experiments, you may choose whatever hyper-parameters you
+like, but we suggest that you informally experiment with them before
+submitting the results. (You can use cross-validation to find the
+hyper-parameters as you did in the previous homework. Note that we did
+not partition the data into parts, so you should do that if you want
+to find hyper-parameters using cross-validation.)
+
+\begin{enumerate}
+
+\item ~[Sanity check, 5 points] Run the simple Perceptron algorithm on
+  the data in Table 2 (one pass only, without shuffling) and report
+  the weight vector that the algorithm returns. How many mistakes does
+  it make?
+
+  \verb~Sanity Check. Running Perceptron Algorithm on Table 2~
+
+  \verb~Number of Updates: 4~
+
+  \verb~Weight Vector: [ 0.   0.1  0.1  0.1]~
+
+  The given weight vector accuracy classifies the data. It does require
+  $x_2,\ x_{3},\ x_{4}$ to be greater than 0 to be classified when the actual
+  function only requires $x_{4}$ to be positive. Thus it included extra
+  ``features'' to the data which don't really effect the final result since
+  the classification is only dependent upon the value of $x_{4}$.
+
+
+\item ~[Online Perceptron, 15 points] Choose the 10 dimensional
+  training set ({\tt train0.10}) from the {\tt data0} folder and its
+  corresponding test dataset. Run both the Perceptron algorithm and
+  the margin Perceptron on this dataset for one pass. Report the
+  number of updates (or equivalently mistakes) made by each algorithm
+  and the accuracy of the final weight vector on both the training and
+  the test set. Once again, you will require some playing with the
+  algorithm hyper-parameters. You will see that the hyper-parameters
+  will make a difference and so try out different values.
+
+  \verb~Running over the 10-Dimensional data~
+
+  \verb~Normal Perceptron~
+
+  \verb~Updates: 35 Accuracy: 1.0~
+
+  \verb~Margin Perceptron~
+
+  \verb~Updates: 33 Accuracy: 1.0~
+
+  For this instance, the Perceptron and the Margin Perceptron algorithm were
+  used on the 10 dimensional data set in the \verb~d0~ file. For each of these
+  functions, there was an initial weight vector $w$ that was randomly generated
+  to use as the initial starting point of the weight vector for each algorithm.
+
+  For the Normal
+  Perceptron Algorithm, what was done was a list of the learning rate $r$
+  was given in the range from $[0.1,1]$. Each value was tested with the
+  Perceptron Algorithm, and the value for $r$ that gave the least number
+  of updates was returned. The least number of updats was choosen because
+  this implies that the weight vector that was created would also not need
+  as many updates when classifying future data (test data) if it's relatively
+  the same. As can be seen in the above output, the Normal Perceptron Algorithm
+  needed \verb~35~ updates and was able to correctly classify all of the data
+  in the test file.
+
+  When doing the Margin Perceptron Algorithm, a list of learning rates for $r$
+  and $\mu$ was choosen, where $r$ was in the range $[0.1,1]$ and $\mu$ was
+  constrained to $[0, 0.1]$. The ranges for both of these were determind by
+  multiple trials and seeing which one classified better. The same technique
+  was used for choosing the hyper-parameters, except in this instance each
+  combination of $r$ and $\mu$ were looked at. After determining the
+  hyper-parameters, the Margin Perceptron algorithm was run with them and the
+  weight vector to classify the data was returned. As can be seen above, the
+  Margin Perceptron Algorithm did it in slightly less number of updates,
+  \verb~33~ when compared to \verb~35~, and also successfully classified all
+  of the test cases.
+
+
+\item ~[Batch Perceptron on all datasets, 40 points] Now, on each
+  train/test dataset in the {\tt data0} and {\tt data1} folders, run
+  the Perceptron and margin Perceptron algorithms for ten epochs. {\em
+    Do not forget to randomly shuffle the data at the start of each
+    epoch.}
+
+  Record the the number of updates on the train datasets and the
+  accuracy on the test data sets.
+
+  So, for example, use the {\tt data0/train0.10} file to train your
+  Perceptron and test it on {\tt data0/test0.10} and record the number
+  of updates/mistakes and accuracy. Then, repeat this for all other
+  datasets. This constitutes one experiment. Once you have the above
+  data, plot two sets of graphs for each experiment ({\tt data0}/{\tt
+    data1} + Perceptron/margin Perceptron):
+  \begin{center}
+    \begin{tikzpicture}[scale=0.6]
+      % Axis
+      \draw[->,>=latex'] (0,0) -- coordinate (x axis mid) (6.5,0);
+      \draw[->,>=latex'] (0,0) -- coordinate (y axis mid) (0,6.5);
+      % Labels
+      \node[below=0.2] at (x axis mid) {dimension};
+      \node[rotate=90,yshift=10pt] at (y axis mid) {number of
+        updates}; % Or use above alone.
+
+    \end{tikzpicture}
+  %
+    \begin{tikzpicture}[scale=0.6]
+      % Axis
+      \draw[->,>=latex'] (0,0) -- coordinate (x axis mid) (6.5,0);
+      \draw[->,>=latex'] (0,0) -- coordinate (y axis mid) (0,6.5);
+      % Labels
+      \node[below=0.2] at (x axis mid) {dimension};
+      \node[rotate=90,yshift=10pt] at (y axis mid) {test set
+        accuracy}; % Or use above alone.
+
+    \end{tikzpicture}
+  \end{center}
+
+  For the results of this part, please look at question 4 as I decided to
+  include the Agressive Margin Perceptron in the results as well.
+
+\item\textbf{(For 6350 Students)} [Aggressive Perceptron with Margin,
+  15 points] This algorithm is an extension of the margin Perceptron
+  which performs an aggressive update as follows:
+
+  If $y(\bw^T \bx) \leq \mu,$ then update\\
+  (a) $w_{new} \leftarrow w_{old} + \eta yx$\\
+
+  Unlike the standard Perceptron algorithm, here the learning rate
+  $\eta$ is given by
+
+  \begin{align*}
+    \eta = \frac{\mu - y(\bw^T \bx) }{\bx^T \bx +1}
+  \end{align*}
+
+  As with the margin perceptron, there is an additional positive
+  parameter $\mu$.
+
+  Repeat the experiment 3 with the aggressive update. Note that You
+  should report two sets of results (one for {\tt data0} and one for
+  {\tt data1}).
+
+  \verb~Running Perceptron over the d0 data~
+
+    \verb~Dimension: 10~
+
+    \verb~Dimension: 20~
+
+    \verb~Dimension: 30~
+
+    \verb~Dimension: 40~
+
+    \verb~Dimension: 50~
+
+    \verb~Dimension: 60~
+
+    \verb~Dimension: 70~
+
+    \verb~Dimension: 80~
+
+    \verb~Dimension: 90~
+
+    \verb~Dimension: 100~
+
+\verb~Plots d0_updates.pdf and d0_accuracy.pdf saved~
+\ \\\ \\
+\verb~Running Perceptron over the d1 data~
+
+\verb~Dimension: 10~
+
+    \verb~Dimension: 20~
+
+    \verb~Dimension: 30~
+
+    \verb~Dimension: 40~
+
+    \verb~Dimension: 50~
+
+    \verb~Dimension: 60~
+
+    \verb~Dimension: 70~
+
+    \verb~Dimension: 80~
+
+    \verb~Dimension: 90~
+
+    \verb~Dimension: 100~
+
+\verb~Plots d1_updates.pdf and d1_accuracy.pdf saved~
+
+For each of the Normal Perceptron, Margin Perceptron, and Agressive Margin Perceptron
+algorithms, each one was ran 10 times to average out the randomly generated error that
+came about from using a random initial weight vector. For each of the 10 iterations, the
+accuracy and the number of updates are summed and then after the 10 iterations they
+are averaged.
+
+For the Normal Perceptron algorithm, for each of the dimensions and epochs, the best
+value for the hyper-paramter $r$ was chosen to be the lowest number of updates for
+the given weight vector. This weight vector was returned and then this was used to
+test the number of correct classifications on the test data set.
+
+For the Margin Perceptron Algorithm, the hyper-parameters $r$ and $\mu$ were chosen
+by the same technique as was used for the Normal Perceptron algorithm, where the values
+that were chosen were to minimize the number of updates. The average accuracy and
+average number of updates for the 10 epochs per dimension were recorded and used
+in the plots below.
+
+Finally, for the Agressive Perceptron Algorithm, only two hyper-parameters $(r, \mu)$
+just as with the Margin Perceptron which were optimized, but there was a third
+hyper-parameter $\eta$ which was done too. However, as $\eta$ is used in calculating
+how to change the new weight vector such as $w_{i+1} = w_{i} + \eta * y * x$, but
+this isn't done until after choosing a value for $\mu$. Therefore, $\mu$ is a function
+of $\eta$, so choosing $\mu$ was explicit and $\eta$ was implicit. So two list of
+values were fed in for $\mu$ and $r$ and this was used to optimize the data to
+the least number of updates, just as the other two algorithms. For each of the 10
+epochs per dimensionality, the average number of updates and the average accuracy
+was recorded for comparison with the other two algorithms.
+
+
+\begin{figure}[H]
+\centering
+\begin{minipage}{.5\textwidth}
+  \centering
+  \includegraphics[width=\linewidth]{d0_updates.pdf}
+  \captionof{figure}{Updates for {\tt data0}}
+  \label{fig:updates_d0}
+\end{minipage}%
+\begin{minipage}{.5\textwidth}
+  \centering
+  \includegraphics[width=\linewidth]{d0_accuracy.pdf}
+  \captionof{figure}{Accuracy for {\tt data0}}
+  \label{fig:accuracy_d0}
+\end{minipage}
+\end{figure}
+
+Figure \ref{fig:updates_d0} shows the number of updates per algorithm for each of
+the different Perceptron algorithms vs the dimensionality. This is only for the
+dataset in \verb~data0~. As can be seen in the figures, the Margin Perceptron and
+Normal Perceptron performed roughly the same, while the Agressive Perceptron required
+more updates than either of the others, after which it performed roughly the same.
+
+Seeing how this effects the accuracy in Figure \ref{fig:accuracy_d0}, up through 40
+dimensions the Agressive Perceptron performs worse than the first two algorithms.
+However, even though this is the case, the overall accuracy of the Agressive algorithm
+drops off roughly linearly with the number of dimensions, while the other algorithms
+drop off much quicker in accuracy for the dimensionality greater than 40.
+
+\begin{figure}[H]
+\centering
+\begin{minipage}{.5\textwidth}
+  \centering
+  \includegraphics[width=\linewidth]{d1_updates.pdf}
+  \captionof{figure}{Updates for {\tt data1}}
+  \label{fig:updates_d1}
+\end{minipage}%
+\begin{minipage}{.5\textwidth}
+  \centering
+  \includegraphics[width=\linewidth]{d1_accuracy.pdf}
+  \captionof{figure}{Accuracy for {\tt data1}}
+  \label{fig:accuracy_d1}
+\end{minipage}
+\end{figure}
+
+Figure \ref{fig:updates_d1} shows the number of updates for each of the different
+Perceptron algorithms vs dimensionality for \verb~data1~. The difference between
+this set of data and the first set is that for the number of updates the Agressive
+Perceptron algorithm seems to do better when looking at the number of updates.
+The Margin Perceptron and Normal Perceptron perform relatively the same.
+
+The results of this shows up in \ref{fig:accuracy_d1}. When compared to the accuracy
+that is in Figure \ref{fig:accuracy_d0} from \verb~data0~, all of the algorithms
+perform much less accurate than their counterparts in Figure \ref{fig:accuracy_d0}.
+However, the drop in the amount of accuracy is much more for both the Margin Perceptron
+and the Normal Perceptron Algorithms. In other words, the Agressive Perceptron algorithm
+performed much better than the other two in this data set, which was not the case for
+\verb~data0~.
+
+Overall, out of the 3 different algorithms, the Agressive Perceptron algorithm
+performs better for higher dimensional data when compared to either of the other two.
+This is most likely because when updating the weight vector with $\eta$, you're dividing by the norm of $x$ which allows for it to be less susceptible to noise. On top of this, the Agressive
+Perceptron also did better than both in \verb~data1~ than \verb~data0~ and did
+not loose as much in accuracy. Again, this is most likely because of there being more noise in the second set of data and the agressive persceptron is less sensitive to this.
+The Agressive Perceptron Algorithm seems to drop of linearly with respect to the dimensions
+while the other two are more sensitive to the number of dimensions.
+
+
+  \paragraph{Explanation of the update} We call this the aggressive
+  update because the learning rate is derived from the following
+  optimization problem:
+
+  When we see that $y(\bw^T \bx) \leq \mu$, we try to find new values
+  of $\bw$ such that $y(\bw^T \bx) = \mu$ using
+  %
+  \begin{eqnarray*}
+    \min_{\bw_{new}} &     \frac{1}{2} {||\textbf{$\bw_{new}$} - \textbf{$\bw_{old}$}||}^2\\
+    \mbox{such that} & y(\bw^T x) = \mu.
+  \end{eqnarray*}
+  %
+  That is, the goal is to find the smallest change in the weights so
+  that the current example is on the right side of the weight vector.
+
+  By substituting (a) from above into this optimization problem, we
+  will get a single variable optimization problem whose solution gives
+  us the $\eta$ defined above. You can think of this algorithm as
+  trying to tune the weight vector so that the current example is
+  correctly classified right after the update.
+\end{enumerate}
+
+
+\subsection*{Submission Guidelines}
+
+\begin{enumerate}
+\item The report should detail your experiments. For each step,
+  explain in no more than a paragraph or so how your implementation
+  works.
+
+\item {\em Your code should run on the CADE machines}. You should
+  include a shell script, {\tt run.sh}, that will execute your code
+  in the CADE environment. Your code should produce similar output
+  to what you include in your report.
+
+  You are responsible for ensuring that the grader can execute the
+  code using only the included script. If you are using an
+  esoteric programming language, you should make sure that its
+  runtime is available on CADE.
+
+
+\item Please do not hand in binary files! We will {\em not} grade
+  binary submissions.
+
+\end{enumerate}
+
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: "hw2"
+%%% End:

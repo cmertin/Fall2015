@@ -1,0 +1,218 @@
+
+
+=================================
+Running over astro/original/train
+=================================
+	Performing 10-fold cross validation
+		[gamma_0, sigma]: [1e-10, 1e-05]
+		[gamma_0, sigma]: [1e-10, 0.0001]
+		[gamma_0, sigma]: [1e-10, 0.001]
+		[gamma_0, sigma]: [1e-10, 0.01]
+		[gamma_0, sigma]: [1e-10, 0.1]
+		[gamma_0, sigma]: [1e-10, 1]
+		[gamma_0, sigma]: [1e-10, 10]
+		[gamma_0, sigma]: [1e-10, 100]
+		[gamma_0, sigma]: [1e-10, 1000]
+
+	
+		[gamma_0, sigma]: [1e-09, 1e-05]
+		[gamma_0, sigma]: [1e-09, 0.0001]
+		[gamma_0, sigma]: [1e-09, 0.001]
+		[gamma_0, sigma]: [1e-09, 0.01]
+		[gamma_0, sigma]: [1e-09, 0.1]
+		[gamma_0, sigma]: [1e-09, 1]
+		[gamma_0, sigma]: [1e-09, 10]
+		[gamma_0, sigma]: [1e-09, 100]
+		[gamma_0, sigma]: [1e-09, 1000]
+
+	
+		[gamma_0, sigma]: [1e-08, 1e-05]
+		[gamma_0, sigma]: [1e-08, 0.0001]
+		[gamma_0, sigma]: [1e-08, 0.001]
+		[gamma_0, sigma]: [1e-08, 0.01]
+		[gamma_0, sigma]: [1e-08, 0.1]
+		[gamma_0, sigma]: [1e-08, 1]
+		[gamma_0, sigma]: [1e-08, 10]
+		[gamma_0, sigma]: [1e-08, 100]
+		[gamma_0, sigma]: [1e-08, 1000]
+
+	
+		[gamma_0, sigma]: [1e-07, 1e-05]
+		[gamma_0, sigma]: [1e-07, 0.0001]
+		[gamma_0, sigma]: [1e-07, 0.001]
+		[gamma_0, sigma]: [1e-07, 0.01]
+		[gamma_0, sigma]: [1e-07, 0.1]
+		[gamma_0, sigma]: [1e-07, 1]
+		[gamma_0, sigma]: [1e-07, 10]
+		[gamma_0, sigma]: [1e-07, 100]
+		[gamma_0, sigma]: [1e-07, 1000]
+
+	
+		[gamma_0, sigma]: [1e-06, 1e-05]
+		[gamma_0, sigma]: [1e-06, 0.0001]
+		[gamma_0, sigma]: [1e-06, 0.001]
+		[gamma_0, sigma]: [1e-06, 0.01]
+		[gamma_0, sigma]: [1e-06, 0.1]
+		[gamma_0, sigma]: [1e-06, 1]
+		[gamma_0, sigma]: [1e-06, 10]
+		[gamma_0, sigma]: [1e-06, 100]
+		[gamma_0, sigma]: [1e-06, 1000]
+
+	
+		[gamma_0, sigma]: [1e-05, 1e-05]
+		[gamma_0, sigma]: [1e-05, 0.0001]
+		[gamma_0, sigma]: [1e-05, 0.001]
+		[gamma_0, sigma]: [1e-05, 0.01]
+		[gamma_0, sigma]: [1e-05, 0.1]
+		[gamma_0, sigma]: [1e-05, 1]
+		[gamma_0, sigma]: [1e-05, 10]
+		[gamma_0, sigma]: [1e-05, 100]
+		[gamma_0, sigma]: [1e-05, 1000]
+
+	
+		[gamma_0, sigma]: [0.0001, 1e-05]
+		[gamma_0, sigma]: [0.0001, 0.0001]
+		[gamma_0, sigma]: [0.0001, 0.001]
+		[gamma_0, sigma]: [0.0001, 0.01]
+		[gamma_0, sigma]: [0.0001, 0.1]
+		[gamma_0, sigma]: [0.0001, 1]
+		[gamma_0, sigma]: [0.0001, 10]
+		[gamma_0, sigma]: [0.0001, 100]
+		[gamma_0, sigma]: [0.0001, 1000]
+
+	
+		[gamma_0, sigma]: [0.001, 1e-05]
+		[gamma_0, sigma]: [0.001, 0.0001]
+		[gamma_0, sigma]: [0.001, 0.001]
+		[gamma_0, sigma]: [0.001, 0.01]
+		[gamma_0, sigma]: [0.001, 0.1]
+		[gamma_0, sigma]: [0.001, 1]
+		[gamma_0, sigma]: [0.001, 10]
+		[gamma_0, sigma]: [0.001, 100]
+		[gamma_0, sigma]: [0.001, 1000]
+
+	
+10-fold cross validation is complete!
+
+	Accuracy and Parameters:
+	------------------------
+Accuracy	[gamma_0, sigma]
+--------	----------------
+0.88898		[1e-07, 0.1]
+0.88478		[1e-08, 1]
+0.88478		[1e-08, 10]
+0.88478		[1e-08, 100]
+0.88478		[1e-08, 1000]
+Classifying on astro/original/test
+Accuracy: 0.88500
+
+
+===============================
+Running over astro/scaled/train
+===============================
+	Performing 10-fold cross validation
+		[gamma_0, sigma]: [1e-10, 1e-05]
+		[gamma_0, sigma]: [1e-10, 0.0001]
+		[gamma_0, sigma]: [1e-10, 0.001]
+		[gamma_0, sigma]: [1e-10, 0.01]
+		[gamma_0, sigma]: [1e-10, 0.1]
+		[gamma_0, sigma]: [1e-10, 1]
+		[gamma_0, sigma]: [1e-10, 10]
+		[gamma_0, sigma]: [1e-10, 100]
+		[gamma_0, sigma]: [1e-10, 1000]
+
+	
+		[gamma_0, sigma]: [1e-09, 1e-05]
+		[gamma_0, sigma]: [1e-09, 0.0001]
+		[gamma_0, sigma]: [1e-09, 0.001]
+		[gamma_0, sigma]: [1e-09, 0.01]
+		[gamma_0, sigma]: [1e-09, 0.1]
+		[gamma_0, sigma]: [1e-09, 1]
+		[gamma_0, sigma]: [1e-09, 10]
+		[gamma_0, sigma]: [1e-09, 100]
+		[gamma_0, sigma]: [1e-09, 1000]
+
+	
+		[gamma_0, sigma]: [1e-08, 1e-05]
+		[gamma_0, sigma]: [1e-08, 0.0001]
+		[gamma_0, sigma]: [1e-08, 0.001]
+		[gamma_0, sigma]: [1e-08, 0.01]
+		[gamma_0, sigma]: [1e-08, 0.1]
+		[gamma_0, sigma]: [1e-08, 1]
+		[gamma_0, sigma]: [1e-08, 10]
+		[gamma_0, sigma]: [1e-08, 100]
+		[gamma_0, sigma]: [1e-08, 1000]
+
+	
+		[gamma_0, sigma]: [1e-07, 1e-05]
+		[gamma_0, sigma]: [1e-07, 0.0001]
+		[gamma_0, sigma]: [1e-07, 0.001]
+		[gamma_0, sigma]: [1e-07, 0.01]
+		[gamma_0, sigma]: [1e-07, 0.1]
+		[gamma_0, sigma]: [1e-07, 1]
+		[gamma_0, sigma]: [1e-07, 10]
+		[gamma_0, sigma]: [1e-07, 100]
+		[gamma_0, sigma]: [1e-07, 1000]
+
+	
+		[gamma_0, sigma]: [1e-06, 1e-05]
+		[gamma_0, sigma]: [1e-06, 0.0001]
+		[gamma_0, sigma]: [1e-06, 0.001]
+		[gamma_0, sigma]: [1e-06, 0.01]
+		[gamma_0, sigma]: [1e-06, 0.1]
+		[gamma_0, sigma]: [1e-06, 1]
+		[gamma_0, sigma]: [1e-06, 10]
+		[gamma_0, sigma]: [1e-06, 100]
+		[gamma_0, sigma]: [1e-06, 1000]
+
+	
+		[gamma_0, sigma]: [1e-05, 1e-05]
+		[gamma_0, sigma]: [1e-05, 0.0001]
+		[gamma_0, sigma]: [1e-05, 0.001]
+		[gamma_0, sigma]: [1e-05, 0.01]
+		[gamma_0, sigma]: [1e-05, 0.1]
+		[gamma_0, sigma]: [1e-05, 1]
+		[gamma_0, sigma]: [1e-05, 10]
+		[gamma_0, sigma]: [1e-05, 100]
+		[gamma_0, sigma]: [1e-05, 1000]
+
+	
+		[gamma_0, sigma]: [0.0001, 1e-05]
+		[gamma_0, sigma]: [0.0001, 0.0001]
+		[gamma_0, sigma]: [0.0001, 0.001]
+		[gamma_0, sigma]: [0.0001, 0.01]
+		[gamma_0, sigma]: [0.0001, 0.1]
+		[gamma_0, sigma]: [0.0001, 1]
+		[gamma_0, sigma]: [0.0001, 10]
+		[gamma_0, sigma]: [0.0001, 100]
+		[gamma_0, sigma]: [0.0001, 1000]
+
+	
+		[gamma_0, sigma]: [0.001, 1e-05]
+		[gamma_0, sigma]: [0.001, 0.0001]
+		[gamma_0, sigma]: [0.001, 0.001]
+		[gamma_0, sigma]: [0.001, 0.01]
+		[gamma_0, sigma]: [0.001, 0.1]
+		[gamma_0, sigma]: [0.001, 1]
+		[gamma_0, sigma]: [0.001, 10]
+		[gamma_0, sigma]: [0.001, 100]
+		[gamma_0, sigma]: [0.001, 1000]
+
+	
+10-fold cross validation is complete!
+
+	Accuracy and Parameters:
+	------------------------
+Accuracy	[gamma_0, sigma]
+--------	----------------
+0.62944		[0.001, 100]
+0.62944		[0.001, 1000]
+0.62065		[0.001, 1e-05]
+0.60645		[0.001, 10]
+0.54298		[1e-06, 0.001]
+Classifying on astro/scaled/test
+Accuracy: 0.48725
+Saving figure to SGD-results.pdf
+Saving figure to SGD-results-orig.pdf
+Saving figure to SGD-results-scaled.pdf
+DONE
